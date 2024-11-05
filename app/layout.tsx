@@ -36,8 +36,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="min-h-screen flex flex-col bg-blue-400 ">
-            <div className="bg-green-200">
+          <main className="min-h-screen flex flex-col ">
+            <div className="">
               <NavBarAdmin />
               <Header />
               <div>{children}</div>

@@ -1,14 +1,16 @@
 import DeployButton from "@/components/deploy-button";
 import { EnvVarWarning } from "@/components/env-var-warning";
 import HeaderAuth from "@/components/header-auth";
-import { ThemeSwitcher } from "@/components/theme-switcher";
+
 import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import "./globals.css";
 import Image from "next/image";
-import NavBar from "@/components/MadeInHand/Client/NavBar";
+import Header from "@/components/MadeInHand/Header";
+import Footer from "@/components/MadeInHand/Footer";
+import NavBarAdmin from "@/components/MadeInHand/Admin/NavBarAdmin";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -34,28 +36,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="min-h-screen flex flex-col items-center">
-            <div className="flex-1 w-full flex flex-col gap-20 items-center">
-              <NavBar />
-
-              <div className="flex flex-col gap-20 max-w-5xl p-5">
-                {children}
-              </div>
-
-              <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-                <p>
-                  © Copyright 2024 Directed by Association {""}
-                  <a
-                    href="/"
-                    target="_blank"
-                    className="font-bold hover:underline"
-                    rel="copyright association"
-                  >
-                    L'École des Chats du Pays Houdanais
-                  </a>
-                </p>
-                <ThemeSwitcher />
-              </footer>
+          <main className="min-h-screen flex flex-col bg-blue-400 ">
+            <div className="bg-green-200">
+              <NavBarAdmin />
+              <Header />
+              <div>{children}</div>
+              <Footer />
             </div>
           </main>
         </ThemeProvider>

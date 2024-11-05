@@ -74,7 +74,7 @@ export type Database = {
           created_at?: string
           date_of_birth: string
           first_name: string
-          have_animals: boolean
+          have_animals?: boolean
           have_you_garden: Database["public"]["Enums"]["have_you_garden"][]
           house_description: string
           last_name: string
@@ -124,31 +124,34 @@ export type Database = {
       advice: {
         Row: {
           advice_id: string
+          age_of_cat: Database["public"]["Enums"]["age_of_cat"] | null
           body_of_advice: string | null
-          category_cats: string | null
+          category_cat: Database["public"]["Enums"]["category_cat"] | null
           created_at: string
           like: string | null
-          subject: string | null
+          subject: Database["public"]["Enums"]["subject_advice"] | null
           title: string | null
           useful: boolean | null
         }
         Insert: {
           advice_id?: string
+          age_of_cat?: Database["public"]["Enums"]["age_of_cat"] | null
           body_of_advice?: string | null
-          category_cats?: string | null
+          category_cat?: Database["public"]["Enums"]["category_cat"] | null
           created_at?: string
           like?: string | null
-          subject?: string | null
+          subject?: Database["public"]["Enums"]["subject_advice"] | null
           title?: string | null
           useful?: boolean | null
         }
         Update: {
           advice_id?: string
+          age_of_cat?: Database["public"]["Enums"]["age_of_cat"] | null
           body_of_advice?: string | null
-          category_cats?: string | null
+          category_cat?: Database["public"]["Enums"]["category_cat"] | null
           created_at?: string
           like?: string | null
-          subject?: string | null
+          subject?: Database["public"]["Enums"]["subject_advice"] | null
           title?: string | null
           useful?: boolean | null
         }
@@ -231,7 +234,8 @@ export type Database = {
       cat: {
         Row: {
           adoption: boolean
-          age_of_cats: Database["public"]["Enums"]["age_of_cat"]
+          age_of_cat: Database["public"]["Enums"]["age_of_cat"]
+          caegory_cat: string | null
           cats_id: string
           coat_color: Database["public"]["Enums"]["coat_color"]
           created_at: string
@@ -247,7 +251,8 @@ export type Database = {
         }
         Insert: {
           adoption?: boolean
-          age_of_cats: Database["public"]["Enums"]["age_of_cat"]
+          age_of_cat: Database["public"]["Enums"]["age_of_cat"]
+          caegory_cat?: string | null
           cats_id?: string
           coat_color: Database["public"]["Enums"]["coat_color"]
           created_at?: string
@@ -263,7 +268,8 @@ export type Database = {
         }
         Update: {
           adoption?: boolean
-          age_of_cats?: Database["public"]["Enums"]["age_of_cat"]
+          age_of_cat?: Database["public"]["Enums"]["age_of_cat"]
+          caegory_cat?: string | null
           cats_id?: string
           coat_color?: Database["public"]["Enums"]["coat_color"]
           created_at?: string
@@ -509,6 +515,12 @@ export type Database = {
     }
     Enums: {
       age_of_cat: "Kittens" | "Young cat" | "Adult" | "Senior"
+      category_cat:
+        | "Health and Safety"
+        | "Wellness and Behavior"
+        | "Activities and Enrichment"
+        | "Education and Awareness"
+        | "Practical guide"
       coat_color:
         | "White"
         | "Blue/Grey"
@@ -532,6 +544,12 @@ export type Database = {
         | "Tri-color / Calico"
         | "Colourpoint"
       sex_cat: "Female" | "Male"
+      subject_advice:
+        | "Abuse"
+        | "Adoption"
+        | "Stray cats"
+        | "Donation collection"
+        | "Information"
       subject_contact:
         | "Emergencies and Reporting"
         | "Events and Campaigns"

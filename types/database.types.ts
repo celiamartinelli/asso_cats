@@ -1,6 +1,4 @@
-Need to install the following packages:
-supabase@1.215.0
-Ok to proceed? (y) export type Json =
+export type Json =
   | string
   | number
   | boolean
@@ -54,7 +52,7 @@ export type Database = {
           date_of_birth: string
           first_name: string
           have_animals: boolean
-          have_you_garden: string
+          have_you_garden: Database["public"]["Enums"]["have_you_garden"][]
           house_description: string
           last_name: string
           living_area: string
@@ -63,7 +61,7 @@ export type Database = {
           phone_number: string
           postal_code: string
           sterelization_opinion: string
-          type_of_housing: string
+          type_of_housing: Database["public"]["Enums"]["type_housing"][]
           which_ones: string
           why_adopt: string
         }
@@ -77,7 +75,7 @@ export type Database = {
           date_of_birth: string
           first_name: string
           have_animals: boolean
-          have_you_garden: string
+          have_you_garden: Database["public"]["Enums"]["have_you_garden"][]
           house_description: string
           last_name: string
           living_area: string
@@ -86,7 +84,7 @@ export type Database = {
           phone_number: string
           postal_code: string
           sterelization_opinion: string
-          type_of_housing: string
+          type_of_housing: Database["public"]["Enums"]["type_housing"][]
           which_ones: string
           why_adopt: string
         }
@@ -100,7 +98,7 @@ export type Database = {
           date_of_birth?: string
           first_name?: string
           have_animals?: boolean
-          have_you_garden?: string
+          have_you_garden?: Database["public"]["Enums"]["have_you_garden"][]
           house_description?: string
           last_name?: string
           living_area?: string
@@ -109,7 +107,7 @@ export type Database = {
           phone_number?: string
           postal_code?: string
           sterelization_opinion?: string
-          type_of_housing?: string
+          type_of_housing?: Database["public"]["Enums"]["type_housing"][]
           which_ones?: string
           why_adopt?: string
         }
@@ -232,49 +230,52 @@ export type Database = {
       }
       cat: {
         Row: {
-          adoption: boolean | null
+          adoption: boolean
+          age_of_cats: Database["public"]["Enums"]["age_of_cat"]
           cats_id: string
-          coat_color: string | null
+          coat_color: Database["public"]["Enums"]["coat_color"]
           created_at: string
-          date_of_birth: string | null
+          date_of_birth: string
           description: string | null
-          felv_test: boolean | null
-          fiv_test: boolean | null
-          name_cat: string | null
-          pattern: string | null
-          sex_cat: string | null
-          sterelized: boolean | null
-          vaccine: boolean | null
+          felv_test: boolean
+          fiv_test: boolean
+          name_cat: string
+          pattern: Database["public"]["Enums"]["pattern_cat"][]
+          sex_cat: Database["public"]["Enums"]["sex_cat"][]
+          sterelized: boolean
+          vaccine: boolean
         }
         Insert: {
-          adoption?: boolean | null
+          adoption?: boolean
+          age_of_cats: Database["public"]["Enums"]["age_of_cat"]
           cats_id?: string
-          coat_color?: string | null
+          coat_color: Database["public"]["Enums"]["coat_color"]
           created_at?: string
-          date_of_birth?: string | null
+          date_of_birth: string
           description?: string | null
-          felv_test?: boolean | null
-          fiv_test?: boolean | null
-          name_cat?: string | null
-          pattern?: string | null
-          sex_cat?: string | null
-          sterelized?: boolean | null
-          vaccine?: boolean | null
+          felv_test?: boolean
+          fiv_test?: boolean
+          name_cat: string
+          pattern: Database["public"]["Enums"]["pattern_cat"][]
+          sex_cat: Database["public"]["Enums"]["sex_cat"][]
+          sterelized?: boolean
+          vaccine?: boolean
         }
         Update: {
-          adoption?: boolean | null
+          adoption?: boolean
+          age_of_cats?: Database["public"]["Enums"]["age_of_cat"]
           cats_id?: string
-          coat_color?: string | null
+          coat_color?: Database["public"]["Enums"]["coat_color"]
           created_at?: string
-          date_of_birth?: string | null
+          date_of_birth?: string
           description?: string | null
-          felv_test?: boolean | null
-          fiv_test?: boolean | null
-          name_cat?: string | null
-          pattern?: string | null
-          sex_cat?: string | null
-          sterelized?: boolean | null
-          vaccine?: boolean | null
+          felv_test?: boolean
+          fiv_test?: boolean
+          name_cat?: string
+          pattern?: Database["public"]["Enums"]["pattern_cat"][]
+          sex_cat?: Database["public"]["Enums"]["sex_cat"][]
+          sterelized?: boolean
+          vaccine?: boolean
         }
         Relationships: []
       }
@@ -286,7 +287,7 @@ export type Database = {
           last_name: string
           message: string
           read: boolean | null
-          subject: string
+          subject: Database["public"]["Enums"]["subject_contact"][]
         }
         Insert: {
           contact_form_id?: string
@@ -295,7 +296,7 @@ export type Database = {
           last_name: string
           message: string
           read?: boolean | null
-          subject: string
+          subject: Database["public"]["Enums"]["subject_contact"][]
         }
         Update: {
           contact_form_id?: string
@@ -304,7 +305,7 @@ export type Database = {
           last_name?: string
           message?: string
           read?: boolean | null
-          subject?: string
+          subject?: Database["public"]["Enums"]["subject_contact"][]
         }
         Relationships: []
       }
@@ -326,7 +327,7 @@ export type Database = {
           specific_part: boolean
           transported: boolean
           type_animals: string
-          type_foster_family: string
+          type_foster_family: Database["public"]["Enums"]["type_foster_family"][]
           type_of_housing: string
           why_foster_family: string
         }
@@ -347,7 +348,7 @@ export type Database = {
           specific_part: boolean
           transported: boolean
           type_animals: string
-          type_foster_family: string
+          type_foster_family: Database["public"]["Enums"]["type_foster_family"][]
           type_of_housing: string
           why_foster_family: string
         }
@@ -368,7 +369,7 @@ export type Database = {
           specific_part?: boolean
           transported?: boolean
           type_animals?: string
-          type_foster_family?: string
+          type_foster_family?: Database["public"]["Enums"]["type_foster_family"][]
           type_of_housing?: string
           why_foster_family?: string
         }
@@ -507,7 +508,46 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      age_of_cat: "Kittens" | "Young cat" | "Adult" | "Senior"
+      coat_color:
+        | "White"
+        | "Blue/Grey"
+        | "Cinnamon"
+        | "Chocolate"
+        | "Cream"
+        | "Fawn"
+        | "Black"
+        | "Red"
+      have_you_garden:
+        | "A secure garden"
+        | "A non-fenced garden"
+        | "A secure balcony"
+        | "A balcony"
+        | "None"
+      pattern_cat:
+        | "Solid"
+        | "Bi-color"
+        | "Tabby"
+        | "Tortoiseshell"
+        | "Tri-color / Calico"
+        | "Colourpoint"
+      sex_cat: "Female" | "Male"
+      subject_contact:
+        | "Emergencies and Reporting"
+        | "Events and Campaigns"
+        | "Education and Awareness"
+        | "General Information about the Association"
+        | "Donations"
+        | "Temporary Foster Care"
+        | "Volunteering"
+        | "Sponsorship"
+        | "Adoption"
+        | "Other"
+      type_foster_family:
+        | "Long Term Foster Family"
+        | "Quarantine Foster Family"
+        | "Transit Foster Family"
+      type_housing: "house" | "apartment" | "castle" | "caravan"
     }
     CompositeTypes: {
       [_ in never]: never

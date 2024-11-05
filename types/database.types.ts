@@ -1,4 +1,6 @@
-export type Json =
+Need to install the following packages:
+supabase@1.215.0
+Ok to proceed? (y) export type Json =
   | string
   | number
   | boolean
@@ -12,23 +14,114 @@ export type Database = {
       adoption: {
         Row: {
           adoption_id: string
+          cat_id: string | null
           created_at: string
           date_of_adoption: string | null
           testimony: string | null
         }
         Insert: {
           adoption_id?: string
+          cat_id?: string | null
           created_at?: string
           date_of_adoption?: string | null
           testimony?: string | null
         }
         Update: {
           adoption_id?: string
+          cat_id?: string | null
           created_at?: string
           date_of_adoption?: string | null
           testimony?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "adoption_cat_id_fkey"
+            columns: ["cat_id"]
+            isOneToOne: false
+            referencedRelation: "cat"
+            referencedColumns: ["cats_id"]
+          },
+        ]
+      }
+      adoption_form: {
+        Row: {
+          address: string
+          adoption_form_id: string
+          allergies_description: string
+          cats_id: string | null
+          city_name: string
+          created_at: string
+          date_of_birth: string
+          first_name: string
+          have_animals: boolean
+          have_you_garden: string
+          house_description: string
+          last_name: string
+          living_area: string
+          mail: string
+          occupation: string
+          phone_number: string
+          postal_code: string
+          sterelization_opinion: string
+          type_of_housing: string
+          which_ones: string
+          why_adopt: string
+        }
+        Insert: {
+          address: string
+          adoption_form_id?: string
+          allergies_description: string
+          cats_id?: string | null
+          city_name: string
+          created_at?: string
+          date_of_birth: string
+          first_name: string
+          have_animals: boolean
+          have_you_garden: string
+          house_description: string
+          last_name: string
+          living_area: string
+          mail: string
+          occupation: string
+          phone_number: string
+          postal_code: string
+          sterelization_opinion: string
+          type_of_housing: string
+          which_ones: string
+          why_adopt: string
+        }
+        Update: {
+          address?: string
+          adoption_form_id?: string
+          allergies_description?: string
+          cats_id?: string | null
+          city_name?: string
+          created_at?: string
+          date_of_birth?: string
+          first_name?: string
+          have_animals?: boolean
+          have_you_garden?: string
+          house_description?: string
+          last_name?: string
+          living_area?: string
+          mail?: string
+          occupation?: string
+          phone_number?: string
+          postal_code?: string
+          sterelization_opinion?: string
+          type_of_housing?: string
+          which_ones?: string
+          why_adopt?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "adoption_form_cats_id_fkey"
+            columns: ["cats_id"]
+            isOneToOne: false
+            referencedRelation: "cat"
+            referencedColumns: ["cats_id"]
+          },
+        ]
       }
       advice: {
         Row: {
@@ -185,27 +278,99 @@ export type Database = {
         }
         Relationships: []
       }
-      form: {
+      contact_form: {
         Row: {
+          contact_form_id: string
           created_at: string
-          form_id: string
-          name_user: string | null
+          first_name: string
+          last_name: string
+          message: string
           read: boolean | null
-          subject: string | null
+          subject: string
         }
         Insert: {
+          contact_form_id?: string
           created_at?: string
-          form_id?: string
-          name_user?: string | null
+          first_name: string
+          last_name: string
+          message: string
           read?: boolean | null
-          subject?: string | null
+          subject: string
         }
         Update: {
+          contact_form_id?: string
           created_at?: string
-          form_id?: string
-          name_user?: string | null
+          first_name?: string
+          last_name?: string
+          message?: string
           read?: boolean | null
-          subject?: string | null
+          subject?: string
+        }
+        Relationships: []
+      }
+      foster_family_form: {
+        Row: {
+          address: string
+          capacity_number_animals: number
+          created_at: string
+          date_of_birth: string
+          first_name: string
+          foster_family_form_id: string
+          have_you_other_animals: boolean
+          home_description: string
+          last_name: string
+          living_area: string
+          mail: string
+          other_details: string
+          phone_number: string
+          specific_part: boolean
+          transported: boolean
+          type_animals: string
+          type_foster_family: string
+          type_of_housing: string
+          why_foster_family: string
+        }
+        Insert: {
+          address: string
+          capacity_number_animals: number
+          created_at?: string
+          date_of_birth: string
+          first_name: string
+          foster_family_form_id?: string
+          have_you_other_animals: boolean
+          home_description: string
+          last_name: string
+          living_area: string
+          mail: string
+          other_details: string
+          phone_number: string
+          specific_part: boolean
+          transported: boolean
+          type_animals: string
+          type_foster_family: string
+          type_of_housing: string
+          why_foster_family: string
+        }
+        Update: {
+          address?: string
+          capacity_number_animals?: number
+          created_at?: string
+          date_of_birth?: string
+          first_name?: string
+          foster_family_form_id?: string
+          have_you_other_animals?: boolean
+          home_description?: string
+          last_name?: string
+          living_area?: string
+          mail?: string
+          other_details?: string
+          phone_number?: string
+          specific_part?: boolean
+          transported?: boolean
+          type_animals?: string
+          type_foster_family?: string
+          type_of_housing?: string
+          why_foster_family?: string
         }
         Relationships: []
       }
@@ -246,6 +411,93 @@ export type Database = {
             referencedColumns: ["association_id"]
           },
         ]
+      }
+      volunteer_form: {
+        Row: {
+          created_at: string
+          first_name: string
+          form_id: string
+          last_name: string
+          mail: string
+          motivation: string
+          type_volunteer: string
+          why_volunteer: string
+        }
+        Insert: {
+          created_at?: string
+          first_name: string
+          form_id?: string
+          last_name: string
+          mail: string
+          motivation: string
+          type_volunteer: string
+          why_volunteer: string
+        }
+        Update: {
+          created_at?: string
+          first_name?: string
+          form_id?: string
+          last_name?: string
+          mail?: string
+          motivation?: string
+          type_volunteer?: string
+          why_volunteer?: string
+        }
+        Relationships: []
+      }
+      volunteer_form_types: {
+        Row: {
+          created_at: string
+          volunteer_form_id: string
+          volunteer_type_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          volunteer_form_id?: string
+          volunteer_type_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          volunteer_form_id?: string
+          volunteer_type_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "volunteer_form_types_volunteer_form_id_fkey"
+            columns: ["volunteer_form_id"]
+            isOneToOne: true
+            referencedRelation: "volunteer_form"
+            referencedColumns: ["form_id"]
+          },
+          {
+            foreignKeyName: "volunteer_form_types_volunteer_type_id_fkey"
+            columns: ["volunteer_type_id"]
+            isOneToOne: false
+            referencedRelation: "volunteer_types"
+            referencedColumns: ["types_id"]
+          },
+        ]
+      }
+      volunteer_types: {
+        Row: {
+          created_at: string
+          description: string
+          title: string
+          types_id: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          title: string
+          types_id?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          title?: string
+          types_id?: string
+        }
+        Relationships: []
       }
     }
     Views: {

@@ -11,7 +11,7 @@ export default function NavBar() {
   ];
 
   return (
-    <nav className="border rounded-md py-8 px-4 mr-2">
+    <nav className="border rounded-md py-6 px-4 mr-2">
       <ul className="flex">
         {links.map((link, index) => (
           <li

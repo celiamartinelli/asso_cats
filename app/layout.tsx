@@ -7,10 +7,9 @@ import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import "./globals.css";
-import Image from "next/image";
-import Header from "@/components/MadeInHand/Header";
+
 import Footer from "@/components/MadeInHand/Footer";
-import NavBarAdmin from "@/components/MadeInHand/Admin/NavBarAdmin";
+import Header from "@/components/MadeInHand/Header";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -38,7 +37,6 @@ export default function RootLayout({
         >
           <main className="min-h-screen flex flex-col ">
             <div className="">
-              <NavBarAdmin />
               <Header />
               <div>{children}</div>
               <Footer />

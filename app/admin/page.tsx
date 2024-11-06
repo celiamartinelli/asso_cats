@@ -1,18 +1,39 @@
-import { Terminal } from "lucide-react";
+import NavBarAdmin from "@/components/MadeInHand/Admin/NavBarAdmin";
+import FetchDataSteps from "@/components/tutorial/fetch-data-steps";
+import { createClient } from "@/utils/supabase/server";
+import { InfoIcon } from "lucide-react";
+import { redirect } from "next/navigation";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+export default async function AdminPage() {
+  const supabase = await createClient();
 
-export default function AdminPage() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return redirect("/sign-in");
+  }
+
   return (
-    <div>
-      <h1>Admin</h1>
-      <Alert>
-        <Terminal className="h-4 w-4" />
-        <AlertTitle>Heads up!</AlertTitle>
-        <AlertDescription>
-          You can add components and dependencies to your app using the cli.
-        </AlertDescription>
-      </Alert>
+    <div className="flex-1 w-full flex flex-col gap-12">
+      <NavBarAdmin />
+      <div className="w-full">
+        <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
+          <InfoIcon size="16" strokeWidth={2} />
+          ICI on mettra le tableau de bord
+        </div>
+      </div>
+      <div className="flex flex-col gap-2 items-start">
+        <h2 className="font-bold text-2xl mb-4">Your user details</h2>
+        <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
+          {JSON.stringify(user, null, 2)}
+        </pre>
+      </div>
+      <div>
+        <h2 className="font-bold text-2xl mb-4">Next steps</h2>
+        <FetchDataSteps />
+      </div>
     </div>
   );
 }

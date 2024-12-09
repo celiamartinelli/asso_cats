@@ -3,7 +3,8 @@
 import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 import CardCat from "@/components/MadeInHand/Client/CardCat";
-import Link from "next/link";
+import Player from "lottie-react";
+import loader from "../../../public/lottie/loader.json";
 
 export default function Page() {
   const [cat, setCat] = useState<any[] | null>(null);
@@ -24,9 +25,16 @@ export default function Page() {
       {cat ? (
         <div>{cat.length} chats trouvés</div>
       ) : (
-        <div>Chargement des chats...</div>
+        <Player
+          autoplay
+          loop
+          animationData={loader}
+          style={{ height: "300px", width: "300px" }}
+        />
       )}
-      {cat && cat.map((item) => <CardCat key={item.cat_id} item={item} />)}
+      <div className="flex justify-center">
+        {cat && cat.map((item) => <CardCat key={item.cat_id} item={item} />)}
+      </div>
     </div>
   );
 }

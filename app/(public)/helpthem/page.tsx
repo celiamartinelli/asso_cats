@@ -10,6 +10,9 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import FormFinancialDonation from "@/components/MadeInHand/Client/Form/FormFinancialDonation";
+import FormBecomeFosterFamily from "@/components/MadeInHand/Client/Form/FormBecomeFosterFamily";
+import FormMaterielDonnation from "@/components/MadeInHand/Client/Form/FormMaterielDonation";
 
 export default function HelpThem() {
   const [selectedForm, setSelectedForm] = useState<string | null>(null);
@@ -41,12 +44,12 @@ export default function HelpThem() {
   ];
   return (
     <div className="p-6 bg-gray-100">
-      <h1 className="text-3xl font-bold mb-4">help them</h1>
-      <div className="flex flex-row justify-around ">
+      <h1 className="text-3xl font-bold mb-4">Aidez-les</h1>
+      <div className="flex flex-col justify-around md:flex-row">
         {CardHelpThem.map((item, index) => (
           <Card
             key={index}
-            className="max-w-xs m-2 flex flex-col justify-between items-center "
+            className="max-w-sm m-2 flex flex-col justify-between items-center"
           >
             <CardHeader>
               <CardTitle>{item.title}</CardTitle>
@@ -74,21 +77,27 @@ export default function HelpThem() {
       </div>
       <div className="mt-6">
         {selectedForm === "don-materiel" && (
-          <div>
-            <h2>Formulaire de contact pour don matériel</h2>
-            {/* Formulaire de contact pour don matériel */}
+          <div className="flex flex-col justify-center items-center">
+            <h2 className=" font-bold text-2xl mb-4">
+              Formulaire de contact pour don de matériel
+            </h2>
+            <FormMaterielDonnation />
           </div>
         )}
         {selectedForm === "famille-accueil" && (
-          <div>
-            <h2>Formulaire pour devenir famille d'accueil</h2>
-            {/* Formulaire pour devenir famille d'accueil */}
+          <div className="flex flex-col justify-center items-center">
+            <h2 className=" font-bold text-2xl mb-4">
+              Formulaire pour devenir famille d'accueil
+            </h2>
+            <FormBecomeFosterFamily />
           </div>
         )}
         {selectedForm === "don-financier" && (
           <div>
-            <h2>Formulaire pour don financier</h2>
-            {/* Formulaire pour don financier */}
+            <h2 className=" font-bold text-2xl mb-4">
+              Formulaire pour don financier
+            </h2>
+            <FormFinancialDonation />
           </div>
         )}
       </div>

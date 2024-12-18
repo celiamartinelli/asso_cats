@@ -9,7 +9,7 @@ export default function Donation() {
         src="https://www.helloasso.com/associations/ecole-des-chats-du-pays-houdanais/formulaires/1/widget"
         className="w-full h-[800px]"
         title="Formulaire de donation HelloAsso"
-      ></iframe>
+      />
     </div>
   );
 }

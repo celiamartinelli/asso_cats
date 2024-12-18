@@ -5,6 +5,13 @@ import { Button } from "@/components/ui/button";
 import { boolean } from "zod";
 import { FormControl, FormDescription, FormLabel } from "@/components/ui/form";
 import { Switch } from "@/components/ui/switch";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const FormBecomFosterFamily: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -42,6 +49,8 @@ const FormBecomFosterFamily: React.FC = () => {
     // Handle form submission logic here
     console.log("Form submitted:", formData);
   };
+
+  const housingOptions = ["house", "apartment", "castle", "caravan"];
 
   return (
     <form
@@ -104,12 +113,37 @@ const FormBecomFosterFamily: React.FC = () => {
         value={formData.address}
         onChange={handleChange}
       />
-      <label
-        htmlFor="type_of_housing"
-        className="block text-sm font-medium text-gray-700"
-      >
-        Type de logement:
-      </label>
+      <div className="flex flex-col my-4">
+        <label className="font-medium mb-1" htmlFor="type_of_housing">
+          Type de logement
+        </label>
+        <Select
+          onValueChange={(value) =>
+            setFormData({ ...formData, type_of_housing: value })
+          }
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Sélectionnez un type de logement" />
+          </SelectTrigger>
+          <SelectContent>
+            {housingOptions.map((option, index) => (
+              <SelectItem key={index} value={option}>
+                {option}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <Input
+        htmlFor="living_area"
+        textLabel="Espace de vie (m²):"
+        type="text"
+        id="living_area"
+        name="living_area"
+        value={formData.living_area}
+        onChange={handleChange}
+      />
 
       <Textarea
         htmlFor="home_description"

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Header() {
   return (
-    <div className="flex justify-center items-center my-3">
+    <div className="flex justify-center items-center my-3 ">
       <div>
         <a href="/" title="Back to Home">
           <Image

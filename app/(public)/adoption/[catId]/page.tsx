@@ -1,3 +1,5 @@
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -68,11 +70,11 @@ export default async function CatIdPage({ params }: CatIdPageProps) {
     catData = null;
   }
 
-  // const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
-  // const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setIsCheckboxChecked(event.target.checked);
-  // };
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsCheckboxChecked(event.target.checked);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center max-w-screen ">
@@ -130,9 +132,10 @@ export default async function CatIdPage({ params }: CatIdPageProps) {
 
       <Dialog>
         <DialogTrigger>
-          <Button className="mb-2"> J'adopte </Button>{" "}
+          <Button className="mb-2"> J'adopte </Button>
         </DialogTrigger>
-        <DialogContent>
+
+        <DialogContent className="max-h-[80vh] max-w-[100vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Nos conditions d'adoption</DialogTitle>
             <DialogDescription>
@@ -316,31 +319,17 @@ export default async function CatIdPage({ params }: CatIdPageProps) {
                     nos conditions d'adoption.
                   </p>
                 </div>
+                <div>
+                  {isCheckboxChecked && (
+                    <Button className="mt-4 btn btn-primary">
+                      <Link href="/adoptionForm">Continuer</Link>
+                    </Button>
+                  )}
+                </div>
               </div>
             </DialogDescription>
           </DialogHeader>
         </DialogContent>
-        <DialogFooter>
-          <div className="grid gap-1.5 leading-none">
-            <label
-              htmlFor="terms1"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              J'accepte les conditions d'adoption
-            </label>
-            <p className="text-sm text-muted-foreground">
-              En cochant cette case, vous reconnaissez avoir lu et accepté nos
-              conditions d'adoption.
-            </p>
-          </div>
-          <div>
-            {/* {isCheckboxChecked && ( */}
-            <Button className="mt-4 btn btn-primary">
-              <Link href="/adoptionForm">Continuer</Link>
-            </Button>
-            {/* )} */}
-          </div>
-        </DialogFooter>
       </Dialog>
     </div>
   );

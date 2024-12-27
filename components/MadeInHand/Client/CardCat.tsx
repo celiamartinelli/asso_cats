@@ -1,20 +1,44 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default function CardCat({ item }) {
+interface Cat {
+  cat_id: string;
+  name_cat: string;
+  sex_cat: string;
+  age_of_cat: string;
+  cat_url_image: string | string[];
+}
+
+export default function CardCat({ item }: { item: Cat }) {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/adoption/${item.cat_id}`);
+  };
+
   return (
-    <Link href={`/adoption/${item.cat_id}`}>
-      <div className=" border-2 rounded-lg m-2">
-        <h2>{item.name_cat}</h2>
-        <p>Sexe: {item.sex_cat}</p>
-        <p>Âge: {item.age_of_cat}</p>
-        <Image
-          src={item.cat_url_image[0]}
-          alt={item.name_cat}
-          width={300}
-          height={300}
-        />
-      </div>
-    </Link>
+    // <Link href={() => router.push(`/adoption/${item.cat_id}`)}>
+    <div
+      onClick={handleClick}
+      className=" border-2 rounded-lg m-2 cursor-pointer"
+    >
+      <h2>{item.name_cat}</h2>
+      <p>Sexe: {item.sex_cat}</p>
+      <p>Âge: {item.age_of_cat}</p>
+      <Image
+        src={
+          Array.isArray(item.cat_url_image) && item.cat_url_image.length > 0
+            ? item.cat_url_image[0]
+            : "/placeholder.jpg"
+        }
+        alt={item.name_cat || "Image non disponible"}
+        width={300}
+        height={300}
+        style={{ width: "auto", height: "auto" }}
+        priority
+      />
+    </div>
+    // </Link>
   );
 }

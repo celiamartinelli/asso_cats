@@ -12,9 +12,16 @@ export default function Page() {
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await supabase.from("cat").select();
+      const { data, error } = await supabase.from("cat").select();
+      if (error) {
+        console.error(
+          "Erreur lors de la récupération des chats :",
+          error.message
+        );
+        return;
+      }
       console.log("Données récupérées:", data);
-      setCat(data);
+      setCat(data || []);
     };
 
     getData();
@@ -33,7 +40,14 @@ export default function Page() {
         />
       )}
       <div className="flex justify-center">
-        {cat && cat.map((item) => <CardCat key={item.cat_id} item={item} />)}
+        {cat &&
+          cat.map((item, index) =>
+            item.cat_id && item.name_cat ? (
+              <CardCat key={item.cat_id} item={item} />
+            ) : (
+              <div key={index}>Erreur : Données manquantes pour ce chat</div>
+            )
+          )}
       </div>
     </div>
   );

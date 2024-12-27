@@ -11,6 +11,9 @@ if (!supabaseUrl || !supabaseKey) {
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export const getCatById = async (catId: string) => {
+  if (!catId) {
+    throw new Error("L'ID du chat est requis pour effectuer la requête.");
+  }
   const { data, error } = await supabase
     .from("cat")
     .select("*")

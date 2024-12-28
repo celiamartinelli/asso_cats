@@ -24,3 +24,18 @@ export const getCatById = async (catId: string) => {
   console.log("Données du chat:", data);
   return data;
 };
+
+export const getAdviceById = async (adviceId: string) => {
+  if (!adviceId) {
+    throw new Error("L'ID du conseil est requis pour effectuer la requête.");
+  }
+  const { data, error } = await supabase
+    .from("advice")
+    .select("*")
+    .eq("advice_id", adviceId)
+    .single();
+
+  if (error) throw new Error(`Erreur Supabase : ${error.message}`);
+  console.log("Données du conseil:", data);
+  return data;
+};

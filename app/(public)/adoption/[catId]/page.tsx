@@ -118,7 +118,15 @@ export default function CatIdPage({ params }: CatIdPageProps) {
             </Carousel>
           </div>
           <div>
-            {/* <p>Date de naissance: {catData.date_of_birth}</p> */}
+            <p>
+              Date de naissance:{" "}
+              {new Date(catData.date_of_birth).toLocaleDateString("fr-FR", {
+                day: "2-digit",
+                month: "long",
+                year: "numeric",
+              })}
+            </p>
+
             <p>Sexe: {catData.sex_cat}</p>
             <p>Stérilisé: {catData.sterelized ? "Oui" : "Non"}</p>
             <p>Vacciné: {catData.vaccine ? "Oui" : "Non"}</p>
@@ -346,7 +354,20 @@ export default function CatIdPage({ params }: CatIdPageProps) {
         </Dialog>
       )}
 
-      {showForm && <FormToAdoption />}
+      {showForm && (
+        <div>
+          <h2>Formulaire d'adoption</h2>
+          <p>
+            Vous souhaitez adopter <strong>{catData.name_cat} </strong>?
+            Remplissez le formulaire ci-dessous.
+          </p>
+          <p>
+            Si vous avez des questions, n'hésitez pas à nous contacter à
+            l'adresse suivante: ecoledeschatsdupayshoudanais@gmail.com
+          </p>
+          <FormToAdoption />
+        </div>
+      )}
     </div>
   );
 }

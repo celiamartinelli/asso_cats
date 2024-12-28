@@ -22,7 +22,8 @@ export default function HelpThem() {
       id: "don-materiel",
       title: "Don Matériel",
       buttonDescription: "Liste de Souhait",
-      redirectDescription: "https://www.linkedin.com/groups/13126906/",
+      redirectDescription:
+        "https://www.amazon.fr/hz/wishlist/ls/1XDLCXYJ526W2?ref_=wl_share",
       content:
         'Nous avons constamment besoin de produits de première nécessité pour les chats. Notre "liste de souhait" est disponible sur un site commerçant si vous souhaitez nous aider.',
       buttonText: "Faire un Don matériel",
@@ -57,7 +58,7 @@ export default function HelpThem() {
             {item.buttonDescription && item.redirectDescription && (
               <CardDescription>
                 <Button asChild className="mb-2">
-                  <Link href={item.redirectDescription || "#"}>
+                  <Link href={item.redirectDescription || "#"} target="_blank">
                     {" "}
                     {item.buttonDescription}
                   </Link>

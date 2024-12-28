@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
-
-import { getAdviceById } from "../../../../utils/actions";
+import { getAdviceById, addLike } from "../../../../utils/actions";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import FormToAdoption from "@/components/MadeInHand/Client/Form/FormToAdoption";
+import { UpvoteIcon } from "@/components/ui/upvote";
 
 interface Params {
   catId: string;
@@ -51,6 +51,20 @@ export default function CatIdPage({ params }: AdviceIdPageProps) {
     fetchCat();
   }, [adviceId]);
 
+  const handleLike = async () => {
+    try {
+      const result = await addLike(adviceId);
+      if (result.success) {
+        setAdviceData((prevData) =>
+          prevData ? { ...prevData, like: (prevData.like || 0) + 1 } : prevData
+        );
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Erreur lors de l'ajout du like.");
+    }
+  };
+
   if (loading) return <p>Chargement...</p>;
   if (error) return <p>{error}</p>;
   if (!adviceData) return <p>Chat introuvable.</p>;
@@ -58,6 +72,16 @@ export default function CatIdPage({ params }: AdviceIdPageProps) {
   return (
     <div className="flex flex-col items-center justify-center max-w-screen ">
       <h2>{adviceData.title}</h2>
+      <div>
+        <button
+          type="button"
+          onClick={handleLike}
+          className="flex items-center"
+        >
+          <UpvoteIcon />
+          <h3>{adviceData.like}</h3>
+        </button>
+      </div>
       {adviceData ? (
         <div className="flex flex-col w-2/3 justify-around md:flex-row ">
           <div>

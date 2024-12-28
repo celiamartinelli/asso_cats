@@ -21,9 +21,9 @@ export default function CardCat({ item }: { item: Cat }) {
     // <Link href={() => router.push(`/adoption/${item.cat_id}`)}>
     <div
       onClick={handleClick}
-      className=" border-2 rounded-lg m-2 cursor-pointer"
+      className=" border-2 rounded-lg m-2 cursor-pointer bg-white p-2 shadow-md"
     >
-      <h2>{item.name_cat}</h2>
+      <h2 className="font-bold text-2xl">{item.name_cat}</h2>
       <p>Sexe: {item.sex_cat}</p>
       <p>Âge: {item.age_of_cat}</p>
       <Image

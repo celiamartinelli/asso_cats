@@ -25,16 +25,15 @@ export default function CardAdvice({ item }: { item: Advice }) {
   return (
     <div
       onClick={handleClick}
-      className=" border-2 rounded-lg m-2 cursor-pointer"
+      className=" border-2 rounded-lg m-2 cursor-pointer bg-white p-2 shadow-md"
     >
-      <h2>{item.title}</h2>
+      <h2 className="font-bold text-2xl">{item.title}</h2>
       <h3>Sujet: {item.subject}</h3>
       <p>corps: {item.body_of_advice}</p>
       <Image
         src={
-          Array.isArray(item.advice_url_image) &&
-          item.advice_url_image.length > 0
-            ? item.advice_url_image[0]
+          typeof item.advice_url_image === "string"
+            ? item.advice_url_image
             : "/placeholder.jpg"
         }
         alt={item.title || "Image non disponible"}

@@ -3,9 +3,17 @@ import Link from "next/link";
 export default async function Index() {
   return (
     <>
-      <main className="flex-1 flex flex-col gap-6 px-4">
-        <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-          <div>
+      <main className="flex min-h-screen flex-col justify-between pt-24 bg-lime-500">
+        <div className="flex-col mb-32  text-center  bg-lime-200 ">
+          <div className="border-black border-2 rounded-lg p-4 w-full lg:col-span-2 mb-4">
+            <h3>Prochaine dates importantes</h3>eé
+            <ul>
+              <li>1er Mai 2022 : Vide grenier</li>
+              <li>1er Juin 2022 : Journée des chats</li>
+              <li>1er Juillet 2022 : Journée des chiens</li>
+            </ul>
+          </div>
+          <div className="flex border-black border-2 rounded-lg p-4 lg:col-span-2 w-full">
             <Link
               href="https://www.facebook.com/profile.php?id=61561436403399&locale=fr_FR"
               className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
@@ -22,8 +30,7 @@ export default async function Index() {
                 Découvrer notre page facebook
               </p>
             </Link>
-          </div>
-          <div>
+
             <Link
               href="https://www.helloasso.com/associations/ecole-des-chats-du-pays-houdanais/formulaires/1"
               className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"

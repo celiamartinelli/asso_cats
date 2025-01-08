@@ -1,19 +1,44 @@
+"use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { getImportantDates } from "@/utils/actions";
 
-export default async function Index() {
+interface ImportantDate {
+  calendar_id: string;
+  date_start: string;
+  date_end: string;
+  subject: string;
+  location_address: string;
+  taught_name: string;
+  title_event: string;
+}
+
+export default function Index() {
   return (
     <>
-      <main className="flex min-h-screen flex-col justify-between pt-24 bg-lime-500">
-        <div className="flex-col mb-32  text-center  bg-lime-200 ">
-          <div className="border-black border-2 rounded-lg p-4 w-full lg:col-span-2 mb-4">
-            <h3>Prochaine dates importantes</h3>eé
-            <ul>
-              <li>1er Mai 2022 : Vide grenier</li>
-              <li>1er Juin 2022 : Journée des chats</li>
-              <li>1er Juillet 2022 : Journée des chiens</li>
+      <main className="flex min-h-screen flex-col justify-between pt-24 ">
+        <div className="flex-col mb-32  text-center  ">
+          <div className="border-black border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
+            <h3>Prochaine dates importantes</h3>
+            <ul className="flex justify-center">
+              <li className="p-8 flex flex-col items-center">
+                <p className="text-5xl dancing-script">16</p>
+                <p className="text-xl opacity-70">Mai</p>
+                <p className="opacity-50">Vide grenier</p>
+              </li>
+              <li className="p-8 flex flex-col items-center">
+                <p className="text-5xl dancing-script">21</p>
+                <p className="text-xl opacity-70">Juin</p>
+                <p className="opacity-50">Collecte</p>
+              </li>
+              <li className="p-8 flex flex-col items-center">
+                <p className="text-5xl dancing-script">04</p>
+                <p className="text-xl opacity-70">Août</p>
+                <p className="opacity-50">Collecte</p>
+              </li>
             </ul>
           </div>
-          <div className="flex border-black border-2 rounded-lg p-4 lg:col-span-2 w-full">
+          <div className="flex border-black border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
             <Link
               href="https://www.facebook.com/profile.php?id=61561436403399&locale=fr_FR"
               className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"

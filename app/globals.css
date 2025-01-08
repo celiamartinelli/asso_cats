@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Inclusive+Sans&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -66,4 +66,8 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.dancing-script {
+  font-family: "Dancing Script", cursive;
 }

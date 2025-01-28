@@ -13,7 +13,7 @@ export default function Input({
         {textLabel}
       </label>
       <input
-        className="mb-2 p-1 rounded-sm border border-gray-300"
+        className="mb-2 p-1 h-10 rounded-sm border border-gray-300"
         type={type}
         id={id}
         name={name}

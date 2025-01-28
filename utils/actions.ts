@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE;
 
 if (!supabaseUrl || !supabaseKey) {
   throw new Error(
@@ -96,4 +96,102 @@ export const addLike = async (adviceId: string) => {
 
   console.log("Nombre de likes après mise à jour :", data[0]?.like);
   return { success: true, updatedData: data };
+};
+
+// ADOPTION //
+export const submitAdoptionForm = async (formData: {
+  cat_id: string;
+  first_name: string;
+  last_name: string;
+  address: string;
+  postal_code: string;
+  city_name: string;
+  email: string;
+  phone_number: string;
+  date_of_birth: string;
+  occupation: string;
+  type_of_housing: string;
+  living_area: string;
+  have_animals: boolean;
+  wich_ones: string;
+  allergies_description: string;
+  sterelization_opinion: string;
+  house_description: string;
+  why_adopt: string;
+  have_you_garden: string;
+}) => {
+  const {
+    first_name,
+    last_name,
+    address,
+    postal_code,
+    city_name,
+    email,
+    phone_number,
+    date_of_birth,
+    occupation,
+    type_of_housing,
+    living_area,
+    have_animals,
+    wich_ones,
+    allergies_description,
+    sterelization_opinion,
+    house_description,
+    why_adopt,
+    have_you_garden,
+    cat_id,
+  } = formData;
+
+  if (
+    !first_name ||
+    !last_name ||
+    !address ||
+    !postal_code ||
+    !city_name ||
+    !email ||
+    !phone_number ||
+    !date_of_birth ||
+    !occupation ||
+    !type_of_housing ||
+    !living_area ||
+    !house_description ||
+    !why_adopt
+  ) {
+    throw new Error("Tous les champs obligatoires doivent être remplis.");
+  }
+
+  const { data, error } = await supabase
+    .from("adoption_form")
+    .insert([
+      {
+        first_name,
+        last_name,
+        address,
+        postal_code,
+        city_name,
+        email,
+        phone_number,
+        date_of_birth,
+        occupation,
+        type_of_housing,
+        living_area,
+        have_animals,
+        wich_ones,
+        allergies_description,
+        sterelization_opinion,
+        house_description,
+        why_adopt,
+        have_you_garden,
+        cat_id,
+      },
+    ])
+    .select();
+
+  if (error) {
+    console.error("Erreur lors de l'envoi du formulaire d'adoption :", error);
+    throw new Error(`Erreur Supabase : ${error.message}`);
+  }
+
+  console.log("Formulaire d'adoption soumis avec succès :", data);
+  return { success: true, submittedData: data };
 };

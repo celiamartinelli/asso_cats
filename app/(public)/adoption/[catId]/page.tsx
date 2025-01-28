@@ -195,26 +195,30 @@ export default function CatIdPage({ params }: CatIdPageProps) {
       )}
 
       {showForm && (
-        <div>
-          <Button
-            className="mt-4 btn btn-secondary"
-            onClick={() => {
-              console.log("Revoir les conditions d'adoption");
-            }}
-          >
-            Revoir les conditions d'adoption
-          </Button>
+        <div className="flex flex-col max-w-screen ">
+          <div className="flex flex-col ">
+            <Button
+              className="mt-4 btn btn-secondary flex-end"
+              onClick={() => {
+                console.log("Revoir les conditions d'adoption");
+              }}
+            >
+              Revoir les conditions d'adoption
+            </Button>
 
-          <h2>Formulaire d'adoption</h2>
-          <p>
-            Vous souhaitez adopter <strong>{catData.name_cat} </strong>?
-            Remplissez le formulaire ci-dessous.
-          </p>
-          <p>
-            Si vous avez des questions, n'hésitez pas à nous contacter à
-            l'adresse suivante: ecoledeschatsdupayshoudanais@gmail.com
-          </p>
-          <FormToAdoption />
+            <h2>Formulaire d'adoption</h2>
+            <p>
+              Vous souhaitez adopter <strong>{catData.name_cat} </strong>?
+              Remplissez le formulaire ci-dessous.
+            </p>
+            <p>
+              Si vous avez des questions, n'hésitez pas à nous contacter à
+              l'adresse suivante: ecoledeschatsdupayshoudanais@gmail.com
+            </p>
+          </div>
+          <div className="items-center justify-center">
+            <FormToAdoption catId={catId} />
+          </div>
         </div>
       )}
     </div>

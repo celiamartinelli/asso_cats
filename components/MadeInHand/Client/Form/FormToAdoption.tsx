@@ -7,8 +7,22 @@ const FormToAdoption: React.FC = () => {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
+    address: "",
+    postal_code: "",
+    city_name: "",
     email: "",
     phone_number: "",
+    date_of_birth: "",
+    occupation: "",
+    type_of_housing: "",
+    living_area: "",
+    have_animals: false,
+    wich_ones: "",
+    allergies_description: "",
+    sterelization_opinion: "",
+    house_description: "",
+    why_adopt: "",
+    have_you_garden: "",
     description_material: "",
   });
 
@@ -33,26 +47,65 @@ const FormToAdoption: React.FC = () => {
       className="bg-white rounded p-10 border border-gray-300 w-11/12"
       onSubmit={handleSubmit}
     >
-      <Input
-        htmlFor="first_name"
-        textLabel="Prénom:"
-        type="text"
-        id="first_name"
-        name="first_name"
-        value={formData.first_name}
-        onChange={handleChange}
-      />
-
-      <Input
-        htmlFor="last_name"
-        textLabel="Nom:"
-        type="text"
-        id="last_name"
-        name="last_name"
-        value={formData.last_name}
-        onChange={handleChange}
-      />
-
+      <div className="flex space-x-4 w-full">
+        <div className="flex-1">
+          <Input
+            htmlFor="first_name"
+            textLabel="Prénom:"
+            type="text"
+            id="first_name"
+            name="first_name"
+            value={formData.first_name}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex-1">
+          <Input
+            htmlFor="last_name"
+            textLabel="Nom:"
+            type="text"
+            id="last_name"
+            name="last_name"
+            value={formData.last_name}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div>
+        <Input
+          htmlFor="address"
+          textLabel="Adresse:"
+          type="text"
+          id="address"
+          name="address"
+          value={formData.address}
+          onChange={handleChange}
+        />
+        <div className="flex space-x-4 w-full">
+          <div className="flex-1">
+            <Input
+              htmlFor="postal_code"
+              textLabel="Code Postal:"
+              type="text"
+              id="postal_code"
+              name="postal_code"
+              value={formData.postal_code}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="flex-1">
+            <Input
+              htmlFor="city_name"
+              textLabel="Ville:"
+              type="text"
+              id="city_name"
+              name="city_name"
+              value={formData.city_name}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+      </div>
       <Input
         htmlFor="email"
         textLabel="Email:"

@@ -8,7 +8,7 @@ export default async function Layout({
   return (
     <div>
       <NavBarAdmin />
-      <div className="max-w-7xl flex flex-col gap-12 items-start">
+      <div className="flex min-h-screen flex-col justify-between pt-24 ">
         {children}
       </div>
     </div>

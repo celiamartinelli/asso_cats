@@ -19,7 +19,7 @@ interface AdviceData {
   subject: string;
   like: number;
   body_of_advice: string;
-  advice_url_image: string | string[];
+  advice_url_image: string;
   category_cat: string;
   useful: boolean;
   age_of_cat: string;
@@ -86,7 +86,16 @@ export default function CatIdPage({ params }: AdviceIdPageProps) {
         <div className="flex flex-col w-2/3 justify-around md:flex-row ">
           <div>
             <h2>{adviceData.title}</h2>
-            <h3>Sujet: {adviceData.subject}</h3>
+            <Image
+              src={adviceData.advice_url_image}
+              alt="chat"
+              width={500}
+              height={500}
+              priority
+            />
+            <h3>Categorie: {adviceData.category_cat}</h3>
+            <h3>Age chat: {adviceData.age_of_cat}</h3>
+            <h4>Sujet: {adviceData.subject}</h4>
             <p>corps: {adviceData.body_of_advice}</p>
           </div>
         </div>

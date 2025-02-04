@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -22,7 +21,6 @@ import {
 
 import { getCatById } from "../../../../utils/actions";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import FormToAdoption from "@/components/MadeInHand/Client/Form/FormToAdoption";
 import ConditionToAdoption from "@/components/MadeInHand/Client/ConditionToAdoption/ConditionToAdoption";
 
@@ -59,6 +57,7 @@ export default function CatIdPage({ params }: CatIdPageProps) {
   const [error, setError] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchCat = async () => {
@@ -86,6 +85,11 @@ export default function CatIdPage({ params }: CatIdPageProps) {
 
   const handleButtonClick = () => {
     setShowForm(true);
+  };
+
+  const handleFormSubmit = () => {
+    setIsModalOpen(true);
+    console.log("Modal ouverte ?", isModalOpen);
   };
 
   return (
@@ -196,28 +200,62 @@ export default function CatIdPage({ params }: CatIdPageProps) {
 
       {showForm && (
         <div className="flex flex-col max-w-screen ">
-          <div className="flex flex-col ">
-            <Button
-              className="mt-4 btn btn-secondary flex-end"
-              onClick={() => {
-                console.log("Revoir les conditions d'adoption");
-              }}
-            >
-              Revoir les conditions d'adoption
-            </Button>
-
-            <h2>Formulaire d'adoption</h2>
-            <p>
-              Vous souhaitez adopter <strong>{catData.name_cat} </strong>?
-              Remplissez le formulaire ci-dessous.
-            </p>
-            <p>
-              Si vous avez des questions, n'hésitez pas à nous contacter à
-              l'adresse suivante: ecoledeschatsdupayshoudanais@gmail.com
-            </p>
-          </div>
           <div className="items-center justify-center">
-            <FormToAdoption catId={catId} />
+            {isModalOpen ? (
+              <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+                <DialogContent className="max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Demande envoyée</DialogTitle>
+                  </DialogHeader>
+                  <div className="text-center">
+                    <p className="text-gray-700">
+                      Nous avons bien reçu votre demande, nous l'étudions
+                      attentivement et revenons vers vous le plus rapidement
+                      possible.
+                    </p>
+                    <Button
+                      className="mt-4"
+                      onClick={() => {
+                        setIsModalOpen(false);
+                        setShowForm(false);
+                      }}
+                    >
+                      OK
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            ) : (
+              <div className="flex flex-col ">
+                <p>
+                  Vous souhaitez adopter <strong>{catData.name_cat} </strong>?
+                  Remplissez le formulaire ci-dessous.
+                </p>
+                <p>
+                  Si vous avez des questions, n'hésitez pas à nous contacter à
+                  l'adresse suivante: ecoledeschatsdupayshoudanais@gmail.com
+                </p>
+                <Dialog>
+                  <DialogTrigger className="mb-2 flex justify-end">
+                    <Button className="mt-2 ">
+                      {" "}
+                      Revoir les conditions d'adoption{" "}
+                    </Button>
+                  </DialogTrigger>
+
+                  <DialogContent className="max-h-[80vh] max-w-[100vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle>Nos conditions d'adoption</DialogTitle>
+                      <DialogDescription>
+                        <ConditionToAdoption />
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
+
+                <FormToAdoption catId={catId} onFormSubmit={handleFormSubmit} />
+              </div>
+            )}
           </div>
         </div>
       )}

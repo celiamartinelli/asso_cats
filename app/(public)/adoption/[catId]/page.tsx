@@ -226,20 +226,19 @@ export default function CatIdPage({ params }: CatIdPageProps) {
                 </DialogContent>
               </Dialog>
             ) : (
-              <div className="flex flex-col ">
-                <p>
+              <div className="flex flex-col">
+                <h3>
                   Vous souhaitez adopter <strong>{catData.name_cat} </strong>?
                   Remplissez le formulaire ci-dessous.
-                </p>
-                <p>
+                </h3>
+                <h4>
                   Si vous avez des questions, n'hésitez pas à nous contacter à
                   l'adresse suivante: ecoledeschatsdupayshoudanais@gmail.com
-                </p>
+                </h4>
                 <Dialog>
-                  <DialogTrigger className="mb-2 flex justify-end">
-                    <Button className="mt-2 ">
-                      {" "}
-                      Revoir les conditions d'adoption{" "}
+                  <DialogTrigger className="mb-2 flex justify-start w-1/3">
+                    <Button className="mt-2">
+                      Revoir les conditions d'adoption
                     </Button>
                   </DialogTrigger>
 

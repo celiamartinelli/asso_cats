@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import Input from "../Input";
 import Textarea from "../Textarea";
@@ -201,16 +202,6 @@ const FormToAdoption: React.FC<FormToAdoptionProps> = ({
         </div>
         <div className="flex space-x-4 w-full">
           <div className="flex-1">
-            {/* <Input
-              htmlFor="date_of_birth"
-              textLabel="Date de naissance:"
-              type="date"
-              id="date_of_birth"
-              name="date_of_birth"
-              value={formData.date_of_birth}
-              onChange={handleChange}
-              data-relmax="-18"
-            /> */}
             <DateOfBirthInput
               className="flex-1"
               formData={formData}
@@ -320,41 +311,37 @@ const FormToAdoption: React.FC<FormToAdoptionProps> = ({
             </span>
           </div>
         </div>
-        <p>Avez vous ..... liste a choix multiples?</p>
+        {/* <p>Avez vous ..... liste a choix multiples?</p>
 
         <div className="flex flex-col my-4">
           <label className="font-medium mb-1">
             Sélectionnez les options applicables:
           </label>
           {items.map((item) => (
-            <div key={item.id} className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                id={item.id}
-                name={item.id}
-                checked={formData.have_you_garden.includes(item.label)}
-                onChange={(e) => {
-                  const selectedOptions = formData.have_you_garden
-                    .split("/")
-                    .filter(Boolean);
-                  if (e.target.checked) {
-                    selectedOptions.push(item.label);
-                  } else {
-                    const index = selectedOptions.indexOf(item.label);
-                    if (index > -1) {
-                      selectedOptions.splice(index, 1);
-                    }
-                  }
-                  setFormData({
-                    ...formData,
-                    have_you_garden: selectedOptions.join(","),
-                  });
-                }}
-              />
-              <label htmlFor={item.id}>{item.label}</label>
-            </div>
+            <FormField
+              key={item.id}
+              control={form.control}
+              name="have_you_garden"
+              render={({ field }) => (
+                <FormItem className="flex items-center space-x-2">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value?.includes(item.id)}
+                      onCheckedChange={(checked) => {
+                        return checked
+                          ? field.onChange([...field.value, item.id])
+                          : field.onChange(
+                              field.value?.filter((value) => value !== item.id)
+                            );
+                      }}
+                    />
+                  </FormControl>
+                  <FormLabel>{item.label}</FormLabel>
+                </FormItem>
+              )}
+            />
           ))}
-        </div>
+        </div> */}
         {/* <div className="flex flex-col my-4">
           <label className="font-medium mb-1">
             Sélectionnez les options applicables:

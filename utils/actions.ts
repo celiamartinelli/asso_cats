@@ -195,3 +195,21 @@ export const submitAdoptionForm = async (formData: {
   console.log("Formulaire d'adoption soumis avec succès :", data);
   return { success: true, submittedData: data };
 };
+
+// CALENDAR // événement date selectionner
+export async function fetchEventByDate(date: string) {
+  try {
+    const { data, error } = await supabase
+      .from("calendar")
+      .select("*")
+      .eq("date_start", date);
+
+    if (error) {
+      throw new Error("Erreur lors de la récupération des événements");
+    }
+    return data;
+  } catch (error) {
+    console.error("Erreur lors de l'appel API :", error);
+    return null;
+  }
+}

@@ -3,6 +3,8 @@ import FetchDataSteps from "@/components/tutorial/fetch-data-steps";
 import { createClient } from "@/utils/supabase/server";
 import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
 
 export default async function AdminPage() {
   const supabase = await createClient();
@@ -23,6 +25,14 @@ export default async function AdminPage() {
           <InfoIcon size="16" strokeWidth={2} />
           ICI on mettra le tableau de bord
         </div>
+        <SidebarProvider>
+          <div className="flex gap-4 bg-red-400 w-11/12 mx-auto justify-center">
+            <div className="w-4/5 border border-gray-300 rounded-md overflow-hidden relative">
+              <SidebarTrigger />
+              <AppSidebar />
+            </div>
+          </div>
+        </SidebarProvider>
       </div>
     </div>
   );

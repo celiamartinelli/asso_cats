@@ -14,24 +14,36 @@ import {
 import CardCat from "@/components/MadeInHand/Client/CardCat";
 import Player from "lottie-react";
 import loader from "../../../../../public/lottie/loader.json";
+import AdoptionContent from "./AdoptionContent";
 
 export default function AdoptionContentCatGroup() {
   const [cats, setCats] = useState<any[] | null>(null);
-  // const [loading, setLoading] = useState(true);
+  const [selectedCat, setSelectedCat] = useState<any | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getCatsWithAdoptionCount(); // 📥 Appelle la fonction
-      console.log("DATA FINALE :", data); // 🔍 Vérifie que les données sont bien reçues
-      setCats(data ?? []); // 🔄 Met à jour le state
+      const data = await getCatsWithAdoptionCount();
+      setCats(data ?? []);
     };
 
     fetchData();
   }, []);
 
+  const handleCardClick = (cat: {
+    cat_id: number;
+    name_cat: string;
+    sex_cat: string;
+    age_of_cat: number;
+    cat_url_image: string[];
+  }) => {
+    setSelectedCat(cat); // Met à jour l'état avec le chat sélectionné
+  };
+
   return (
     <div>
-      {cats === null ? (
+      {selectedCat ? ( // Si un chat est sélectionné, afficher le composant AdoptionContent
+        <AdoptionContent cat={selectedCat} />
+      ) : cats === null ? (
         <Player
           autoplay
           loop
@@ -44,6 +56,9 @@ export default function AdoptionContentCatGroup() {
             <div
               key={item.cat_id}
               className="border-2 rounded-lg m-2 cursor-pointer bg-white shadow-md w-80 p-2"
+              onClick={() => {
+                handleCardClick(item), console.log(item);
+              }}
             >
               <div className="flex justify-between ">
                 <div className="flex flex-col">

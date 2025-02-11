@@ -234,10 +234,11 @@ export const getCatsWithAdoptionCount = async () => {
 };
 
 // Récupérer les demandes d'adoption d'un chat selon son Id //
-export const getAdoptionRequests = async () => {
+export const getAdoptionRequests = async (cat_id: string) => {
   const { data, error } = await supabase
     .from("adoption_form")
-    .select("*, cat(name_cat)");
+    .select("*, cat(name_cat, date_of_birth, cat_url_image), read")
+    .eq("cat_id", cat_id);
 
   if (error) {
     console.error(
@@ -248,5 +249,32 @@ export const getAdoptionRequests = async () => {
   }
 
   console.log("Données des demandes d'adoption :", data);
+
   return data;
+};
+
+// Modifie le statut du switch pour marquer la demande d'adoption comme lue ou non lue //
+
+export const updateAdoptionRequestReadStatus = async (
+  adoptionFormId: string,
+  newReadStatus: boolean
+) => {
+  try {
+    const { error } = await supabase
+      .from("adoption_form")
+      .update({ read: newReadStatus })
+      .eq("adoption_form_id", adoptionFormId);
+
+    if (error) {
+      throw new Error(`Erreur Supabase : ${error.message}`);
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error(
+      "Erreur lors de la mise à jour du statut de lecture :",
+      error
+    );
+    return { success: false, error };
+  }
 };

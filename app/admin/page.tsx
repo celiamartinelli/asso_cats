@@ -21,14 +21,13 @@ export default async function AdminPage() {
     <div className="flex-1 w-full flex flex-col gap-12 ">
       <NavBarAdmin />
       <div className="w-full">
-        <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
+        {/* <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
           <InfoIcon size="16" strokeWidth={2} />
           ICI on mettra le tableau de bord
-        </div>
+        </div> */}
         <SidebarProvider>
-          <div className="flex gap-4 bg-red-400 w-11/12 mx-auto justify-center">
-            <div className="w-4/5 border border-gray-300 rounded-md overflow-hidden relative">
-              <SidebarTrigger />
+          <div className="flex  w-11/12 mx-auto justify-center">
+            <div className="w-11/12 border border-gray-300 rounded-md overflow-hidden relative">
               <AppSidebar />
             </div>
           </div>

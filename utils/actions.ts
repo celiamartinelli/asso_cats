@@ -213,3 +213,40 @@ export async function fetchEventByDate(date: string) {
     return null;
   }
 }
+
+//ADMIN PAGE//
+
+/// Fonction pour récupérer les chats avec le nombre de formulaires d'adoption
+export const getCatsWithAdoptionCount = async () => {
+  const { data, error } = await supabase
+    .from("cat")
+    .select(
+      "cat_id, name_cat, sex_cat, age_of_cat, cat_url_image, " +
+        "adoption_form(count)"
+    )
+    .eq("adoption_form.read", false);
+
+  if (error) {
+    console.error("Erreur lors de la récupération des chats:", error.message);
+    return [data];
+  }
+  return data;
+};
+
+// Récupérer les demandes d'adoption d'un chat selon son Id //
+export const getAdoptionRequests = async () => {
+  const { data, error } = await supabase
+    .from("adoption_form")
+    .select("*, cat(name_cat)");
+
+  if (error) {
+    console.error(
+      "Erreur lors de la récupération des demandes d'adoption :",
+      error
+    );
+    throw new Error(`Erreur Supabase : ${error.message}`);
+  }
+
+  console.log("Données des demandes d'adoption :", data);
+  return data;
+};

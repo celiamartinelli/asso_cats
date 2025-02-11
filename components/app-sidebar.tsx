@@ -24,7 +24,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import AdoptionContent from "./MadeInHand/Admin/Content/AdoptionContent";
+import AdoptionContentCatGroup from "./MadeInHand/Admin/Content/AdoptionContent/AdoptionContentCatGroup";
 import HostFamilyContent from "./MadeInHand/Admin/Content/HostFamilyContent";
 import MaterielDonationContent from "./MadeInHand/Admin/Content/MaterielDonationContent";
 import ContactContent from "./MadeInHand/Admin/Content/ContactContent";
@@ -62,7 +62,7 @@ const data = {
       items: [
         {
           title: "Adoption",
-          content: <AdoptionContent />,
+          content: <AdoptionContentCatGroup />,
         },
         {
           title: "FA",

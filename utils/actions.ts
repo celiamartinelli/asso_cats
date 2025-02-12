@@ -11,23 +11,27 @@ if (!supabaseUrl || !supabaseKey) {
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // HOME PAGE //
-// Récupération des dates importantes //
+// Récupération des dates importantes Home Page //
 
-export const getImportantDates = async (importantDateId: string) => {
-  if (!importantDateId) {
-    throw new Error(
-      "L'ID de la date importante est requis pour effectuer la requête."
-    );
-  }
+export const getImportantDates = async () => {
   const { data, error } = await supabase
     .from("calendar")
     .select("*")
-    .eq("calendar_id", importantDateId)
-    .single();
-  if (error) throw new Error(`Erreur Supabase : ${error.message}`);
+    .gte("date_start", new Date().toISOString())
+    .order("date_start", { ascending: true })
+    .limit(3);
+
+  if (error) {
+    console.error("Erreur Supabase :", error.message);
+    return [];
+  }
+
   console.log("Données des dates:", data);
   return data;
 };
+
+// CALENDAR //
+// Récupération d'une date selon sa date Calendar Page //
 
 // CAT //
 // Récupérer l'Id du chat //
@@ -213,6 +217,16 @@ export async function fetchEventByDate(date: string) {
     return null;
   }
 }
+
+//Tous les Events
+export const fetchAllEventDates = async () => {
+  const { data, error } = await supabase.from("calendar").select("date_start");
+  if (error) {
+    console.error("Erreur Supabase :", error.message);
+    return [];
+  }
+  return data;
+};
 
 //ADMIN PAGE//
 

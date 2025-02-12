@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getImportantDates } from "@/utils/actions";
 import { Button } from "@/components/ui/button";
+import { getImportantDates } from "@/utils/actions";
 
 interface ImportantDate {
   calendar_id: string;
@@ -15,29 +15,57 @@ interface ImportantDate {
 }
 
 export default function Index() {
+  const [importantDates, setImportantDates] = useState<ImportantDate[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchDates() {
+      try {
+        setLoading(true); // Commence le chargement
+        const dates = await getImportantDates();
+        setImportantDates(dates);
+      } catch (error) {
+        console.error("Erreur lors du chargement des dates :", error);
+      } finally {
+        setLoading(false); // Arrête le chargement
+      }
+    }
+    fetchDates();
+  }, []);
+
   return (
     <>
       <main className="flex min-h-screen flex-col justify-between pt-24 ">
         <div className="flex-col mb-32  text-center  ">
-          <div className="border-black border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
+          <div className="border-black border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white flex flex-col items-center">
             <h3>Prochaine dates importantes</h3>
-            <ul className="flex justify-center">
-              <li className="p-8 flex flex-col items-center">
-                <p className="text-5xl dancing-script">16</p>
-                <p className="text-xl opacity-70">Mai</p>
-                <p className="opacity-50">Vide grenier</p>
-              </li>
-              <li className="p-8 flex flex-col items-center">
-                <p className="text-5xl dancing-script">21</p>
-                <p className="text-xl opacity-70">Juin</p>
-                <p className="opacity-50">Collecte</p>
-              </li>
-              <li className="p-8 flex flex-col items-center">
-                <p className="text-5xl dancing-script">04</p>
-                <p className="text-xl opacity-70">Août</p>
-                <p className="opacity-50">Collecte</p>
-              </li>
-            </ul>
+            {loading ? (
+              <p>Chargement des dates...</p>
+            ) : (
+              <ul className="flex justify-center w-2/3 items-center flex-wrap ">
+                {importantDates.length > 0 ? (
+                  importantDates.map((date) => (
+                    <li
+                      key={date.calendar_id}
+                      className="p-8 flex flex-col items-center w-1/4 h-48 border border-2-gray-500 rounded-lg m-4"
+                    >
+                      <p className="text-5xl dancing-script">
+                        {new Date(date.date_start).getDate()}
+                      </p>
+                      <p className="text-xl opacity-70">
+                        {new Date(date.date_start).toLocaleString("fr-FR", {
+                          month: "long",
+                        })}
+                      </p>
+                      <p className="opacity-50">{date.title_event}</p>
+                    </li>
+                  ))
+                ) : (
+                  <li>Aucun évenement à venir.</li>
+                )}
+              </ul>
+            )}
+
             <Button type="button" className="mt-8">
               <Link href="/calendar">Voir toutes les dates</Link>
             </Button>

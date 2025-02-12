@@ -37,7 +37,7 @@ export default function Index() {
     <>
       <main className="flex min-h-screen flex-col justify-between pt-24 ">
         <div className="flex-col mb-32  text-center  ">
-          <div className="border-black border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white flex flex-col items-center">
+          <div className="border-gray-600 border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white flex flex-col items-center">
             <h3>Prochaine dates importantes</h3>
             {loading ? (
               <p>Chargement des dates...</p>
@@ -70,21 +70,21 @@ export default function Index() {
               <Link href="/calendar">Voir toutes les dates</Link>
             </Button>
           </div>
-          <div className="border-black border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
+          <div className="border-gray-600 border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
             <h3>Sur Quel secteur on agit? et quel commune</h3>
 
             <Button type="button" className="mt-8">
               <Link href="/municipality">Voir la liste complète</Link>
             </Button>
           </div>
-          <div className="border-black border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
+          <div className="border-gray-600 border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
             <h3>Comment se déroule une adoption</h3>
             <p>fresque etape adoption</p>
             <Button type="button" className="mt-8">
               <Link href="/adoption">Voir les Amours</Link>
             </Button>
           </div>
-          <div className="flex border-black border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
+          <div className="flex border-gray-600 border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
             <Link
               href="https://www.facebook.com/profile.php?id=61561436403399&locale=fr_FR"
               className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"

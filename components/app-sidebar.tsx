@@ -56,7 +56,6 @@ const data = {
   navMain: [
     {
       title: "Formulaire de contact",
-      // url: "#",
       icon: SquareTerminal,
       isActive: true,
       items: [

@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import CardCat from "@/components/MadeInHand/Client/CardCat";
+import { ArrowLeft } from "lucide-react";
 import Player from "lottie-react";
 import loader from "../../../../../public/lottie/loader.json";
 import AdoptionContent from "./AdoptionContent";
@@ -35,6 +36,7 @@ export default function AdoptionContentCatGroup() {
     sex_cat: string;
     age_of_cat: number;
     cat_url_image: string[];
+    date_of_birth: string;
   }) => {
     setSelectedCat(cat); // Met à jour l'état avec le chat sélectionné
   };
@@ -42,7 +44,17 @@ export default function AdoptionContentCatGroup() {
   return (
     <div>
       {selectedCat ? ( // Si un chat est sélectionné, afficher le composant AdoptionContent
-        <AdoptionContent cat={selectedCat} />
+        <div>
+          {/* Bouton retour */}
+          <button
+            className="flex items-center gap-2 text-gray-500 hover:underline mb-4"
+            onClick={() => setSelectedCat(null)}
+          >
+            <ArrowLeft size={20} /> Retour
+          </button>
+
+          <AdoptionContent cat={selectedCat} />
+        </div>
       ) : cats === null ? (
         <Player
           autoplay

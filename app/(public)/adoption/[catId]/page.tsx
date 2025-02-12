@@ -130,6 +130,21 @@ export default function CatIdPage({ params }: CatIdPageProps) {
                 month: "long",
                 year: "numeric",
               })}
+              {" ("}
+              {(() => {
+                const birthDate = new Date(catData.date_of_birth);
+                const today = new Date();
+                const ageInMonths =
+                  (today.getFullYear() - birthDate.getFullYear()) * 12 +
+                  today.getMonth() -
+                  birthDate.getMonth();
+                const years = Math.floor(ageInMonths / 12);
+                const months = ageInMonths % 12;
+                return `${years > 0 ? `${years} an${years > 1 ? "s" : ""} ` : ""}${
+                  months > 0 ? `${months} mois` : ""
+                }`;
+              })()}
+              {")"}
             </p>
 
             <p>Sexe: {catData.sex_cat}</p>

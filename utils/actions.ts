@@ -221,7 +221,7 @@ export const getCatsWithAdoptionCount = async () => {
   const { data, error } = await supabase
     .from("cat")
     .select(
-      "cat_id, name_cat, sex_cat, age_of_cat, cat_url_image, " +
+      "cat_id, name_cat, sex_cat, age_of_cat, cat_url_image, date_of_birth, " +
         "adoption_form(count)"
     )
     .eq("adoption_form.read", false);
@@ -254,7 +254,6 @@ export const getAdoptionRequests = async (cat_id: string) => {
 };
 
 // Modifie le statut du switch pour marquer la demande d'adoption comme lue ou non lue //
-
 export const updateAdoptionRequestReadStatus = async (
   adoptionFormId: string,
   newReadStatus: boolean

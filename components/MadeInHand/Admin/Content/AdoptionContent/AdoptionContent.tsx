@@ -29,7 +29,6 @@ interface AdoptionContentProps {
 
 const AdoptionContent: React.FC<AdoptionContentProps> = ({ cat }) => {
   const [adoptionRequests, setAdoptionRequests] = useState<any[]>([]);
-  // const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     async function fetchAdoptionRequests() {
@@ -64,18 +63,32 @@ const AdoptionContent: React.FC<AdoptionContentProps> = ({ cat }) => {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full bg-red-500">
       <Card>
         <CardHeader>
           <CardTitle>{cat.name_cat}</CardTitle>
           <CardDescription>
-            {cat.date_of_birth
-              ? new Date(cat.date_of_birth).toLocaleDateString("fr-FR", {
-                  day: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                })
-              : "Date non disponible"}
+            Date de naissance:{" "}
+            {new Date(cat.date_of_birth).toLocaleDateString("fr-FR", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            })}
+            {" ("}
+            {(() => {
+              const birthDate = new Date(cat.date_of_birth);
+              const today = new Date();
+              const ageInMonths =
+                (today.getFullYear() - birthDate.getFullYear()) * 12 +
+                today.getMonth() -
+                birthDate.getMonth();
+              const years = Math.floor(ageInMonths / 12);
+              const months = ageInMonths % 12;
+              return `${years > 0 ? `${years} an${years > 1 ? "s" : ""} ` : ""}${
+                months > 0 ? `${months} mois` : ""
+              }`;
+            })()}
+            {")"}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -93,7 +106,7 @@ const AdoptionContent: React.FC<AdoptionContentProps> = ({ cat }) => {
           <p>{cat.sex_cat}</p>
         </CardFooter>
       </Card>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap mt-2 gap-2 justify-start">
         {adoptionRequests.map((request, index) => (
           <Card key={index}>
             <CardHeader>

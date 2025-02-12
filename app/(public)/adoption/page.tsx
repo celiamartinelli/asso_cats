@@ -28,10 +28,8 @@ export default function Page() {
   }, []);
 
   return (
-    <div>
-      {cat ? (
-        <div>{cat.length} chats trouvés</div>
-      ) : (
+    <div className="w-full h-full  flex flex-col items-center">
+      {cat ? null : (
         <Player
           autoplay
           loop
@@ -39,7 +37,7 @@ export default function Page() {
           style={{ height: "300px", width: "300px" }}
         />
       )}
-      <div className="flex justify-center">
+      <div className="w-11/12 flex justify-center flex-wrap ">
         {cat &&
           cat.map((item, index) =>
             item.cat_id && item.name_cat ? (

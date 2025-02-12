@@ -17,6 +17,11 @@ export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: "École des Chats du Pays Houdanais",
   description: "Website of the Houdanais Country Cat School association",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    // apple: "/apple-touch-icon.png", // Icône pour iOS
+  },
 };
 
 export default function RootLayout({

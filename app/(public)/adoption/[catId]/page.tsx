@@ -94,7 +94,7 @@ export default function CatIdPage({ params }: CatIdPageProps) {
 
   return (
     <div className="flex flex-col items-center justify-center max-w-screen ">
-      <h2>{catData.name_cat}</h2>
+      <h2 className="uppercase font-bold text-5xl">{catData.name_cat}</h2>
       {catData ? (
         <div className="flex flex-col w-2/3 justify-around md:flex-row ">
           <div>
@@ -102,15 +102,15 @@ export default function CatIdPage({ params }: CatIdPageProps) {
               <CarouselContent>
                 {catData.cat_url_image.map((src: string, index: number) => (
                   <CarouselItem key={index}>
-                    <div className="p-1">
-                      <Card>
-                        <CardContent className="flex aspect-square items-center justify-center p-6">
+                    <div className="p-1 ">
+                      <Card className="">
+                        <CardContent className="flex items-center justify-center p-0 w-full h-96 overflow-hidden ">
                           <Image
                             src={src}
                             alt={`Image ${index + 1}`}
-                            width={180}
-                            height={180}
-                            style={{ width: "auto", height: "auto" }}
+                            width={700}
+                            height={700}
+                            className="w-full h-full object-cover rounded-lg"
                           />
                         </CardContent>
                       </Card>

@@ -5,6 +5,7 @@ import {
   updateAdoptionRequestReadStatus,
 } from "@/utils/actions";
 import Image from "next/image";
+import { ArrowLeft } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -14,6 +15,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
+import AdoptionRequestContent from "./AdoptionRequestContent";
 
 interface AdoptionContentProps {
   cat: {
@@ -29,6 +31,7 @@ interface AdoptionContentProps {
 
 const AdoptionContent: React.FC<AdoptionContentProps> = ({ cat }) => {
   const [adoptionRequests, setAdoptionRequests] = useState<any[]>([]);
+  const [selectedRequest, setSelectedRequest] = useState<any | null>(null);
 
   useEffect(() => {
     async function fetchAdoptionRequests() {
@@ -63,7 +66,7 @@ const AdoptionContent: React.FC<AdoptionContentProps> = ({ cat }) => {
   };
 
   return (
-    <div className="w-full h-full bg-red-500">
+    <div className="w-full h-full ">
       <Card>
         <CardHeader>
           <CardTitle>{cat.name_cat}</CardTitle>
@@ -106,34 +109,66 @@ const AdoptionContent: React.FC<AdoptionContentProps> = ({ cat }) => {
           <p>{cat.sex_cat}</p>
         </CardFooter>
       </Card>
-      <div className="flex flex-wrap mt-2 gap-2 justify-start">
-        {adoptionRequests.map((request, index) => (
-          <Card key={index}>
-            <CardHeader>
-              <CardTitle>titre</CardTitle>
-              <CardDescription>ici le contenu du form:</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {" "}
-              <p>Request ID: {request.adoption_form_id}</p>
-              <p>
-                Requester Name: {request.first_name} {request.last_name}
-              </p>
-              <p>Requester Email: {request.email}</p>
-              <p>Animal: {request.cat.name_cat}</p>
-            </CardContent>
-            <CardFooter>
-              <p>Lu:</p>
-              <Switch
-                id={`read-${request.adoption_form_id}`}
-                checked={request.read}
-                onCheckedChange={(checked) =>
-                  handleSwitchChange(request.adoption_form_id, checked)
-                }
-              />
-            </CardFooter>
-          </Card>
-        ))}
+      <div className="flex flex-wrap justify-start">
+        {selectedRequest && (
+          <div>
+            <button
+              className="flex items-center gap-2 text-gray-500 hover:underline mb-4 mt-2"
+              onClick={() => setSelectedRequest(null)}
+            >
+              <ArrowLeft size={20} /> Retour
+            </button>
+            <AdoptionRequestContent request={selectedRequest} />
+          </div>
+        )}
+        {!selectedRequest && (
+          <div className="flex flex-wrap justify-start w-full">
+            {adoptionRequests.map((request, index) => (
+              <Card
+                className="w-1/3 mt-3 cursor-pointer"
+                key={index}
+                onClick={(e) => {
+                  // Prevent card click when switch is toggled
+                  if ((e.target as HTMLElement).closest(".switch")) return;
+                  setSelectedRequest(request);
+                }}
+              >
+                <CardHeader>
+                  <CardTitle>
+                    {request.first_name} {request.last_name}
+                  </CardTitle>
+
+                  <CardDescription>
+                    Demande reçue le:{" "}
+                    {new Date(request.created_at).toLocaleDateString("fr-FR", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                    })}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {" "}
+                  <p>Pourquoi je veux adopter:{request.why_adopt}</p>
+                  <p>Téléphone: {request.phone_number}</p>
+                  <p>Email: {request.email}</p>
+                  <p>Ville: {request.city_name}</p>
+                </CardContent>
+                <CardFooter>
+                  <p className="p-2">Lu:</p>
+                  <Switch
+                    id={`read-${request.adoption_form_id}`}
+                    checked={request.read}
+                    onCheckedChange={(checked) =>
+                      handleSwitchChange(request.adoption_form_id, checked)
+                    }
+                    className="switch"
+                  />
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

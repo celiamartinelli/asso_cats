@@ -140,7 +140,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>
-      <div className="flex-1 p-4">{selectedContent}</div>
+      <div className="flex-1 p-4">
+        {selectedContent || <AdoptionContentCatGroup />}
+      </div>
     </div>
   );
 }

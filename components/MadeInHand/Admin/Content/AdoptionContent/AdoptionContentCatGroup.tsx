@@ -45,7 +45,6 @@ export default function AdoptionContentCatGroup() {
     <div>
       {selectedCat ? ( // Si un chat est sélectionné, afficher le composant AdoptionContent
         <div>
-          {/* Bouton retour */}
           <button
             className="flex items-center gap-2 text-gray-500 hover:underline mb-4"
             onClick={() => setSelectedCat(null)}

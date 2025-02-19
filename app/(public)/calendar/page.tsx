@@ -60,7 +60,7 @@ export default function CalendarPage() {
   }, [date]);
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col ">
       <h1 className="text-3xl font-bold mb-4 ">Calendrier</h1>
       <div className="flex ">
         <div className="w-3/4">

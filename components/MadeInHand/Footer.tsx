@@ -1,6 +1,6 @@
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
 import Link from "next/link";
+import SocialNetwork from "./SocialNetwork";
 
 const sections = [
   {
@@ -58,6 +58,24 @@ const sections = [
     ],
   },
   {
+    title: "Informations supplémentaires",
+    links: [
+      { href: "/associations", label: "Associations" },
+      {
+        href: "/municipality",
+        label: "Municipalités partenaires",
+      },
+      {
+        href: "/calendar",
+        label: "Date éenements à venir",
+      },
+      {
+        href: "/news",
+        label: "L'actualité de l'association",
+      },
+    ],
+  },
+  {
     title: "Nous contacter",
     links: [
       { href: "/contact", label: "Nous contacter" },
@@ -84,7 +102,7 @@ const FooterSection = ({
   links,
   hasBorder = true,
 }: FooterSectionProps) => (
-  <div className={`w-1/4 px-8 ${hasBorder ? "border-r" : ""}`}>
+  <div className={`w-1/5 px-8 ${hasBorder ? "border-r" : ""}`}>
     <h4 className="font-bold text-xl mb-5 flex items-start">{title}</h4>
     <ul className="flex flex-col gap-2 items-start text-gray-400">
       {links.map((link, index) => (
@@ -126,29 +144,7 @@ export default function Footer() {
           </a>
         </div>
         <ThemeSwitcher />
-        <div className="flex gap-4">
-          <Link
-            className="hover:bg-accent hover:rounded-lg p-2"
-            href="https://www.facebook.com/profile.php?id=61561436403399&locale=fr_FR"
-            target="_blank"
-          >
-            <Facebook size={28} />
-          </Link>
-          <Link
-            href="https://www.instagram.com/ecoledeschats/"
-            target="_blank"
-            className="hover:bg-accent hover:rounded-lg p-2"
-          >
-            <Instagram size={28} />
-          </Link>
-          <Link
-            href="https://www.linkedin.com/groups/13126906/"
-            className="hover:bg-accent hover:rounded-lg p-2"
-            target="_blank"
-          >
-            <Linkedin size={28} strokeWidth={1.5} />
-          </Link>
-        </div>
+        <SocialNetwork />
       </div>
     </footer>
   );

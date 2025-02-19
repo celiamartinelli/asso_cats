@@ -2,7 +2,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { getImportantDates } from "@/utils/actions";
+import { getImportantDates, getLatestNews } from "@/utils/actions";
+import Image from "next/image";
+import CardNews from "@/components/MadeInHand/Client/Card/CardNews";
 
 interface ImportantDate {
   calendar_id: string;
@@ -14,8 +16,17 @@ interface ImportantDate {
   title_event: string;
 }
 
+interface News {
+  news_id: string;
+  title: string;
+  body: string;
+  created_at: string;
+  news_url_img: string;
+}
+
 export default function Index() {
   const [importantDates, setImportantDates] = useState<ImportantDate[]>([]);
+  const [latestNews, setLatestNews] = useState<News[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -33,10 +44,61 @@ export default function Index() {
     fetchDates();
   }, []);
 
+  useEffect(() => {
+    async function fetchNews() {
+      try {
+        setLoading(true); // Commence le chargement
+        const news = await getLatestNews();
+        setLatestNews(news);
+      } catch (error) {
+        console.error("Erreur lors du chargement des news :", error);
+      } finally {
+        setLoading(false); // Arrête le chargement
+      }
+    }
+    fetchNews();
+  }, []);
+
   return (
     <>
       <main className="flex min-h-screen flex-col justify-between pt-24 ">
         <div className="flex-col mb-32  text-center  ">
+          <div className="border-gray-600 border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
+            <h3>Les dernières actualités</h3>
+            {loading ? (
+              <p>Chargement des actualités...</p>
+            ) : (
+              <ul className="flex justify-center items-center w-full ">
+                {latestNews.length > 0 ? (
+                  latestNews.map((news) => (
+                    <CardNews key={news.news_id} item={news} />
+                    // <li
+                    //   key={news.news_id}
+                    //   className="p-8 flex flex-col items-center w-1/4 h-48 border border-2-gray-500 rounded-lg m-4"
+                    // >
+                    //   <p className="text-5xl dancing-script">
+                    //     {new Date(news.created_at).getDate()}
+                    //   </p>
+                    //   <p className="text-xl opacity-70">
+                    //     {new Date(news.body).toLocaleString("fr-FR", {
+                    //       month: "long",
+                    //     })}
+                    //   </p>
+                    //   <Image
+                    //     src={news.news_url_img}
+                    //     alt={news.title}
+                    //     width={100}
+                    //     height={100}
+                    //     className="opacity-50"
+                    //   ></Image>
+                    // </li>
+                  ))
+                ) : (
+                  <li>Aucun évenement à venir.</li>
+                )}
+              </ul>
+            )}
+          </div>
           <div className="border-gray-600 border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white flex flex-col items-center">
             <h3>Prochaine dates importantes</h3>
             {loading ? (

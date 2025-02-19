@@ -30,8 +30,22 @@ export const getImportantDates = async () => {
   return data;
 };
 
-// CALENDAR //
-// Récupération d'une date selon sa date Calendar Page //
+// Récupération des 3 dernieres news //
+export const getLatestNews = async () => {
+  const { data, error } = await supabase
+    .from("news")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(3);
+
+  if (error) {
+    console.error("Erreur Supabase :", error.message);
+    return [];
+  }
+
+  console.log("Données des articles:", data);
+  return data;
+};
 
 // CAT //
 // Récupérer l'Id du chat //

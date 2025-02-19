@@ -70,7 +70,7 @@ export default function CatIdPage({ params }: AdviceIdPageProps) {
   if (!adviceData) return <p>Chat introuvable.</p>;
 
   return (
-    <div className="flex flex-col items-center justify-center max-w-screen ">
+    <div className="flex flex-col items-center max-w-screen min-h-screen  ">
       <h2 className="text-3xl font-bold text-gray-900 mt-10">
         {adviceData.title}
       </h2>

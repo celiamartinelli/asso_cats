@@ -27,9 +27,9 @@ export default function CardAdvice({ item }: { item: Advice }) {
       onClick={handleClick}
       className=" border-2 rounded-lg m-2 cursor-pointer bg-white p-2 shadow-md"
     >
-      <h2 className="font-bold text-2xl">{item.title}</h2>
+      <h2 className="text-3xl font-bold text-gray-900">{item.title}</h2>
       <h3>Sujet: {item.subject}</h3>
-      <p>corps: {item.body_of_advice}</p>
+
       <Image
         src={
           typeof item.advice_url_image === "string"

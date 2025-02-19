@@ -71,32 +71,40 @@ export default function CatIdPage({ params }: AdviceIdPageProps) {
 
   return (
     <div className="flex flex-col items-center justify-center max-w-screen ">
-      <h2>{adviceData.title}</h2>
-      <div>
+      <h2 className="text-3xl font-bold text-gray-900 mt-10">
+        {adviceData.title}
+      </h2>
+
+      <div className=" w-2/3 flex justify-end ">
         <button
           type="button"
           onClick={handleLike}
           className="flex items-center"
         >
           <UpvoteIcon />
-          <h3>{adviceData.like}</h3>
+          <h3>{adviceData.like === null ? 0 : adviceData.like}</h3>
         </button>
       </div>
+
       {adviceData ? (
-        <div className="flex flex-col w-2/3 justify-around md:flex-row ">
-          <div>
-            <h2>{adviceData.title}</h2>
+        <div className="flex flex-col w-2/3 md:flex-row ">
+          <div className="flex flex-col items-center justify-center ">
             <Image
+              className="rounded-lg mb-10"
               src={adviceData.advice_url_image}
               alt="chat"
               width={500}
               height={500}
               priority
             />
-            <h3>Categorie: {adviceData.category_cat}</h3>
-            <h3>Age chat: {adviceData.age_of_cat}</h3>
-            <h4>Sujet: {adviceData.subject}</h4>
-            <p>corps: {adviceData.body_of_advice}</p>
+            <div className="flex gap-5 mb-10">
+              <h3>Categorie: {adviceData.category_cat}</h3>
+              <h3>Age chat: {adviceData.age_of_cat}</h3>
+              <h4>Sujet: {adviceData.subject}</h4>
+            </div>
+            <div
+              dangerouslySetInnerHTML={{ __html: adviceData.body_of_advice }}
+            />
           </div>
         </div>
       ) : (

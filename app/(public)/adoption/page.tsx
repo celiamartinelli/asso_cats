@@ -2,7 +2,7 @@
 
 import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
-import CardCat from "@/components/MadeInHand/Client/CardCat";
+import CardCat from "@/components/MadeInHand/Client/Card/CardCat";
 import Player from "lottie-react";
 import loader from "../../../public/lottie/loader.json";
 

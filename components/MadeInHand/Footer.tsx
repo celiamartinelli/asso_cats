@@ -2,111 +2,114 @@ import { ThemeSwitcher } from "@/components/theme-switcher";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 import Link from "next/link";
 
+const sections = [
+  {
+    title: "Infos légales & données",
+    links: [
+      { href: "/legalnotice", label: "Mentions légales & CGU" },
+      {
+        href: "/dataprotectionprocessing",
+        label: "Traitement & protections des données",
+      },
+      {
+        href: "/accessyourpersonaldata",
+        label: "Accéder à vos données personnelles",
+      },
+      {
+        href: "/cookiespolicies",
+        label: "Politiques de cookies",
+      },
+      {
+        href: "/legaldocuments",
+        label: "Documents légaux et Réduction fiscales",
+      },
+    ],
+  },
+  {
+    title: "Adopter",
+    links: [
+      { href: "/howtoadopt", label: "Comment Adopter?" },
+      {
+        href: "/conditiontoadopt",
+        label: "Les conditions d'adoption",
+      },
+      {
+        href: "/adoptionfees",
+        label: "Les Frais d'adoption",
+      },
+    ],
+  },
+  {
+    title: "Nous aider",
+    links: [
+      { href: "/howtohelpus", label: "Comment nous aider?" },
+      {
+        href: "/helpthem?form=famille-accueil",
+        label: "Devenir Famille d'accueil",
+      },
+      {
+        href: "/helpthem?form=don-financier",
+        label: "Faire un don financier",
+      },
+      {
+        href: "/helpthem?form=don-materiel",
+        label: "Faire un don matériel",
+      },
+    ],
+  },
+  {
+    title: "Nous contacter",
+    links: [
+      { href: "/contact", label: "Nous contacter" },
+      {
+        href: "/traitement-protection-des-donnees",
+        label: "Demander de l'aide",
+      },
+      {
+        href: "/traitement-protection-des-donnees",
+        label: "Signaler une maltraitance",
+      },
+    ],
+  },
+];
+
+interface FooterSectionProps {
+  title: string;
+  links: { href: string; label: string }[];
+  hasBorder?: boolean;
+}
+
+const FooterSection = ({
+  title,
+  links,
+  hasBorder = true,
+}: FooterSectionProps) => (
+  <div className={`w-1/4 px-8 ${hasBorder ? "border-r" : ""}`}>
+    <h4 className="font-bold text-xl mb-5 flex items-start">{title}</h4>
+    <ul className="flex flex-col gap-2 items-start text-gray-400">
+      {links.map((link, index) => (
+        <li key={index}>
+          <Link href={link.href} passHref>
+            {link.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
 export default function Footer() {
   return (
     <footer className="w-full bg-black text-white flex flex-col items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-      <div className="flex w-4/5 ">
-        <div className="w-1/4 px-8 border-r ">
-          <h4 className="font-bold text-xl mb-5 flex items-start">
-            Infos légales & données
-          </h4>
-          <ul className="flex flex-col gap-2 items-start text-gray-400">
-            <li>
-              <Link href="/mentions-legales" passHref>
-                Mentions légales & CGU
-              </Link>
-            </li>
-            <li>
-              <Link href="/traitement-protection-des-donnees" passHref>
-                Traitement & protections des données
-              </Link>
-            </li>
-            <li>
-              <Link href="/traitement-protection-des-donnees" passHref>
-                Accéder à vos données personnelles
-              </Link>
-            </li>
-            <li>
-              <Link href="/traitement-protection-des-donnees" passHref>
-                Politiques de cookies
-              </Link>
-            </li>
-            <li>
-              <Link href="/traitement-protection-des-donnees" passHref>
-                Documents légaux et Réduction fiscales
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div className=" w-1/4 px-8 border-r">
-          <h4 className="font-bold text-xl mb-5 flex items-start">Adopter</h4>
-          <ul className="flex flex-col gap-2 items-start text-gray-400">
-            <li>
-              <Link href="/mentions-legales" passHref>
-                Comment Adopter?
-              </Link>
-            </li>
-            <li>
-              <Link href="/traitement-protection-des-donnees" passHref>
-                Les conditions d'adoption
-              </Link>
-            </li>
-            <li>
-              <Link href="/traitement-protection-des-donnees" passHref>
-                Les Frais d'adoption
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div className=" w-1/4 px-8 border-r">
-          <h4 className="font-bold text-xl mb-5 flex items-start">
-            Nous aider
-          </h4>
-          <ul className="flex flex-col gap-2 items-start text-gray-400">
-            <li>
-              <Link href="/mentions-legales" passHref>
-                Comment nous aider?
-              </Link>
-            </li>
-            <li>
-              <Link href="/traitement-protection-des-donnees" passHref>
-                Devenir Famille d'accueil
-              </Link>
-            </li>
-            <li>
-              <Link href="/traitement-protection-des-donnees" passHref>
-                Faire un don financier
-              </Link>
-            </li>
-            <li>
-              <Link href="/traitement-protection-des-donnees" passHref>
-                Faire un don matériel
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div className="w-1/4 px-8 ">
-          <h4 className="font-bold text-xl mb-5 flex items-start">
-            Nous contacter
-          </h4>
-          <ul className="flex flex-col gap-2 items-start text-gray-400">
-            <li>
-              <Link href="/mentions-legales" passHref>
-                Nous contacter
-              </Link>
-            </li>
-            <li>
-              <Link href="/traitement-protection-des-donnees" passHref>
-                Demander de l'aide
-              </Link>
-            </li>
-            <li>
-              <Link href="/traitement-protection-des-donnees" passHref>
-                Signaler une maltraitance
-              </Link>
-            </li>
-          </ul>
-        </div>
+      <div className="flex w-4/5">
+        {sections.map((section, index) => (
+          <FooterSection
+            key={index}
+            title={section.title}
+            links={section.links}
+            hasBorder={index !== sections.length - 1}
+          />
+        ))}
       </div>
       <div className="flex items-center justify-center gap-4">
         <div className="flex items-center">

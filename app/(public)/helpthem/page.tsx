@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -15,7 +16,29 @@ import FormBecomeFosterFamily from "@/components/MadeInHand/Client/Form/FormBeco
 import FormMaterielDonnation from "@/components/MadeInHand/Client/Form/FormMaterielDonation";
 
 export default function HelpThem() {
+  const searchParams = useSearchParams();
+  const formIdFromUrl = searchParams.get("form");
   const [selectedForm, setSelectedForm] = useState<string | null>(null);
+
+  const formRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (formIdFromUrl) {
+      setSelectedForm(formIdFromUrl); // Sélection automatique du formulaire
+
+      // Attendre que le formulaire soit affiché, puis scroller avec un offset
+      setTimeout(() => {
+        if (formRef.current) {
+          const yOffset = -30; // Décalage en pixels (~ mt-10)
+          const y =
+            formRef.current.getBoundingClientRect().top +
+            window.scrollY +
+            yOffset;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+      }, 300);
+    }
+  }, [formIdFromUrl]);
 
   const CardHelpThem = [
     {
@@ -69,14 +92,31 @@ export default function HelpThem() {
               <p>{item.content}</p>
             </CardContent>
             <CardFooter>
-              <Button onClick={() => setSelectedForm(item.id)} className="btn">
+              <Button
+                onClick={() => {
+                  setSelectedForm(item.id); // Sélectionne le formulaire
+
+                  // Attendre que le formulaire soit visible avant de scroller
+                  setTimeout(() => {
+                    if (formRef.current) {
+                      const yOffset = -30;
+                      const y =
+                        formRef.current.getBoundingClientRect().top +
+                        window.scrollY +
+                        yOffset;
+                      window.scrollTo({ top: y, behavior: "smooth" });
+                    }
+                  }, 300);
+                }}
+                className="btn"
+              >
                 {item.buttonText}
               </Button>
             </CardFooter>
           </Card>
         ))}
       </div>
-      <div className="mt-6">
+      <div ref={formRef} className="mt-6">
         {selectedForm === "don-materiel" && (
           <div className="flex flex-col justify-center items-center">
             <h2 className=" font-bold text-2xl mb-4">

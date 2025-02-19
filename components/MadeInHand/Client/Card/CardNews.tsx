@@ -1,6 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 interface News {
   news_id: string;
@@ -10,20 +8,24 @@ interface News {
   news_url_img: string;
 }
 
-export default function CardNews({ item }: { item: News }) {
-  const router = useRouter();
+interface CardNewsProps {
+  item: News;
+  isActive: boolean;
+  onClick: () => void;
+}
 
-  const handleClick = () => {
-    router.push(`/advice/${item.news_id}`);
-  };
-
+export default function CardNews({ item, isActive, onClick }: CardNewsProps) {
   return (
     <div
-      onClick={handleClick}
-      className=" border-2 rounded-lg m-2 cursor-pointer bg-white p-2 shadow-md w-full"
+      onClick={onClick}
+      className={`border-2 rounded-lg p-4 cursor-pointer bg-white shadow-md transition-all duration-300 w-1/6 ${
+        isActive
+          ? "w-3/6 flex flex-row items-start "
+          : "flex flex-col overflow-hidden"
+      }`}
     >
-      <h2 className="text-2xl font-bold text-gray-900">{item.title}</h2>
-      <div className="flex items-center">
+      <div className="flex flex-col items-center">
+        <h2 className="text-2xl font-bold text-gray-900">{item.title}</h2>
         <Image
           src={
             typeof item.news_url_img === "string"
@@ -36,15 +38,21 @@ export default function CardNews({ item }: { item: News }) {
           className="w-72 h-72 object-cover rounded-lg border border-2-gray m-4"
           priority
         />
-        {/* <div dangerouslySetInnerHTML={{ __html: item.body }} /> */}
+
+        <p className={`flex text-xs text-gray-500`}>
+          {new Date(item.created_at).toLocaleDateString("fr-FR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          })}
+        </p>
       </div>
-      <p>
-        {new Date(item.created_at).toLocaleDateString("fr-FR", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        })}
-      </p>
+
+      {isActive && (
+        <div className=" mt-12 ml-6 p-4 bg-gray-100 rounded-lg shadow-inner transition-opacity duration-300 w-2/3">
+          <div dangerouslySetInnerHTML={{ __html: item.body }} />
+        </div>
+      )}
     </div>
   );
 }

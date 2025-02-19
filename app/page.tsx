@@ -28,6 +28,7 @@ export default function Index() {
   const [importantDates, setImportantDates] = useState<ImportantDate[]>([]);
   const [latestNews, setLatestNews] = useState<News[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchDates() {
@@ -68,30 +69,19 @@ export default function Index() {
             {loading ? (
               <p>Chargement des actualités...</p>
             ) : (
-              <ul className="flex justify-center items-center w-full ">
+              <ul className="flex justify-center items-center w-full gap-10 ">
                 {latestNews.length > 0 ? (
                   latestNews.map((news) => (
-                    <CardNews key={news.news_id} item={news} />
-                    // <li
-                    //   key={news.news_id}
-                    //   className="p-8 flex flex-col items-center w-1/4 h-48 border border-2-gray-500 rounded-lg m-4"
-                    // >
-                    //   <p className="text-5xl dancing-script">
-                    //     {new Date(news.created_at).getDate()}
-                    //   </p>
-                    //   <p className="text-xl opacity-70">
-                    //     {new Date(news.body).toLocaleString("fr-FR", {
-                    //       month: "long",
-                    //     })}
-                    //   </p>
-                    //   <Image
-                    //     src={news.news_url_img}
-                    //     alt={news.title}
-                    //     width={100}
-                    //     height={100}
-                    //     className="opacity-50"
-                    //   ></Image>
-                    // </li>
+                    <CardNews
+                      key={news.news_id}
+                      item={news}
+                      isActive={activeId === news.news_id}
+                      onClick={() =>
+                        setActiveId(
+                          activeId === news.news_id ? null : news.news_id
+                        )
+                      }
+                    />
                   ))
                 ) : (
                   <li>Aucun évenement à venir.</li>

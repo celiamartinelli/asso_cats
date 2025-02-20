@@ -93,7 +93,7 @@ export default function CatIdPage({ params }: CatIdPageProps) {
   };
 
   return (
-    <div className="flex flex-col items-center max-w-screen h-screen">
+    <div className="flex flex-col items-center max-w-screen min-h-screen">
       <h2 className="uppercase font-bold text-5xl">{catData.name_cat}</h2>
       {catData ? (
         <div className="flex flex-col w-2/3 justify-around md:flex-row ">

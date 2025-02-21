@@ -29,6 +29,7 @@ export default function CalendarPage() {
   useEffect(() => {
     async function loadEvents() {
       const events = await fetchAllEvents();
+      console.log("Événements récupérés :", events);
       if (Array.isArray(events)) {
         setAllEvents(events);
       }
@@ -74,28 +75,52 @@ export default function CalendarPage() {
     <div className="flex min-h-screen flex-col">
       <h1 className="text-3xl font-bold mb-4">Calendrier</h1>
       <div className="flex">
-        {/* Liste des événements */}
+        {/* Colonne principale : soit liste des événements, soit détails d'un événement */}
         <div className="w-3/4">
-          <h2 className="text-2xl font-bold mt-4">Événements</h2>
-          <div className="grid grid-cols-2 gap-4">
-            {(date && filteredEvents.length > 0
-              ? filteredEvents
-              : allEvents
-            ).map((event, index) => (
-              <div
-                key={index}
-                onClick={() => setSelectedEvent(event)}
-                className="cursor-pointer"
+          {selectedEvent ? (
+            // AFFICHAGE DES DÉTAILS D'UN ÉVÉNEMENT
+            <div className="mt-4 p-4 border rounded-lg shadow-lg">
+              <button
+                className="mb-2 px-4 py-2 bg-gray-200 rounded"
+                onClick={() => {
+                  setSelectedEvent(null);
+                  setDate(null); // Réinitialiser la date sélectionnée
+                }}
               >
-                <EventCard
-                  title={event.title_event}
-                  date={event.date_start}
-                  description={event.subject}
-                  location={event.location_address}
-                />
+                ← Retour à la liste
+              </button>
+              <h3 className="text-xl font-bold">{selectedEvent.title_event}</h3>
+              <p className="text-sm text-gray-600">
+                {selectedEvent.date_start}
+              </p>
+              <p>{selectedEvent.subject}</p>
+              <p className="text-gray-500">{selectedEvent.location_address}</p>
+            </div>
+          ) : (
+            // AFFICHAGE DE LA LISTE DES ÉVÉNEMENTS
+            <div>
+              <h2 className="text-2xl font-bold mt-4">Événements</h2>
+              <div className="grid grid-cols-2 gap-4">
+                {(date && filteredEvents.length > 0
+                  ? filteredEvents
+                  : allEvents
+                ).map((event, index) => (
+                  <div
+                    key={index}
+                    onClick={() => setSelectedEvent(event)}
+                    className="cursor-pointer"
+                  >
+                    <EventCard
+                      title={event.title_event}
+                      date={event.date_start}
+                      description={event.subject}
+                      location={event.location_address}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
 
         {/* Calendrier et détails de l'événement sélectionné */}
@@ -112,18 +137,6 @@ export default function CalendarPage() {
               eventDay: "bg-black text-white rounded-full", // Style spécifique
             }}
           />
-
-          {/* Détails de l'événement sélectionné */}
-          {selectedEvent && (
-            <div className="mt-4 p-4 border rounded-lg shadow-lg">
-              <h3 className="text-xl font-bold">{selectedEvent.title_event}</h3>
-              <p className="text-sm text-gray-600">
-                {selectedEvent.date_start}
-              </p>
-              <p>{selectedEvent.subject}</p>
-              <p className="text-gray-500">{selectedEvent.location_address}</p>
-            </div>
-          )}
         </div>
       </div>
     </div>

@@ -7,15 +7,17 @@ import {
   fetchAllEventDates,
 } from "@/utils/actions";
 import EventCard from "@/components/MadeInHand/Client/Card/EventCard";
+import Image from "next/image";
 
 interface Event {
   title_event: string;
   date_start: string;
   date_end?: string;
-  subject: string;
-  taught_name: string;
+  subject?: string;
+  taught_name?: string;
   event_url_img: string;
-  location_address: string;
+  location_address?: string;
+  description?: string;
 }
 
 export default function CalendarPage() {
@@ -76,29 +78,70 @@ export default function CalendarPage() {
       <h1 className="text-3xl font-bold mb-4">Calendrier</h1>
       <div className="flex">
         {/* Colonne principale : soit liste des événements, soit détails d'un événement */}
-        <div className="w-3/4">
+        <div className="w-3/4 ">
           {selectedEvent ? (
             // AFFICHAGE DES DÉTAILS D'UN ÉVÉNEMENT
-            <div className="mt-4 p-4 border rounded-lg shadow-lg">
-              <button
-                className="mb-2 px-4 py-2 bg-gray-200 rounded"
-                onClick={() => {
-                  setSelectedEvent(null);
-                  setDate(null); // Réinitialiser la date sélectionnée
-                }}
-              >
-                ← Retour à la liste
-              </button>
-              <h3 className="text-xl font-bold">{selectedEvent.title_event}</h3>
-              <p className="text-sm text-gray-600">
-                {selectedEvent.date_start}
-              </p>
-              <p>{selectedEvent.subject}</p>
-              <p className="text-gray-500">{selectedEvent.location_address}</p>
+            <div className="flex flex-col m-5">
+              <div className="flex justify-start items-center">
+                <button
+                  className=" mb-2 px-4 py-2 bg-gray-200 rounded-md"
+                  onClick={() => {
+                    setSelectedEvent(null);
+                    setDate(null); // Réinitialiser la date sélectionnée
+                  }}
+                >
+                  ← Retour à la liste
+                </button>
+              </div>
+              <div className="flex justify-center">
+                <div className="flex mt-4 p-4 border rounded-lg shadow-lg justify-between w-4/5 items-center">
+                  <div>
+                    <p>{selectedEvent.title_event}</p>
+                    <p>
+                      Le{" "}
+                      {new Date(selectedEvent.date_start)
+                        .toLocaleDateString("fr-FR", {
+                          weekday: "long",
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        })
+                        .replace(/^\w/, (c) => c.toUpperCase())}
+                    </p>
+                    {selectedEvent.date_end &&
+                      selectedEvent.date_end !== selectedEvent.date_start && (
+                        <p>
+                          et se termine le{" "}
+                          {new Date(selectedEvent.date_end)
+                            .toLocaleDateString("fr-FR", {
+                              weekday: "long",
+                              day: "numeric",
+                              month: "long",
+                              year: "numeric",
+                            })
+                            .replace(/^\w/, (c) => c.toUpperCase())}
+                        </p>
+                      )}
+                    <p>{selectedEvent.subject}</p>
+                    <p>{selectedEvent.taught_name}</p>
+
+                    <p>{selectedEvent.location_address}</p>
+                  </div>
+                  <div>
+                    <Image
+                      src={selectedEvent.event_url_img || "/placeholder.png"}
+                      alt="event image"
+                      width={300}
+                      height={300}
+                      className="rounded-lg m-4"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           ) : (
             // AFFICHAGE DE LA LISTE DES ÉVÉNEMENTS
-            <div>
+            <div className="m-5">
               <h2 className="text-2xl font-bold mt-4">Événements</h2>
               <div className="grid grid-cols-2 gap-4">
                 {(date && filteredEvents.length > 0
@@ -110,12 +153,14 @@ export default function CalendarPage() {
                     onClick={() => setSelectedEvent(event)}
                     className="cursor-pointer"
                   >
-                    <EventCard
-                      title={event.title_event}
-                      date={event.date_start}
-                      description={event.subject}
-                      location={event.location_address}
-                    />
+                    <div className=" p-4 shadow-md rounded-md">
+                      <h3 className="text-xl font-bold">{event.title_event}</h3>
+                      <p className="text-sm text-gray-600">
+                        {event.date_start}
+                      </p>
+                      <p>{event.subject}</p>
+                      <p className="text-gray-500">{event.location_address}</p>
+                    </div>
                   </div>
                 ))}
               </div>

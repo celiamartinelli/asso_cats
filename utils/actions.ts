@@ -30,6 +30,24 @@ export const getImportantDates = async () => {
   return data;
 };
 
+// CALENDAR PAGE //
+// Récupération de tous les événements //
+
+export const fetchAllEvents = async () => {
+  const { data, error } = await supabase
+    .from("calendar")
+    .select("*")
+    .order("date_start", { ascending: true });
+
+  if (error) {
+    console.error("Erreur Supabase :", error.message);
+    return [];
+  }
+
+  console.log("Données des événements:", data);
+  return data.map((event) => event.date_start);
+};
+
 // Récupération des 3 dernieres news //
 export const getLatestNews = async () => {
   const { data, error } = await supabase

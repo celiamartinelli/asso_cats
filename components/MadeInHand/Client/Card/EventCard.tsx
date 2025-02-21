@@ -12,7 +12,7 @@ export default function EventCard({
   location,
 }: EventCardProps) {
   return (
-    <div>
+    <div className=" p-4 shadow-md rounded-md">
       <h1>EventCard</h1>
       <p>{title}</p>
       <p>{date}</p>

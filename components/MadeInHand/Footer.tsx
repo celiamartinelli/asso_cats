@@ -102,9 +102,11 @@ const FooterSection = ({
   links,
   hasBorder = true,
 }: FooterSectionProps) => (
-  <div className={`w-1/5 px-8 ${hasBorder ? "border-r" : ""}`}>
-    <h4 className="font-bold text-xl mb-5 flex items-start">{title}</h4>
-    <ul className="flex flex-col gap-2 items-start text-gray-400">
+  <div className={`w-full md:w-1/5 px-8 ${hasBorder ? "border-r" : ""}`}>
+    <h4 className="font-bold text-xl mb-5 flex justify-start items-start">
+      {title}
+    </h4>
+    <ul className="flex flex-col flex-wrap gap-2 items-start text-gray-400 break-words">
       {links.map((link, index) => (
         <li key={index}>
           <Link href={link.href} passHref>
@@ -119,7 +121,7 @@ const FooterSection = ({
 export default function Footer() {
   return (
     <footer className="w-full bg-black text-white flex flex-col items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-      <div className="flex w-4/5">
+      <div className="flex w-full justify-between pl-8 text-left">
         {sections.map((section, index) => (
           <FooterSection
             key={index}

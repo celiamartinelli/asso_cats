@@ -322,3 +322,20 @@ export const updateAdoptionRequestReadStatus = async (
     return { success: false, error };
   }
 };
+
+//NEWS PAGE//
+// Toutes les news //
+export const getAllNews = async () => {
+  const { data, error } = await supabase
+    .from("news")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Erreur Supabase :", error.message);
+    return [];
+  }
+
+  console.log("Données des articles:", data);
+  return data;
+};

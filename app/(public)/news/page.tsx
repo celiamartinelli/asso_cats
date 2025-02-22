@@ -1,7 +1,58 @@
-export default function Contact() {
+"use client";
+
+import { useEffect, useState } from "react";
+import { getAllNews } from "@/utils/actions";
+import CardNews from "@/components/MadeInHand/Client/Card/CardNews";
+
+interface News {
+  news_id: string;
+  title: string;
+  body: string;
+  created_at: string;
+  news_url_img: string;
+}
+
+export default function Actualites() {
+  const [news, setNews] = useState<News[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeId, setActiveId] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchNews() {
+      try {
+        setLoading(true);
+        const allNews = await getAllNews();
+        setNews(allNews);
+      } catch (error) {
+        console.error("Erreur lors du chargement des actualités :", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchNews();
+  }, []);
+
   return (
     <div className="p-6 min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold mb-4">Actualité de l'association</h1>
+      <h1 className="text-3xl font-bold mb-4">Actualités de l'association</h1>
+      {loading ? (
+        <p>Chargement des actualités...</p>
+      ) : news.length > 0 ? (
+        <ul className="flex flex-wrap gap-6 justify-center">
+          {news.map((item) => (
+            <CardNews
+              key={item.news_id}
+              item={item}
+              isActive={activeId === item.news_id}
+              onClick={() =>
+                setActiveId(activeId === item.news_id ? null : item.news_id)
+              }
+            />
+          ))}
+        </ul>
+      ) : (
+        <p>Aucune actualité disponible.</p>
+      )}
     </div>
   );
 }

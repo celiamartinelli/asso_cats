@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { getImportantDates, getLatestNews } from "@/utils/actions";
-import Image from "next/image";
+import ButtonCookiesSession from "@/components/ButtonCookiesSession";
 import CardNews from "@/components/MadeInHand/Client/Card/CardNews";
 
 interface ImportantDate {
@@ -64,6 +64,7 @@ export default function Index() {
     <>
       <main className="flex min-h-screen flex-col justify-between pt-24 ">
         <div className="flex-col mb-32  text-center  ">
+          <ButtonCookiesSession />
           <div className="border-gray-600 border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
             <h3>Les dernières actualités</h3>
             {loading ? (
@@ -104,12 +105,12 @@ export default function Index() {
                       <p className="text-5xl dancing-script">
                         {new Date(date.date_start).getDate()}
                       </p>
-                      <p className="text-xl opacity-70">
+                      <p className="text-xl text-gray-700">
                         {new Date(date.date_start).toLocaleString("fr-FR", {
                           month: "long",
                         })}
                       </p>
-                      <p className="opacity-50">{date.title_event}</p>
+                      <p className="text-gray-500">{date.title_event}</p>
                     </li>
                   ))
                 ) : (
@@ -149,7 +150,7 @@ export default function Index() {
                   -&gt;
                 </span>
               </h2>
-              <p className="m-0 max-w-[30ch] text-sm opacity-50">
+              <p className="m-0 max-w-[30ch] text-sm text-gray-500">
                 Découvrer notre page facebook
               </p>
             </Link>
@@ -166,7 +167,7 @@ export default function Index() {
                   -&gt;
                 </span>
               </h2>
-              <p className="m-0 max-w-[30ch] text-sm opacity-50">
+              <p className="m-0 max-w-[30ch] text-sm text-gray-500">
                 Merci pour eux!
               </p>
             </Link>
@@ -182,7 +183,7 @@ export default function Index() {
                   -&gt;
                 </span>
               </h2>
-              <p className="m-0 max-w-[30ch] text-sm opacity-50">
+              <p className="m-0 max-w-[30ch] text-sm text-gray-500">
                 Découvrer notre Instagram
               </p>
             </Link>
@@ -198,7 +199,7 @@ export default function Index() {
                   -&gt;
                 </span>
               </h2>
-              <p className="m-0 max-w-[30ch] text-sm opacity-50">
+              <p className="m-0 max-w-[30ch] text-sm text-gray-500">
                 Découvrer notre page Linkedin
               </p>
             </Link>

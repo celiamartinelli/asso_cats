@@ -1,12 +1,4 @@
 import React from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from "./ui/dialog";
 import { Button } from "./ui/button";
 import Link from "next/link";
 

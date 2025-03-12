@@ -1,17 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { getAdoptionRequests, getCatsWithAdoptionCount } from "@/utils/actions";
-import { createClient } from "@/utils/supabase/client";
+import { getCatsWithAdoptionCount } from "@/utils/actions";
 import Image from "next/image";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import CardCat from "@/components/MadeInHand/Client/CardCat";
 import { ArrowLeft } from "lucide-react";
 import Player from "lottie-react";
 import loader from "../../../../../public/lottie/loader.json";

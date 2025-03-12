@@ -26,7 +26,7 @@ export const getImportantDates = async () => {
     return [];
   }
 
-  console.log("Données des dates:", data);
+  // console.log("Données des dates:", data);
   return data;
 };
 
@@ -43,7 +43,7 @@ export const getLatestNews = async () => {
     return [];
   }
 
-  console.log("Données des articles:", data);
+  // console.log("Données des articles:", data);
   return data;
 };
 
@@ -60,7 +60,7 @@ export const getCatById = async (catId: string) => {
     .single();
 
   if (error) throw new Error(`Erreur Supabase : ${error.message}`);
-  console.log("Données du chat:", data);
+  // console.log("Données du chat:", data);
   return data;
 };
 
@@ -77,7 +77,7 @@ export const getAdviceById = async (adviceId: string) => {
     .single();
 
   if (error) throw new Error(`Erreur Supabase : ${error.message}`);
-  console.log("Données du conseil:", data);
+  // console.log("Données du conseil:", data);
   return data;
 };
 
@@ -97,7 +97,7 @@ export const addLike = async (adviceId: string) => {
     console.error("Erreur lors de la récupération du like :", currentError);
     throw new Error(`Erreur Supabase : ${currentError.message}`);
   }
-  console.log("Nombre actuel de likes :", currentData?.like);
+  // console.log("Nombre actuel de likes :", currentData?.like);
 
   const newLikeCount = (currentData?.like || 0) + 1;
 
@@ -112,7 +112,7 @@ export const addLike = async (adviceId: string) => {
     throw new Error(`Erreur Supabase : ${error.message}`);
   }
 
-  console.log("Nombre de likes après mise à jour :", data[0]?.like);
+  // console.log("Nombre de likes après mise à jour :", data[0]?.like);
   return { success: true, updatedData: data };
 };
 
@@ -210,7 +210,7 @@ export const submitAdoptionForm = async (formData: {
     throw new Error(`Erreur Supabase : ${error.message}`);
   }
 
-  console.log("Formulaire d'adoption soumis avec succès :", data);
+  // console.log("Formulaire d'adoption soumis avec succès :", data);
   return { success: true, submittedData: data };
 };
 
@@ -255,7 +255,7 @@ export const fetchAllEvents = async () => {
     return [];
   }
 
-  console.log("Données des événements:", data);
+  // console.log("Données des événements:", data);
   return data;
 };
 
@@ -293,7 +293,7 @@ export const getAdoptionRequests = async (cat_id: string) => {
     throw new Error(`Erreur Supabase : ${error.message}`);
   }
 
-  console.log("Données des demandes d'adoption :", data);
+  // console.log("Données des demandes d'adoption :", data);
 
   return data;
 };
@@ -336,6 +336,6 @@ export const getAllNews = async () => {
     return [];
   }
 
-  console.log("Données des articles:", data);
+  // console.log("Données des articles:", data);
   return data;
 };

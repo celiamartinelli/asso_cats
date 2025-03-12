@@ -9,6 +9,7 @@ import {
   GalleryVerticalEnd,
   Map,
   PieChart,
+  Plus,
   Settings2,
   SquareTerminal,
 } from "lucide-react";
@@ -28,6 +29,11 @@ import AdoptionContentCatGroup from "./MadeInHand/Admin/Content/AdoptionContent/
 import HostFamilyContent from "./MadeInHand/Admin/Content/HostFamilyContent";
 import MaterielDonationContent from "./MadeInHand/Admin/Content/MaterielDonationContent";
 import ContactContent from "./MadeInHand/Admin/Content/ContactContent";
+import CatAction from "./MadeInHand/Admin/Actions/Cat/CatAction";
+import ArticleAction from "./MadeInHand/Admin/Actions/Article/ArticleAction";
+import TownAction from "./MadeInHand/Admin/Actions/Town/TownAction";
+import EventsAction from "./MadeInHand/Admin/Actions/Events/EventsAction";
+import { Button } from "react-day-picker";
 
 // This is sample data.
 const data = {
@@ -38,7 +44,7 @@ const data = {
   },
   teams: [
     {
-      name: "Ecole des chats du pauys Houdanais",
+      name: "Ecole des chats du pays Houdanais",
       logo: GalleryVerticalEnd,
       plan: "Association",
     },
@@ -83,19 +89,19 @@ const data = {
       items: [
         {
           title: "Chat",
-          content: <div>Contenu pour Chat</div>,
+          content: <CatAction />,
         },
         {
           title: "Article",
-          content: <div>Contenu pour Article</div>,
+          content: <ArticleAction />,
         },
         {
           title: "Ville",
-          content: <div>Contenu pour Ville</div>,
+          content: <TownAction />,
         },
         {
           title: "Evenements",
-          content: <div>Contenu pour Evenements</div>,
+          content: <EventsAction />,
         },
       ],
     },

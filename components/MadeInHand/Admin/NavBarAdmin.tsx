@@ -21,9 +21,6 @@ export default function NavBarAdmin() {
               />
             </Link>
             <h1>Ecole des chats du pays Houdanais</h1>
-            {/* <div className="flex items-center gap-2">
-                      <DeployButton />
-                    </div> */}
           </div>
           {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
         </div>

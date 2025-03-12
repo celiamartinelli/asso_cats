@@ -339,3 +339,58 @@ export const getAllNews = async () => {
   // console.log("Données des articles:", data);
   return data;
 };
+
+// COTER ADMIN
+
+// INSERER UN CHAT
+
+// Fonction pour uploader l'image dans Supabase Storage
+export const uploadImage = async (imageFile) => {
+  try {
+    const fileName = `${Date.now()}-${imageFile.name}`;
+
+    // Upload de l'image sur Supabase Storage
+    const { data, error } = await supabase.storage
+      .from("images")
+      .upload(fileName, imageFile);
+
+    if (error) {
+      throw new Error("Erreur lors de l'upload de l'image: " + error.message);
+    }
+
+    // Récupérer l'URL publique
+    const { publicURL, error: urlError } = supabase.storage
+      .from("images")
+      .getPublicUrl(fileName);
+
+    if (urlError) {
+      throw new Error(
+        "Erreur lors de la récupération de l'URL de l'image: " +
+          urlError.message
+      );
+    }
+
+    return publicURL; // URL publique correcte
+  } catch (error) {
+    console.error("Erreur d'upload d'image:", error);
+    throw error;
+  }
+};
+
+// Fonction pour insérer les données du chat dans Supabase
+export const addCat = async (formData: any) => {
+  try {
+    // Insérer les données dans la table "cats"
+    const { error } = await supabase
+      .from("cat") // Remplace par le nom de ta table
+      .insert([formData]);
+
+    if (error) throw error;
+
+    console.log("Chat ajouté avec succès !");
+    return "Chat ajouté avec succès";
+  } catch (error) {
+    console.error("Erreur d'insertion dans la base de données :", error);
+    throw error;
+  }
+};

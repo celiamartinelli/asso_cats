@@ -1,0 +1,388 @@
+"use client";
+
+import { useState, useRef } from "react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ImageIcon } from "lucide-react";
+import { uploadImage, addCat } from "@/utils/actions";
+
+export default function FormToAddCat() {
+  const [formData, setFormData] = useState({
+    name_cat: "",
+    date_of_birth: "",
+    sex_cat: "male",
+    sterelized: false,
+    when_sterelized: "",
+    vaccine: false,
+    when_vaccine: "",
+    fiv_test: false,
+    felv_test: false,
+    coat_color: "",
+    pattern: "",
+    description: "",
+    adoption: false,
+    when_adopt: "",
+    age_of_cat: "",
+    category_cat: "",
+    cat_url_image: null as File | null,
+    where_cat_found: "",
+    which_host_family: "",
+  });
+
+  const [preview, setPreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value, type } = e.target;
+    setFormData({
+      ...formData,
+      [name]:
+        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
+    });
+  };
+
+  const handleSelectChange = (name: string, value: string) => {
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSwitchChange = (name: string, value: boolean) => {
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file); // Créer une URL locale pour la prévisualisation
+      setPreview(imageUrl); // Mettre à jour la prévisualisation
+      setFormData({ ...formData, cat_url_image: imageUrl }); // Enregistrer dans le formData
+      console.log("Image sélectionnée:", file);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      let imageUrl = formData.cat_url_image;
+      if (imageUrl) {
+        // L'image est uploadée lors de la soumission du formulaire
+        imageUrl = await uploadImage(formData.cat_url_image);
+      }
+
+      const formDataToSubmit = {
+        ...formData,
+        cat_url_image: imageUrl || "", // L'URL de l'image est ajoutée ici
+      };
+
+      await addCat(formDataToSubmit); // Ajout du chat dans la base de données
+      alert("Chat ajouté avec succès !");
+    } catch (error) {
+      console.error("Erreur lors de l'ajout du chat:", error);
+      alert("Une erreur est survenue, veuillez réessayer.");
+    }
+  };
+
+  return (
+    <Card className="max-w-2xl mx-auto p-6">
+      <CardHeader>
+        <div className="flex justify-between items-center">
+          <CardTitle>Ajouter un Chat</CardTitle>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="grid gap-4">
+          <div className="flex gap-4 justify-between">
+            {/* Image Upload */}
+            <div className=" w-1/4">
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                ref={fileInputRef}
+                onChange={handleImageChange}
+                title="Upload an image"
+              />
+              <Button
+                variant="outline"
+                className="w-48 h-48 rounded-lg flex items-center justify-center border border-dashed"
+                onClick={(e) => {
+                  e.preventDefault(); // Empêche la soumission du formulaire
+                  fileInputRef.current?.click(); // Ouvre le sélecteur de fichiers
+                }}
+              >
+                {preview ? (
+                  <img
+                    src={preview}
+                    alt="Preview"
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                ) : (
+                  <ImageIcon className="w-8 h-8 text-gray-400" />
+                )}
+              </Button>
+            </div>
+            <div className="w-3/5">
+              {/* Nom */}
+              <div>
+                <label>Nom du chat</label>
+                <Input
+                  type="text"
+                  name="name_cat"
+                  value={formData.name_cat}
+                  onChange={handleChange}
+                />
+              </div>
+
+              {/* Date de naissance */}
+              <div>
+                <label>Date de naissance</label>
+                <Input
+                  type="date"
+                  name="date_of_birth"
+                  value={formData.date_of_birth}
+                  onChange={handleChange}
+                />
+              </div>
+
+              {/* Sex */}
+              <div>
+                <label>Sexe de l'animal</label>
+                <Select
+                  onValueChange={(value) =>
+                    handleSelectChange("sex_cat", value)
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Mâle" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="male">Mâle</SelectItem>
+                    <SelectItem value="female">Femelle</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </div>
+
+          {/* Stérilisation */}
+          <div className="flex justify-between items-center">
+            <label>Stérilisé ?</label>
+            <Switch
+              checked={formData.sterelized}
+              onCheckedChange={(value) =>
+                handleSwitchChange("sterelized", value)
+              }
+            />
+          </div>
+
+          {/* Date de stérilisation */}
+          {formData.sterelized && (
+            <div>
+              <label>Date de stérilisation</label>
+              <Input
+                type="date"
+                name="when_sterelized"
+                value={formData.when_sterelized}
+                onChange={handleChange}
+              />
+            </div>
+          )}
+
+          {/* Vaccination */}
+          <div className="flex justify-between items-center">
+            <label>Vacciné ?</label>
+            <Switch
+              checked={formData.vaccine}
+              onCheckedChange={(value) => handleSwitchChange("vaccine", value)}
+            />
+          </div>
+
+          {/* Date de vaccination */}
+          {formData.vaccine && (
+            <div>
+              <label>Date de vaccination</label>
+              <Input
+                type="date"
+                name="when_vaccine"
+                value={formData.when_vaccine}
+                onChange={handleChange}
+              />
+            </div>
+          )}
+
+          {/* Test FIV */}
+          <div className="flex justify-between items-center">
+            <label>Positif FIV ?</label>
+            <Switch
+              checked={formData.fiv_test}
+              onCheckedChange={(value) => handleSwitchChange("fiv_test", value)}
+            />
+          </div>
+
+          {/* Test FELV */}
+          <div className="flex justify-between items-center">
+            <label>Positif FELV ?</label>
+            <Switch
+              checked={formData.felv_test}
+              onCheckedChange={(value) =>
+                handleSwitchChange("felv_test", value)
+              }
+            />
+          </div>
+
+          {/* Couleur du pelage */}
+          <div>
+            <label>Couleur du pelage</label>
+            <Select
+              onValueChange={(value) => handleSelectChange("coat_color", value)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Choisir une couleur de pelage" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="white">Blanc</SelectItem>
+                <SelectItem value="blue/grey">Blue/grey</SelectItem>
+                <SelectItem value="cinnamon">Cinamon</SelectItem>
+                <SelectItem value="Chocolate">chocolat</SelectItem>
+                <SelectItem value="cream">Crème</SelectItem>
+                <SelectItem value="fawn">Fauve</SelectItem>
+                <SelectItem value="black">Noir</SelectItem>
+                <SelectItem value="red">Roux</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Motif */}
+
+          <div>
+            <label>Motif du pelage</label>
+            <Select
+              onValueChange={(value) => handleSelectChange("pattern", value)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Choisir un motif du pelage" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="solid">Uni</SelectItem>
+                <SelectItem value="bi-color">bi-color</SelectItem>
+                <SelectItem value="tabby">tabby</SelectItem>
+                <SelectItem value="tortoiseshell">tortoiseshell</SelectItem>
+                <SelectItem value="tri-color">tricolor calico</SelectItem>
+                <SelectItem value="colourpoint">colourpoint</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Description */}
+          <div>
+            <label>Description</label>
+            <Textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Adoption */}
+          <div className="flex justify-between items-center">
+            <label>Adopté ?</label>
+            <Switch
+              checked={formData.adoption}
+              onCheckedChange={(value) => handleSwitchChange("adoption", value)}
+            />
+          </div>
+
+          {/* Date d'adoption*/}
+          {formData.adoption && (
+            <div>
+              <label>Date d'adoption</label>
+              <Input
+                type="date"
+                name="when_adopt"
+                value={formData.when_adopt}
+                onChange={handleChange}
+              />
+            </div>
+          )}
+
+          {/* Age of cat */}
+          <div>
+            <label>Age du chat</label>
+            <Select
+              onValueChange={(value) => handleSelectChange("age_of_cat", value)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Choisir une age" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="chatons">chatons</SelectItem>
+                <SelectItem value="jeune-chat">jeune-chat</SelectItem>
+                <SelectItem value="adulte">adulte</SelectItem>
+                <SelectItem value="senior">senior</SelectItem>
+                <SelectItem value="tous-ages">tous-ages</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Catégorie */}
+          <div>
+            <label>Catégorie du chat</label>
+            <Select
+              onValueChange={(value) =>
+                handleSelectChange("category_cat", value)
+              }
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Choisir une catégorie" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="chat-errant">Chat Errant</SelectItem>
+                <SelectItem value="chat-maltraite">Chat Maltraité</SelectItem>
+                <SelectItem value="chat-abandonne">Chat Abandonné</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Où trouvé */}
+          <div>
+            <label>Où a-t-il été trouvé ?</label>
+            <Input
+              type="text"
+              name="where_cat_found"
+              value={formData.where_cat_found}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Famille d'accueil */}
+          <div>
+            <label>Famille d'accueil</label>
+            <Input
+              type="text"
+              name="which_host_family"
+              value={formData.which_host_family}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Bouton de soumission */}
+          <Button type="submit" className="mt-4">
+            Ajouter le chat
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
+  );
+}

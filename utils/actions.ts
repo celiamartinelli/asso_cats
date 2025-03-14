@@ -345,52 +345,75 @@ export const getAllNews = async () => {
 // INSERER UN CHAT
 
 // Fonction pour uploader l'image dans Supabase Storage
-export const uploadImage = async (imageFile) => {
+export const uploadImage = async (imageFile: File) => {
   try {
     const fileName = `${Date.now()}-${imageFile.name}`;
+    console.log("📤 Uploading file to Supabase...", fileName, imageFile);
 
-    // Upload de l'image sur Supabase Storage
     const { data, error } = await supabase.storage
-      .from("images")
+      .from("cat_image")
       .upload(fileName, imageFile);
 
     if (error) {
-      throw new Error("Erreur lors de l'upload de l'image: " + error.message);
+      console.error("❌ Erreur lors de l'upload :", error.message);
+      throw new Error("Erreur lors de l'upload : " + error.message);
     }
+
+    console.log("✅ Upload réussi :", data);
 
     // Récupérer l'URL publique
-    const { publicURL, error: urlError } = supabase.storage
-      .from("images")
-      .getPublicUrl(fileName);
-
-    if (urlError) {
-      throw new Error(
-        "Erreur lors de la récupération de l'URL de l'image: " +
-          urlError.message
-      );
+    if (data) {
+      const publicUrl = supabase.storage
+        .from("cat_image")
+        .getPublicUrl(data.path).data.publicUrl;
+      console.log("🌍 URL publique récupérée :", publicUrl);
+      return publicUrl;
     }
 
-    return publicURL; // URL publique correcte
+    console.error("⚠️ Impossible d'obtenir l'URL publique.");
+    return null;
   } catch (error) {
-    console.error("Erreur d'upload d'image:", error);
-    throw error;
+    console.error("❌ Erreur upload image:", error);
+    return null; // On retourne null au lieu de lever une exception
   }
 };
 
 // Fonction pour insérer les données du chat dans Supabase
 export const addCat = async (formData: any) => {
   try {
-    // Insérer les données dans la table "cats"
-    const { error } = await supabase
-      .from("cat") // Remplace par le nom de ta table
-      .insert([formData]);
+    console.log("➡️ Données reçues en entrée :", formData);
 
-    if (error) throw error;
+    let catUrlImage = formData.cat_url_image;
 
-    console.log("Chat ajouté avec succès !");
+    // Vérification et conversion de cat_url_image
+    if (typeof catUrlImage === "string") {
+      // Supprimer les accolades et diviser en tableau si nécessaire
+      catUrlImage = catUrlImage.replace(/^{|}$/g, "").split(",");
+    }
+
+    console.log("📌 Type après correction :", Array.isArray(catUrlImage));
+    console.log("📌 Valeur après correction :", catUrlImage);
+
+    // Formatage final
+    const formattedData = {
+      ...formData,
+      cat_url_image: Array.isArray(catUrlImage) ? catUrlImage : [],
+    };
+
+    console.log("✅ Données formatées pour insertion :", formattedData);
+
+    // Insertion dans Supabase
+    const { data, error } = await supabase.from("cat").insert([formattedData]);
+
+    if (error) {
+      console.error("❌ Erreur d'insertion dans Supabase :", error);
+      throw error;
+    }
+
+    console.log("✅ Chat ajouté avec succès :", data);
     return "Chat ajouté avec succès";
   } catch (error) {
-    console.error("Erreur d'insertion dans la base de données :", error);
+    console.error("❌ Erreur d'insertion dans la base de données :", error);
     throw error;
   }
 };

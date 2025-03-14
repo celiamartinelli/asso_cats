@@ -34,12 +34,13 @@ export default function FormToAddCat() {
     when_adopt: "",
     age_of_cat: "",
     category_cat: "",
-    cat_url_image: null as File | null,
+    cat_url_image: [] as File[],
     where_cat_found: "",
     which_host_family: "",
   });
 
   const [preview, setPreview] = useState<string | null>(null);
+  const [previews, setPreviews] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (
@@ -62,37 +63,63 @@ export default function FormToAddCat() {
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file); // Créer une URL locale pour la prévisualisation
-      setPreview(imageUrl); // Mettre à jour la prévisualisation
-      setFormData({ ...formData, cat_url_image: imageUrl }); // Enregistrer dans le formData
-      console.log("Image sélectionnée:", file);
+    const files = Array.from(event.target.files || []);
+    if (files.length > 0) {
+      const imageUrls = files.map((file) => URL.createObjectURL(file));
+
+      setPreviews((prevPreviews) => [...prevPreviews, ...imageUrls]);
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        cat_url_image: [...prevFormData.cat_url_image, ...files],
+      }));
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
-      let imageUrl = formData.cat_url_image;
-      if (imageUrl) {
-        // L'image est uploadée lors de la soumission du formulaire
-        imageUrl = await uploadImage(formData.cat_url_image);
+      let imageUrls = [];
+
+      // Si des images sont envoyées, traite-les
+      if (formData.cat_url_image.length > 0) {
+        imageUrls = await Promise.all(
+          formData.cat_url_image.map(async (file) => {
+            const uploadedUrl = await uploadImage(file);
+            console.log("Uploaded URL:", uploadedUrl); // Vérifiez l'URL retournée
+            return uploadedUrl;
+          })
+        );
       }
+
+      // Filtrer les URLs nulles ou undefined
+      const validImageUrls = imageUrls.filter(
+        (url) => url !== undefined && url !== null
+      );
+      console.log("URLs valides avant envoi:", validImageUrls);
 
       const formDataToSubmit = {
         ...formData,
-        cat_url_image: imageUrl || "", // L'URL de l'image est ajoutée ici
+        when_adopt: formData.when_adopt || null,
+        when_sterelized: formData.when_sterelized || null,
+        when_vaccine: formData.when_vaccine || null,
+        cat_url_image:
+          validImageUrls.length > 0 ? `{${validImageUrls.join(",")}}` : null, // Utilise uniquement les URLs valides
       };
 
-      await addCat(formDataToSubmit); // Ajout du chat dans la base de données
+      console.log("Form data to submit:", formDataToSubmit);
+
+      // Envoie les données à Supabase
+      await addCat(formDataToSubmit);
       alert("Chat ajouté avec succès !");
     } catch (error) {
       console.error("Erreur lors de l'ajout du chat:", error);
       alert("Une erreur est survenue, veuillez réessayer.");
     }
   };
+
+  const images = formData.cat_url_image.map((file) =>
+    URL.createObjectURL(file)
+  );
 
   return (
     <Card className="max-w-2xl mx-auto p-6">
@@ -109,6 +136,7 @@ export default function FormToAddCat() {
               <input
                 type="file"
                 accept="image/*"
+                multiple
                 className="hidden"
                 ref={fileInputRef}
                 onChange={handleImageChange}
@@ -122,12 +150,15 @@ export default function FormToAddCat() {
                   fileInputRef.current?.click(); // Ouvre le sélecteur de fichiers
                 }}
               >
-                {preview ? (
-                  <img
-                    src={preview}
-                    alt="Preview"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
+                {previews.length > 0 ? (
+                  previews.map((url, index) => (
+                    <img
+                      key={index}
+                      src={url}
+                      alt={`Prévisualisation ${index}`}
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  ))
                 ) : (
                   <ImageIcon className="w-8 h-8 text-gray-400" />
                 )}
@@ -255,7 +286,7 @@ export default function FormToAddCat() {
                 <SelectItem value="white">Blanc</SelectItem>
                 <SelectItem value="blue/grey">Blue/grey</SelectItem>
                 <SelectItem value="cinnamon">Cinamon</SelectItem>
-                <SelectItem value="Chocolate">chocolat</SelectItem>
+                <SelectItem value="chocolate">chocolat</SelectItem>
                 <SelectItem value="cream">Crème</SelectItem>
                 <SelectItem value="fawn">Fauve</SelectItem>
                 <SelectItem value="black">Noir</SelectItem>

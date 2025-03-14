@@ -41,7 +41,7 @@ interface CatData {
   description: string;
   adoption: boolean;
   age_of_cat: string;
-  caegory_cat: string;
+  category_cat: string;
   cat_url_image: string[];
   cat_id: string;
 }
@@ -157,7 +157,7 @@ export default function CatIdPage({ params }: CatIdPageProps) {
             <p>Description: {catData.description}</p>
             <p>Adoption: {catData.adoption ? "Oui" : "Non"}</p>
             <p>Âge: {catData.age_of_cat}</p>
-            <p>Catégorie: {catData.caegory_cat}</p>
+            <p>Catégorie: {catData.category_cat}</p>
           </div>
         </div>
       ) : (

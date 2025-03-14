@@ -42,6 +42,7 @@ export default function FormToAddCat() {
   const [preview, setPreview] = useState<string | null>(null);
   const [previews, setPreviews] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [images, setImages] = useState<File[]>([]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -77,6 +78,7 @@ export default function FormToAddCat() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("📤 Formulaire soumis");
     try {
       let imageUrls = [];
 
@@ -117,9 +119,13 @@ export default function FormToAddCat() {
     }
   };
 
-  const images = formData.cat_url_image.map((file) =>
-    URL.createObjectURL(file)
-  );
+  const handleRemoveImage = (index: number) => {
+    setPreviews((prev) => prev.filter((_, i) => i !== index));
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      cat_url_image: prevFormData.cat_url_image.filter((_, i) => i !== index),
+    }));
+  };
 
   return (
     <Card className="max-w-2xl mx-auto p-6">
@@ -143,22 +149,32 @@ export default function FormToAddCat() {
                 title="Upload an image"
               />
               <Button
+                type="button"
                 variant="outline"
-                className="w-48 h-48 rounded-lg flex items-center justify-center border border-dashed"
+                className="w-48 h-48 rounded-lg flex items-center justify-center border border-dashed overflow-hidden relative"
                 onClick={(e) => {
-                  e.preventDefault(); // Empêche la soumission du formulaire
-                  fileInputRef.current?.click(); // Ouvre le sélecteur de fichiers
+                  e.preventDefault();
+                  fileInputRef.current?.click();
                 }}
               >
                 {previews.length > 0 ? (
-                  previews.map((url, index) => (
+                  <div className="relative w-full h-full">
                     <img
-                      key={index}
-                      src={url}
-                      alt={`Prévisualisation ${index}`}
+                      src={previews[0]}
+                      alt="Prévisualisation principale"
                       className="w-full h-full object-cover rounded-lg"
                     />
-                  ))
+                    {/* Croix pour supprimer la première image */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation(); // 👈 Empêche l'événement d'atteindre le Button parent
+                        handleRemoveImage(0);
+                      }}
+                      className="absolute top-1 right-1 bg-gray-400 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs"
+                    >
+                      ✕
+                    </button>
+                  </div>
                 ) : (
                   <ImageIcon className="w-8 h-8 text-gray-400" />
                 )}
@@ -206,6 +222,28 @@ export default function FormToAddCat() {
               </div>
             </div>
           </div>
+          {/* Affichage des autres images en dessous */}
+          {previews.length > 1 && (
+            <div className="mt-2 flex gap-2 overflow-x-auto">
+              {previews.slice(1).map((url, index) => (
+                <div key={index} className="relative w-16 h-16">
+                  <img
+                    src={url}
+                    alt={`Prévisualisation ${index + 1}`}
+                    className="w-full h-full object-cover rounded-md border"
+                  />
+                  {/* Croix pour supprimer cette image */}
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveImage(index + 1)}
+                    className="absolute top-0 right-0 bg-gray-400 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* Stérilisation */}
           <div className="flex justify-between items-center">

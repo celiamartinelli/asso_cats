@@ -62,10 +62,23 @@ export default function Index() {
 
   return (
     <>
-      <main className="flex min-h-screen flex-col justify-between pt-24 ">
-        <div className="flex-col mb-32  text-center  ">
+      <main className="flex min-h-screen flex-col justify-between  ">
+        <div className="flex-col text-center  ">
           <ButtonCookiesSession />
-          <div className="border-gray-600 border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
+          <div className="border-gray-600 w-full flex flex-col justify-center items-center lg:col-span-2 dark:border-white min-h-screen">
+            <h2 className="text-6xl">L'École des chats du pays Houdanais</h2>
+            <h3 className="text-3xl my-10">Association à but non lucratif</h3>
+            <h4 className="font-bold text-6xl my-12 space-y-2.5">0678564738</h4>
+            <div className="flex gap-8">
+              <Button type="button" className="mt-8" variant="outline">
+                <Link href="/about">En savoir plus</Link>
+              </Button>
+              <Button type="button" className="mt-8">
+                <Link href="/adoption">Adopter un chat</Link>
+              </Button>
+            </div>
+          </div>
+          <div className="border-gray-600 bg-red-200 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white min-h-screen">
             <h3>Les dernières actualités</h3>
             {loading ? (
               <p>Chargement des actualités...</p>
@@ -90,7 +103,7 @@ export default function Index() {
               </ul>
             )}
           </div>
-          <div className="border-gray-600 border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white flex flex-col items-center">
+          <div className="border-gray-600 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white flex flex-col items-center">
             <h3>Prochaine dates importantes</h3>
             {loading ? (
               <p>Chargement des dates...</p>
@@ -123,21 +136,21 @@ export default function Index() {
               <Link href="/calendar">Voir toutes les dates</Link>
             </Button>
           </div>
-          <div className="border-gray-600 border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
+          <div className="border-gray-600 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
             <h3>Sur Quel secteur on agit? et quel commune</h3>
 
             <Button type="button" className="mt-8">
               <Link href="/municipality">Voir la liste complète</Link>
             </Button>
           </div>
-          <div className="border-gray-600 border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
+          <div className="border-gray-600 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
             <h3>Comment se déroule une adoption</h3>
             <p>fresque etape adoption</p>
             <Button type="button" className="mt-8">
               <Link href="/adoption">Voir les Amours</Link>
             </Button>
           </div>
-          <div className="flex border-gray-600 border-y-2 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
+          <div className="flex border-gray-600 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
             <Link
               href="https://www.facebook.com/profile.php?id=61561436403399&locale=fr_FR"
               className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"

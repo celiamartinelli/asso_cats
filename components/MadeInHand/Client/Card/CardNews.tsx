@@ -30,7 +30,7 @@ export default function CardNews({ item, isActive, onClick }: CardNewsProps) {
           src={
             typeof item.news_url_img === "string"
               ? item.news_url_img
-              : "/placeholder.jpg"
+              : "/placeholder.png"
           }
           alt={item.title || "Image non disponible"}
           width={300}

@@ -78,12 +78,13 @@ export default function AdoptionContentCatGroup() {
                   Array.isArray(item.cat_url_image) &&
                   item.cat_url_image.length > 0
                     ? item.cat_url_image[0]
-                    : "/placeholder.jpg"
+                    : "/placeholder.png"
                 }
                 alt={item.name_cat || "Image non disponible"}
                 width={300}
                 height={300}
-                className="rounded-lg"
+                className="rounded-lg object-cover w-full h-72"
+                priority
               />
             </div>
           ))}

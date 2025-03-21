@@ -151,7 +151,7 @@ export default function FormToAddCat() {
               <Button
                 type="button"
                 variant="outline"
-                className="w-48 h-48 rounded-lg flex items-center justify-center border border-dashed overflow-hidden relative"
+                className="w-48 h-48 rounded-lg flex items-center justify-center border border-dashed overflow-hidden relative hover:border-gray-500 hover:shadow-lg hover:opacity-80"
                 onClick={(e) => {
                   e.preventDefault();
                   fileInputRef.current?.click();

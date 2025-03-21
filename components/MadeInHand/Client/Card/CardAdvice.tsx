@@ -10,7 +10,7 @@ interface Advice {
   like: number;
   body_of_advice: string;
   advice_url_image: string | string[];
-  category_cat: string;
+  category_advice: string;
   useful: boolean;
   age_of_cat: string;
 }
@@ -29,12 +29,13 @@ export default function CardAdvice({ item }: { item: Advice }) {
     >
       <h2 className="text-3xl font-bold text-gray-900">{item.title}</h2>
       <h3>Sujet: {item.subject}</h3>
+      <h3>Catégorie: {item.category_advice}</h3>
 
       <Image
         src={
           typeof item.advice_url_image === "string"
             ? item.advice_url_image
-            : "/placeholder.jpg"
+            : "/placeholder.png"
         }
         alt={item.title || "Image non disponible"}
         width={300}

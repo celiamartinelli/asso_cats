@@ -10,6 +10,14 @@ if (!supabaseUrl || !supabaseKey) {
 }
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+const sanitizeFileName = (fileName: string) => {
+  return fileName
+    .normalize("NFD") // Supprime les accents
+    .replace(/[\u0300-\u036f]/g, "") // Supprime les marques diacritiques
+    .replace(/[^a-zA-Z0-9._-]/g, "_") // Remplace les caractères spéciaux
+    .replace(/\s+/g, "_"); // Remplace les espaces par des underscores
+};
+
 // HOME PAGE //
 // Récupération des dates importantes Home Page //
 
@@ -416,4 +424,122 @@ export const addCat = async (formData: any) => {
     console.error("❌ Erreur d'insertion dans la base de données :", error);
     throw error;
   }
+};
+
+// INSERER UN CONSEIL
+
+// Fonction pour insérer les données du conseil dans Supabase
+export const addAdvice = async (formData: any) => {
+  try {
+    console.log("➡️ Données reçues en entrée :", formData);
+
+    let adviceUrlImage = formData.advice_url_image;
+
+    // Vérifier si l'URL de l'image est une chaîne ou un tableau
+    if (Array.isArray(adviceUrlImage)) {
+      // Si c'est un tableau, on prend le premier élément ou on le vide si le tableau est vide
+      adviceUrlImage = adviceUrlImage.length > 0 ? adviceUrlImage[0] : null;
+    } else if (typeof adviceUrlImage === "string") {
+      // Si c'est déjà une chaîne, on n'y touche pas
+      adviceUrlImage = adviceUrlImage;
+    } else {
+      // Si ce n'est ni un tableau ni une chaîne, on le met à null
+      adviceUrlImage = null;
+    }
+
+    console.log("📌 URL d'image après correction :", adviceUrlImage);
+
+    // Formatage des données avant insertion
+    const formattedData = {
+      ...formData,
+      advice_url_image: adviceUrlImage,
+    };
+
+    console.log("✅ Données formatées pour insertion :", formattedData);
+
+    // Insertion dans Supabase
+    const { data, error } = await supabase
+      .from("advice")
+      .insert([formattedData]);
+
+    if (error) {
+      console.error("❌ Erreur d'insertion dans Supabase :", error);
+      throw error;
+    }
+
+    console.log("✅ Conseil ajouté avec succès :", data);
+    return "Conseil ajouté avec succès";
+  } catch (error) {
+    console.error("❌ Erreur d'insertion dans la base de données :", error);
+    throw error;
+  }
+};
+
+// Fonction pour uploader une image de conseil dans Supabase
+export const uploadImageAdvice = async (imageFile: File) => {
+  try {
+    const fileName = `${Date.now()}-${sanitizeFileName(imageFile.name)}`;
+    console.log("📤 Uploading file to Supabase...", fileName);
+
+    // Upload de l'image dans le storage Supabase
+    const { data, error } = await supabase.storage
+      .from("advice_image")
+      .upload(fileName, imageFile);
+
+    if (error) {
+      console.error("❌ Erreur lors de l'upload :", error.message);
+      throw new Error("Erreur lors de l'upload : " + error.message);
+    }
+
+    console.log("✅ Upload réussi :", data);
+
+    // Récupérer l'URL publique de l'image
+    if (data) {
+      const publicUrl = supabase.storage
+        .from("advice_image")
+        .getPublicUrl(data.path).data.publicUrl;
+
+      console.log("🌍 URL publique récupérée :", publicUrl);
+      return publicUrl;
+    }
+
+    console.error("⚠️ Impossible d'obtenir l'URL publique.");
+    return null;
+  } catch (error) {
+    console.error("❌ Erreur upload image:", error);
+    return null;
+  }
+};
+
+//INSERER UNE VILLE
+export const fetchAssociations = async () => {
+  // Remplace fetch par Supabase pour récupérer les associations
+  const { data, error } = await supabase
+    .from("association")
+    .select("association_id, name");
+
+  if (error) {
+    console.error(
+      "❌ Erreur lors de la récupération des associations :",
+      error
+    );
+    throw error;
+  }
+
+  return data; // Retourne la liste des associations
+};
+
+export const addCity = async (cityData: any) => {
+  // Insertion dans Supabase
+  const { data, error } = await supabase
+    .from("municipality")
+    .insert([cityData]);
+
+  if (error) {
+    console.error("❌ Erreur d'insertion dans Supabase :", error);
+    throw error;
+  }
+
+  console.log("✅ Ville ajouté avec succès :", cityData);
+  return "Ville ajouté avec succès";
 };

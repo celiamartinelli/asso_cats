@@ -65,12 +65,19 @@ export default function Index() {
       <main className="flex min-h-screen flex-col justify-between  ">
         <div className="flex-col text-center  ">
           <ButtonCookiesSession />
-          <div className="border-gray-600 w-full flex flex-col justify-center items-center lg:col-span-2 dark:border-white min-h-screen">
+          <div
+            className="text-white border-gray-600 w-full flex flex-col justify-center items-center lg:col-span-2 dark:border-white min-h-screen 
+  bg-cover bg-fixed bg-center bg-no-repeat bg-[url('/bg.jpeg')]"
+          >
             <h2 className="text-6xl">L'École des chats du pays Houdanais</h2>
-            <h3 className="text-3xl my-10">Association à but non lucratif</h3>
-            <h4 className="font-bold text-6xl my-12 space-y-2.5">0678564738</h4>
+            <h3 className="text-3xl my-14">Association à but non lucratif</h3>
+            <h4 className="font-bold text-6xl my-4 space-y-2.5">0678564738</h4>
             <div className="flex gap-8">
-              <Button type="button" className="mt-8" variant="outline">
+              <Button
+                type="button"
+                className="mt-8 text-black"
+                variant="outline"
+              >
                 <Link href="/about">En savoir plus</Link>
               </Button>
               <Button type="button" className="mt-8">
@@ -78,7 +85,7 @@ export default function Index() {
               </Button>
             </div>
           </div>
-          <div className="border-gray-600 bg-red-200 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white min-h-screen">
+          <div className="border-gray-600 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white min-h-screen">
             <h3>Les dernières actualités</h3>
             {loading ? (
               <p>Chargement des actualités...</p>

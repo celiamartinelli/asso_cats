@@ -12,6 +12,7 @@ import {
   Plus,
   Settings2,
   SquareTerminal,
+  Text,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -30,7 +31,7 @@ import HostFamilyContent from "./MadeInHand/Admin/Content/HostFamilyContent";
 import MaterielDonationContent from "./MadeInHand/Admin/Content/MaterielDonationContent";
 import ContactContent from "./MadeInHand/Admin/Content/ContactContent";
 import CatAction from "./MadeInHand/Admin/Actions/Cat/CatAction";
-import ArticleAction from "./MadeInHand/Admin/Actions/Article/ArticleAction";
+import AdviceAction from "./MadeInHand/Admin/Actions/Advice/AdviceAction";
 import TownAction from "./MadeInHand/Admin/Actions/Town/TownAction";
 import EventsAction from "./MadeInHand/Admin/Actions/Events/EventsAction";
 import { Button } from "react-day-picker";
@@ -40,7 +41,7 @@ const data = {
   user: {
     name: "shadcn",
     email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    // avatar: "/avatars/shadcn.jpg",
   },
   teams: [
     {
@@ -62,7 +63,7 @@ const data = {
   navMain: [
     {
       title: "Formulaire de contact",
-      icon: SquareTerminal,
+      icon: Text,
       isActive: true,
       items: [
         {
@@ -84,8 +85,8 @@ const data = {
       ],
     },
     {
-      title: "Actions",
-      icon: Bot,
+      title: "Ajouter",
+      icon: Plus,
       items: [
         {
           title: "Chat",
@@ -93,7 +94,7 @@ const data = {
         },
         {
           title: "Article",
-          content: <ArticleAction />,
+          content: <AdviceAction />,
         },
         {
           title: "Ville",
@@ -141,9 +142,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <NavMain items={data.navMain} onItemClick={handleItemClick} />
           <NavProjects projects={data.projects} />
         </SidebarContent>
-        <SidebarFooter>
-          <NavUser user={data.user} />
-        </SidebarFooter>
+        <SidebarFooter>{/* <NavUser user={data.user} /> */}</SidebarFooter>
         <SidebarRail />
       </Sidebar>
       <div className="flex-1 p-4">

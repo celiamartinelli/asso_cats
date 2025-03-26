@@ -222,6 +222,80 @@ export const submitAdoptionForm = async (formData: {
   return { success: true, submittedData: data };
 };
 
+//FORMULAIRE DON MATERIEL //
+// Fonction pour ajouter une donation de matériel dans Supabase
+export const addMaterialDonation = async (formData: any) => {
+  try {
+    console.log("➡️ Données reçues en entrée :", formData);
+
+    // Formatage des données avant insertion
+    const formattedData = {
+      ...formData,
+      email: formData.email.toLowerCase().trim(), // Normalisation de l'email
+      phone_number: formData.phone_number.trim(),
+      description_material: formData.description_material.trim(),
+    };
+
+    console.log("✅ Données formatées pour insertion :", formattedData);
+
+    // Insertion dans Supabase
+    const { data, error } = await supabase
+      .from("material_donation_form")
+      .insert([formattedData]);
+
+    if (error) {
+      console.error("❌ Erreur d'insertion dans Supabase :", error);
+      throw error;
+    }
+
+    console.log("✅ Donation enregistrée avec succès :", data);
+    return "Donation enregistrée avec succès";
+  } catch (error) {
+    console.error("❌ Erreur d'insertion dans la base de données :", error);
+    throw error;
+  }
+};
+
+//FORMULAIRE DEVENIR FAMILLE D'ACCUEIL //
+// Fonction pour ajouter une demande de famille d'accueil dans Supabase
+export const addFosterFamilyForm = async (formData: any) => {
+  try {
+    console.log("➡️ Données reçues en entrée :", formData);
+
+    // Formatage des données avant insertion
+    const formattedData = {
+      ...formData,
+      type_animals: formData.type_animals
+        ? JSON.parse(formData.type_animals)
+        : [],
+      type_foster_family: formData.type_foster_family
+        ? JSON.parse(formData.type_foster_family)
+        : [],
+    };
+
+    console.log("✅ Données formatées pour insertion :", formattedData);
+
+    // Insertion dans Supabase
+    const { data, error } = await supabase
+      .from("foster_family_form")
+      .insert([formattedData]);
+
+    if (error) {
+      console.error("❌ Erreur d'insertion dans Supabase :", error);
+      throw error;
+    }
+
+    console.log(
+      "✅ Demande de famille d'accueil enregistrée avec succès :",
+      data
+    );
+    return "Demande de famille d'accueil enregistrée avec succès";
+  } catch (error) {
+    console.error("❌ Erreur d'insertion dans la base de données :", error);
+    throw error;
+  }
+};
+
 // CALENDAR // événement date selectionner
 export async function fetchEventByDate(date: string) {
   try {

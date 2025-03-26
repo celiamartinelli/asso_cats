@@ -6,17 +6,6 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-
 import {
   Select,
   SelectContent,
@@ -79,7 +68,7 @@ const FormToAdoption: React.FC<FormToAdoptionProps> = ({
   const form = useForm<FormData>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      have_you_garden: [], // Valeur initiale vide
+      have_you_garden: [],
     },
   });
 
@@ -140,9 +129,9 @@ const FormToAdoption: React.FC<FormToAdoptionProps> = ({
       }
     }
     try {
-      console.log("Payload envoyé :", formData);
+      // console.log("Payload envoyé :", formData);
       const response = await submitAdoptionForm({ ...formData, cat_id: catId });
-      console.log("Form submitted successfully:", response);
+      // console.log("Form submitted successfully:", response);
       onFormSubmit();
       setFormData({
         first_name: "",
@@ -311,66 +300,7 @@ const FormToAdoption: React.FC<FormToAdoptionProps> = ({
             </span>
           </div>
         </div>
-        {/* <p>Avez vous ..... liste a choix multiples?</p>
 
-        <div className="flex flex-col my-4">
-          <label className="font-medium mb-1">
-            Sélectionnez les options applicables:
-          </label>
-          {items.map((item) => (
-            <FormField
-              key={item.id}
-              control={form.control}
-              name="have_you_garden"
-              render={({ field }) => (
-                <FormItem className="flex items-center space-x-2">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value?.includes(item.id)}
-                      onCheckedChange={(checked) => {
-                        return checked
-                          ? field.onChange([...field.value, item.id])
-                          : field.onChange(
-                              field.value?.filter((value) => value !== item.id)
-                            );
-                      }}
-                    />
-                  </FormControl>
-                  <FormLabel>{item.label}</FormLabel>
-                </FormItem>
-              )}
-            />
-          ))}
-        </div> */}
-        {/* <div className="flex flex-col my-4">
-          <label className="font-medium mb-1">
-            Sélectionnez les options applicables:
-          </label>
-          {items.map((item) => (
-            <FormField
-              key={item.id}
-              control={form.control}
-              name="have_you_garden"
-              render={({ field }) => (
-                <FormItem className="flex items-center space-x-2">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value?.includes(item.id)}
-                      onCheckedChange={(checked) => {
-                        return checked
-                          ? field.onChange([...field.value, item.id])
-                          : field.onChange(
-                              field.value?.filter((value) => value !== item.id)
-                            );
-                      }}
-                    />
-                  </FormControl>
-                  <FormLabel>{item.label}</FormLabel>
-                </FormItem>
-              )}
-            />
-          ))}
-        </div> */}
         <div className="flex my-4">
           <div className="flex space-x-2 flex-1 flex-col my-4 ">
             <label className="font-medium mb-3" htmlFor="have_animals">

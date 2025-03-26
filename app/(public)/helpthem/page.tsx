@@ -14,6 +14,7 @@ import Link from "next/link";
 import FormFinancialDonation from "@/components/MadeInHand/Client/Form/FormFinancialDonation";
 import FormBecomeFosterFamily from "@/components/MadeInHand/Client/Form/FormBecomeFosterFamily";
 import FormMaterielDonnation from "@/components/MadeInHand/Client/Form/FormMaterielDonation";
+import FormToVolunteer from "@/components/MadeInHand/Client/Form/FormToVolunteer";
 
 export default function HelpThem() {
   const searchParams = useSearchParams();
@@ -64,6 +65,13 @@ export default function HelpThem() {
       content:
         "Vous souhaitez nous aider autrement qu'en adoptant ? L'association aura toujours besoin de dons pour subvenir aux besoins et soins des chats. Vous pouvez participer  en cliquant sur le lien de Helloasso,  un site sécurisé et spécialisé dans la collecte de fonds associatifs.  Par avance, toute l'équipe de l’École des chats du pays Houdanais vous dit merci infiniment.",
       buttonText: "Faire un Don Financier",
+    },
+    {
+      id: "benevole",
+      title: "Devenir Bénévole",
+      content:
+        "Vous avez du temps libre et vous souhaitez nous aider ? Nous recherchons des bénévoles pour nous aider dans nos actions. Tous type de bénévolat est le bienvenu, que ce soit pour les soins des chats, l'administratif, la communication, etc.",
+      buttonText: "Devenez Bénévole",
     },
   ];
   return (
@@ -117,27 +125,23 @@ export default function HelpThem() {
       </div>
       <div ref={formRef} className="mt-6">
         {selectedForm === "don-materiel" && (
-          <div className="flex flex-col justify-center items-center">
-            <h2 className=" font-bold text-2xl mb-4">
-              Formulaire de contact pour don de matériel
-            </h2>
+          <div>
             <FormMaterielDonnation />
           </div>
         )}
         {selectedForm === "famille-accueil" && (
-          <div className="flex flex-col justify-center items-center">
-            <h2 className=" font-bold text-2xl mb-4">
-              Formulaire pour devenir famille d'accueil
-            </h2>
+          <div>
             <FormBecomeFosterFamily />
           </div>
         )}
         {selectedForm === "don-financier" && (
           <div>
-            <h2 className=" font-bold text-2xl mb-4">
-              Formulaire pour don financier
-            </h2>
             <FormFinancialDonation />
+          </div>
+        )}
+        {selectedForm === "benevole" && (
+          <div>
+            <FormToVolunteer />
           </div>
         )}
       </div>

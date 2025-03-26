@@ -324,6 +324,16 @@ export const fetchAllEventDates = async () => {
   return data;
 };
 
+//tous les type de volontaria
+export const fetchAllTypeVolunteer = async () => {
+  const { data, error } = await supabase.from("volunteer_types").select("*");
+  if (error) {
+    console.error("Erreur Supabase :", error.message);
+    return [];
+  }
+  return data;
+};
+
 // Récupération de tous les événements //
 
 export const fetchAllEvents = async () => {

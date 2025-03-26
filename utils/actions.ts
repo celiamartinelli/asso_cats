@@ -511,7 +511,8 @@ export const uploadImageAdvice = async (imageFile: File) => {
   }
 };
 
-//INSERER UNE VILLE
+// Fonction pour récupérer les associations
+
 export const fetchAssociations = async () => {
   // Remplace fetch par Supabase pour récupérer les associations
   const { data, error } = await supabase
@@ -529,6 +530,8 @@ export const fetchAssociations = async () => {
   return data; // Retourne la liste des associations
 };
 
+//INSERER UNE VILLE
+
 export const addCity = async (cityData: any) => {
   // Insertion dans Supabase
   const { data, error } = await supabase
@@ -542,4 +545,43 @@ export const addCity = async (cityData: any) => {
 
   console.log("✅ Ville ajouté avec succès :", cityData);
   return "Ville ajouté avec succès";
+};
+
+// Fonction pour ajouter une actualité dans Supabase
+export const addNews = async (formData: any) => {
+  try {
+    console.log("➡️ Données reçues en entrée :", formData);
+
+    const { data, error } = await supabase.from("news").insert([formData]);
+
+    if (error) {
+      console.error("❌ Erreur d'insertion dans Supabase :", error);
+      throw error;
+    }
+
+    console.log("✅ Actualité ajoutée avec succès :", data);
+    return "Actualité ajoutée avec succès";
+  } catch (error) {
+    console.error("❌ Erreur d'insertion dans la base de données :", error);
+    throw error;
+  }
+};
+
+// Fonction pour uploader une image d'actualité dans Supabase
+export const uploadImageNews = async (imageFile: File) => {
+  try {
+    const fileName = `${Date.now()}-${imageFile.name.replace(/[^a-zA-Z0-9.]/g, "_")}`;
+
+    const { data, error } = await supabase.storage
+      .from("news_image")
+      .upload(fileName, imageFile);
+
+    if (error) throw new Error("Erreur lors de l'upload : " + error.message);
+
+    return supabase.storage.from("news_image").getPublicUrl(data.path).data
+      .publicUrl;
+  } catch (error) {
+    console.error("❌ Erreur upload image:", error);
+    return null;
+  }
 };

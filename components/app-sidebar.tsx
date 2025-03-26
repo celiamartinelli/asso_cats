@@ -35,6 +35,7 @@ import AdviceAction from "./MadeInHand/Admin/Actions/Advice/AdviceAction";
 import TownAction from "./MadeInHand/Admin/Actions/Town/TownAction";
 import EventsAction from "./MadeInHand/Admin/Actions/Events/EventsAction";
 import { Button } from "react-day-picker";
+import NewsAction from "./MadeInHand/Admin/Actions/News/NewsAction";
 
 // This is sample data.
 const data = {
@@ -101,8 +102,12 @@ const data = {
           content: <TownAction />,
         },
         {
-          title: "Evenements",
+          title: "Calendrier",
           content: <EventsAction />,
+        },
+        {
+          title: "Actualités",
+          content: <NewsAction />,
         },
       ],
     },

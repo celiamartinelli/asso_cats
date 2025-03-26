@@ -21,15 +21,14 @@ export default function TownAction() {
     phone_number: "",
     address: "",
     town_hall_protocol: false,
-    association_id: "", // L'association liée au protocole
+    association_id: "",
   });
 
   const [associations, setAssociations] = useState<
     { association_id: string; name: string }[]
-  >([]); // Liste des associations
+  >([]);
   const [loading, setLoading] = useState(false);
 
-  // Récupère la liste des associations depuis ta table
   useEffect(() => {
     const getAssociations = async () => {
       const data = await fetchAssociations();
@@ -54,15 +53,15 @@ export default function TownAction() {
     e.preventDefault();
     try {
       setLoading(true);
-      await addCity(formData); // Appel pour ajouter la ville à la base de données
-      // alert("Ville ajoutée avec succès !");
+      await addCity(formData);
+
       setFormData({
         city_name: "",
         postal_code: "",
         phone_number: "",
         address: "",
         town_hall_protocol: false,
-        association_id: "", // Réinitialisation de l'ID de l'association
+        association_id: "",
       });
     } catch (error) {
       console.error("Erreur lors de l'ajout de la ville:", error);

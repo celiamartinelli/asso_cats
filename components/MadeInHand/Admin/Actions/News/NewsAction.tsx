@@ -56,23 +56,33 @@ export default function NewsAction() {
     <div className="max-w-2xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-6">Ajouter une Actualité</h2>
       <form onSubmit={handleSubmit} className="grid gap-4">
-        <Input
-          type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-          placeholder="Titre"
-        />
-        <Textarea
-          name="body"
-          value={formData.body}
-          onChange={handleChange}
-          className="h-32"
-          placeholder="Contenu"
-        />
+        <div>
+          <label>Titre de l'actualité</label>
+          <Input
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            placeholder="Titre"
+          />
+        </div>
+        <div>
+          <label>Contenu de l'actualité</label>
+          <Textarea
+            name="body"
+            value={formData.body}
+            onChange={handleChange}
+            className="h-32"
+            placeholder="Contenu"
+          />
+        </div>
 
         {/* Champ de fichier caché */}
+        <label htmlFor="file-upload" className="sr-only">
+          Upload Image
+        </label>
         <input
+          id="file-upload"
           type="file"
           accept="image/*"
           ref={fileInputRef}

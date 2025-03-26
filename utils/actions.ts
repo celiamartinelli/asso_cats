@@ -585,3 +585,70 @@ export const uploadImageNews = async (imageFile: File) => {
     return null;
   }
 };
+
+// Fonction pour ajouter un événement dans Supabase
+export const addEvent = async (formData: any) => {
+  try {
+    console.log("➡️ Données reçues en entrée :", formData);
+
+    const formattedData = {
+      ...formData,
+      event_url_img:
+        typeof formData.event_url_img === "string"
+          ? formData.event_url_img
+          : null,
+    };
+
+    console.log("✅ Données formatées pour insertion :", formattedData);
+
+    // Insertion dans Supabase
+    const { data, error } = await supabase
+      .from("calendar")
+      .insert([formattedData]);
+
+    if (error) {
+      console.error("❌ Erreur d'insertion dans Supabase :", error);
+      throw error;
+    }
+
+    console.log("✅ Événement ajouté avec succès :", data);
+    return "Événement ajouté avec succès";
+  } catch (error) {
+    console.error("❌ Erreur d'insertion dans la base de données :", error);
+    throw error;
+  }
+};
+
+// Fonction pour uploader une image d'événement dans Supabase
+export const uploadImageEvent = async (imageFile: File) => {
+  try {
+    const fileName = `${Date.now()}-${imageFile.name.replace(/[^a-zA-Z0-9.]/g, "_")}`;
+    console.log("📤 Uploading file to Supabase...", fileName);
+
+    // Upload de l'image dans le storage Supabase
+    const { data, error } = await supabase.storage
+      .from("event_image") // Nom du bucket dans Supabase
+      .upload(fileName, imageFile);
+
+    if (error) {
+      console.error("❌ Erreur lors de l'upload :", error.message);
+      throw new Error("Erreur lors de l'upload : " + error.message);
+    }
+
+    // Récupérer l'URL publique de l'image
+    const { data: publicUrlData } = supabase.storage
+      .from("event_image")
+      .getPublicUrl(data.path);
+
+    if (!publicUrlData?.publicUrl) {
+      console.error("⚠️ Impossible d'obtenir l'URL publique.");
+      return null;
+    }
+
+    console.log("🌍 URL publique récupérée :", publicUrlData.publicUrl);
+    return publicUrlData.publicUrl;
+  } catch (error) {
+    console.error("❌ Erreur upload image:", error);
+    return null;
+  }
+};

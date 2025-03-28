@@ -19,6 +19,10 @@ const config = {
         "2xl": "1400px",
       },
     },
+    fontFamily: {
+      thasadith: ["var(--font-thasadith)", "sans-serif"],
+      dosis: ["var(--font-dosis)", "sans-serif"],
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",

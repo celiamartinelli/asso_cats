@@ -3,6 +3,9 @@ import { EnvVarWarning } from "@/components/env-var-warning";
 import HeaderAuth from "@/components/header-auth";
 import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { GeistSans } from "geist/font/sans";
+import { Dosis } from "next/font/google";
+import { Thasadith } from "next/font/google";
+
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import "./globals.css";
@@ -24,13 +27,29 @@ export const metadata = {
   },
 };
 
+const thasadith = Thasadith({
+  subsets: ["latin"],
+  weight: ["400", "700"], // Poids disponibles
+  variable: "--font-thasadith", // Variable CSS pour Tailwind
+});
+
+const dosis = Dosis({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700", "800"], // Ajoute les poids nécessaires
+  variable: "--font-dosis", // Définit une variable CSS
+});
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={GeistSans.className} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${GeistSans.className} ${thasadith.variable} ${dosis.variable} `}
+      suppressHydrationWarning
+    >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -39,7 +58,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="bg-background text-foreground">
+      <body className="bg-background text-foreground ">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

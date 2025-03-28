@@ -70,7 +70,9 @@ export default function Index() {
   bg-cover bg-fixed bg-center bg-no-repeat bg-[url('/bg.jpeg')]"
           >
             <h2 className="text-6xl">L'École des chats du pays Houdanais</h2>
-            <h3 className="text-3xl my-14">Association à but non lucratif</h3>
+            <h3 className="text-3xl my-14 font-dosis">
+              Association à but non lucratif
+            </h3>
             <h4 className="font-bold text-6xl my-4 space-y-2.5">0678564738</h4>
             <div className="flex gap-8">
               <Button

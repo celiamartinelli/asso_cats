@@ -21,13 +21,15 @@ export default function CardCat({ item }: { item: Cat }) {
   return (
     <div
       onClick={handleClick}
-      className={`border-2 rounded-lg m-2 cursor-pointer bg-white p-2 shadow-md flex flex-col relative ${
+      className={`border-2 rounded-lg m-2 cursor-pointer bg-white p-2 shadow-md flex flex-col relative dark:bg-zinc-900 ${
         item.adoption ? "opacity-50" : ""
       }`}
     >
       {item.adoption && (
-        <div className="absolute inset-0 bg-white bg-opacity-50 flex items-center justify-center">
-          <span className="text-4xl font-bold text-black">ADOPTÉ</span>
+        <div className="absolute inset-0 bg-white dark:bg-zinc-900 dark:bg-opacity-50  bg-opacity-50 flex items-center justify-center">
+          <span className="text-4xl font-bold text-black dark:text-white">
+            ADOPTÉ
+          </span>
         </div>
       )}
       <div>
@@ -45,7 +47,7 @@ export default function CardCat({ item }: { item: Cat }) {
           alt={item.name_cat || "Image non disponible"}
           width={500}
           height={500}
-          className="w-72 h-72 object-cover rounded-lg border border-2-gray m-4"
+          className="w-72 h-72 object-cover rounded-lg  m-4"
           priority
         />
       </div>

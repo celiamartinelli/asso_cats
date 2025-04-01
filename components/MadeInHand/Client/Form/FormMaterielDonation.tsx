@@ -48,7 +48,7 @@ const FormMaterielDonnation: React.FC = () => {
   return (
     <>
       <form
-        className="bg-white rounded p-10 border border-gray-300 w-11/12"
+        className="bg-white rounded p-10 border border-gray-300 w-11/12 dark:bg-zinc-950"
         onSubmit={handleSubmit}
       >
         <Input

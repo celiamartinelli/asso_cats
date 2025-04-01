@@ -1,7 +1,7 @@
 export default function FormFinancialDonation() {
   return (
     <div>
-      <div className="p-6 bg-gray-100">
+      <div className="p-6 bg-gray-100 dark:bg-zinc-950">
         <h1 className="text-3xl font-bold mb-4">Donation</h1>
         <iframe
           id="haWidget"

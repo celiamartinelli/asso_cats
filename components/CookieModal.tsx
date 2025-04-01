@@ -15,8 +15,8 @@ const CookieModal: React.FC<CookieModalProps> = ({
 }) => {
   if (!isOpen) return null;
   return (
-    <div className=" sm:bottom-4 sm:right-4 sm:max-w-lg sticky shadow-xl z-100 max-w-full bottom-0 right-0 sm:left-0 sm:w-full bg-white rounded-tr-lg rounded-tl-lg sm:rounded-lg border border-gray-200">
-      <div className="p-4 bg-white rounded-lg shadow-md">
+    <div className=" sm:bottom-4 sm:right-4 sm:max-w-lg sticky shadow-xl z-100 max-w-full bottom-0 right-0 sm:left-0 sm:w-full  rounded-tr-lg rounded-tl-lg sm:rounded-lg border border-gray-200 dark:border-zinc-800">
+      <div className="p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900 ">
         <div className="mb-2">
           <h2 className="text-xl font-semibold mb-4">
             Utilisation des cookies 🍪

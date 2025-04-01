@@ -1,9 +1,9 @@
 export default function page() {
   return (
-    <div className="p-6 min-h-screen  bg-gray-100">
+    <div className="p-6 min-h-screen  bg-gray-100 dark:bg-black">
       <h1 className="text-3xl font-bold mb-4">Politiques des cookies</h1>
-      <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
-        <h1 className="text-3xl font-bold text-center mb-6">
+      <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 dark:bg-zinc-900">
+        <h1 className="text-3xl font-bold text-center mb-6 ">
           Politique de Cookies 🍪
         </h1>
 

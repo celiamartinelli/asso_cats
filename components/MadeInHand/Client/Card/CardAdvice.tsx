@@ -25,9 +25,11 @@ export default function CardAdvice({ item }: { item: Advice }) {
   return (
     <div
       onClick={handleClick}
-      className=" border-2 rounded-lg m-2 cursor-pointer bg-white p-2 shadow-md"
+      className="rounded-lg m-2 cursor-pointer bg-white dark:bg-zinc-900 p-2 shadow-md"
     >
-      <h2 className="text-3xl font-bold text-gray-900">{item.title}</h2>
+      <h2 className="text-3xl font-bold text-gray-900 dark:text-zinc-100">
+        {item.title}
+      </h2>
       <h3>Sujet: {item.subject}</h3>
       <h3>Catégorie: {item.category_advice}</h3>
 

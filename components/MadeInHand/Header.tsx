@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Header() {
   return (
-    <div className="flex justify-between items-center p-4 shadow-md sticky top-0 bg-white z-50">
+    <div className="flex justify-between items-center p-4 shadow-md sticky top-0 bg-white dark:bg-zinc-900  z-50">
       <div>
         <a href="/" title="Back to Home">
           <Image
@@ -25,7 +25,12 @@ export default function Header() {
           <Link href="/donation">Make a Donation</Link>
         </Button>
         <Button asChild variant="outline">
-          <Link href="/contact">Contact Us</Link>
+          <Link
+            href="/contact"
+            className="dark:border-zinc-400 dark:bg-zinc-900"
+          >
+            Contact Us
+          </Link>
         </Button>
       </div>
     </div>

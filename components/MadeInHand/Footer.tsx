@@ -102,7 +102,7 @@ const FooterSection = ({
   links,
   hasBorder = true,
 }: FooterSectionProps) => (
-  <div className={`w-full md:w-1/5 px-8 ${hasBorder ? "border-r" : ""}`}>
+  <div className={`w-full md:w-1/5 px-8 ${hasBorder ? "border-r" : ""} `}>
     <h4 className="font-bold text-xl mb-5 flex justify-start items-start">
       {title}
     </h4>

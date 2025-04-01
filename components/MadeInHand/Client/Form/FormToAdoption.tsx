@@ -162,7 +162,7 @@ const FormToAdoption: React.FC<FormToAdoptionProps> = ({
   return (
     <>
       <form
-        className="bg-white rounded p-10 border border-gray-300 w-11/12 m-6"
+        className="bg-white rounded p-10 border border-gray-300 w-11/12 m-6 dark:bg-zinc-950"
         onSubmit={handleSubmit}
       >
         <div className="flex space-x-4 w-full">

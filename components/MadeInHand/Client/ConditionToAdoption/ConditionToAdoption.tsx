@@ -1,7 +1,7 @@
 export default function ConditionToAdoption() {
   return (
     <>
-      <section className="mb-5">
+      <section className="mb-5 ">
         <h2 className="mb-2 text-2xl font-medium">
           Adopter, un acte d’amour et de responsabilité
         </h2>

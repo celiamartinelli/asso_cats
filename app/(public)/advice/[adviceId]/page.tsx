@@ -71,7 +71,7 @@ export default function CatIdPage({ params }: AdviceIdPageProps) {
 
   return (
     <div className="flex flex-col items-center max-w-screen min-h-screen  ">
-      <h2 className="text-3xl font-bold text-gray-900 mt-10">
+      <h2 className="text-3xl font-bold text-gray-900 mt-10 dark:text-zinc-100">
         {adviceData.title}
       </h2>
 

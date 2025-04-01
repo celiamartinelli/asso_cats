@@ -28,7 +28,7 @@ export default function Page() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen  flex flex-col items-center">
+    <div className="w-full min-h-screen  flex flex-col items-center dark:bg-black">
       {cat ? null : (
         <Player
           autoplay

@@ -15,7 +15,7 @@ export default function NavBar() {
       <ul className="flex">
         {links.map((link, index) => (
           <li
-            className="mx-4 p-2 hover:bg-accent hover:rounded-md transition-colors dark:hover:text-black"
+            className="mx-4 p-2 hover:bg-accent hover:rounded-md transition-colors dark:hover:bg-zinc-200 dark:hover:text-black dark:hover:rounded-md"
             key={index}
           >
             <Link href={link.href}>{link.label}</Link>

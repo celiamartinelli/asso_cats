@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
+import { useParams } from "next/navigation";
 import {
   Carousel,
   CarouselContent,
@@ -50,8 +51,10 @@ interface CatIdPageProps {
   params: { catId: string };
 }
 
-export default function CatIdPage({ params }: CatIdPageProps) {
-  const { catId } = params;
+export default function CatIdPage() {
+  const params = useParams(); // ✅ Récupère les params correctement
+  const catId = params?.catId; // ✅ Accès sécurisé
+  // const { catId } = params;
   const [catData, setCatData] = useState<CatData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -60,6 +63,8 @@ export default function CatIdPage({ params }: CatIdPageProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
+    if (!catId) return;
+
     const fetchCat = async () => {
       try {
         const data = await getCatById(catId);
@@ -100,14 +105,33 @@ export default function CatIdPage({ params }: CatIdPageProps) {
           <div>
             <Carousel className="w-full max-w-md">
               <CarouselContent>
-                {catData.cat_url_image.map((src: string, index: number) => (
-                  <CarouselItem key={index}>
-                    <div className="p-1 ">
-                      <Card className="">
-                        <CardContent className="flex items-center justify-center p-0 w-full h-96 overflow-hidden ">
+                {Array.isArray(catData.cat_url_image) &&
+                catData.cat_url_image.length > 0 ? (
+                  catData.cat_url_image.map((src: string, index: number) => (
+                    <CarouselItem key={index}>
+                      <div className="p-1">
+                        <Card>
+                          <CardContent className="flex items-center justify-center p-0 w-full h-96 overflow-hidden">
+                            <Image
+                              src={src}
+                              alt={`Image ${index + 1}`}
+                              width={700}
+                              height={700}
+                              className="w-full h-full object-cover rounded-lg"
+                            />
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </CarouselItem>
+                  ))
+                ) : (
+                  <CarouselItem>
+                    <div className="p-1">
+                      <Card>
+                        <CardContent className="flex items-center justify-center p-0 w-full h-96 overflow-hidden">
                           <Image
-                            src={src}
-                            alt={`Image ${index + 1}`}
+                            src="/placeholder.png" // Mets une image par défaut ici
+                            alt="Aucune image disponible"
                             width={700}
                             height={700}
                             className="w-full h-full object-cover rounded-lg"
@@ -116,7 +140,7 @@ export default function CatIdPage({ params }: CatIdPageProps) {
                       </Card>
                     </div>
                   </CarouselItem>
-                ))}
+                )}
               </CarouselContent>
               <CarouselPrevious />
               <CarouselNext />
@@ -166,7 +190,7 @@ export default function CatIdPage({ params }: CatIdPageProps) {
 
       {!showForm && (
         <Dialog>
-          <DialogTrigger>
+          <DialogTrigger asChild>
             <Button className="mb-2"> J'adopte </Button>
           </DialogTrigger>
 
@@ -251,7 +275,10 @@ export default function CatIdPage({ params }: CatIdPageProps) {
                   l'adresse suivante: ecoledeschatsdupayshoudanais@gmail.com
                 </h4>
                 <Dialog>
-                  <DialogTrigger className="mb-2 flex justify-start w-1/3">
+                  <DialogTrigger
+                    className="mb-2 flex justify-start w-1/3"
+                    asChild
+                  >
                     <Button className="mt-2">
                       Revoir les conditions d'adoption
                     </Button>

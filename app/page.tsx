@@ -67,7 +67,7 @@ export default function Index() {
           <ButtonCookiesSession />
           <div
             className="text-white border-gray-600 w-full flex flex-col justify-center items-center lg:col-span-2 dark:border-white min-h-screen 
-  bg-cover bg-fixed bg-center bg-no-repeat bg-[url('/bg.jpeg')]"
+        bg-cover bg-fixed bg-center bg-no-repeat bg-[url('/bg.jpeg')]"
           >
             <h2 className="text-6xl">L'École des chats du pays Houdanais</h2>
             <h3 className="text-3xl my-14 font-dosis">

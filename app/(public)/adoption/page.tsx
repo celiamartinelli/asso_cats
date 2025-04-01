@@ -39,13 +39,22 @@ export default function Page() {
       )}
       <div className="w-11/12 flex justify-center flex-wrap ">
         {cat &&
-          cat.map((item, index) =>
-            item.cat_id && item.name_cat ? (
-              <CardCat key={item.cat_id} item={item} />
-            ) : (
-              <div key={index}>Erreur : Données manquantes pour ce chat</div>
-            )
-          )}
+          cat
+            .sort((a, b) => {
+              // Trier par adoption (false en premier)
+              if (a.adoption !== b.adoption) {
+                return a.adoption ? 1 : -1;
+              }
+              // Si adoption est identique, trier par ordre alphabétique
+              return a.name_cat.localeCompare(b.name_cat);
+            })
+            .map((item, index) =>
+              item.cat_id && item.name_cat ? (
+                <CardCat key={item.cat_id} item={item} />
+              ) : (
+                <div key={index}>Erreur : Données manquantes pour ce chat</div>
+              )
+            )}
       </div>
     </div>
   );

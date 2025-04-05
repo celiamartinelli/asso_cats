@@ -121,7 +121,7 @@ export default function Index() {
               <Link href="/news">Voir toutes les actualités</Link>
             </Button>
           </div>
-          <div className="py-36 p-4 w-full lg:col-span-2 mb-4 bg-zinc-900 text-zinc-100 dark:border-zinc-400 flex flex-col items-center border-y">
+          <div className="py-36 p-4 w-full lg:col-span-2  bg-zinc-900 text-zinc-100 dark:border-zinc-400 flex flex-col items-center ">
             <h3 className="text-6xl mb-24 font-thasadith tracking-wide">
               Prochaine dates importantes
             </h3>
@@ -158,21 +158,25 @@ export default function Index() {
               <Link href="/calendar">Voir toutes les dates</Link>
             </Button>
           </div>
-          <div className=" py-36 p-4 w-full lg:col-span-2 mb-4 dark:border-white bg-red-200">
-            <h3>Sur Quel secteur on agit? et quel commune</h3>
+          <div className=" py-36 w-full lg:col-span-2 mb-4 bg-cover bg-fixed bg-center bg-no-repeat bg-[url('/bg.jpeg')]">
+            <h3 className="text-6xl mb-24 font-thasadith tracking-wide">
+              Sur Quel secteur on agit? et quel commune
+            </h3>
 
             <Button type="button" className="mt-8">
               <Link href="/municipality">Voir la liste complète</Link>
             </Button>
           </div>
-          <div className="border-gray-600 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
-            <h3>Comment se déroule une adoption</h3>
+          <div className="py-14 p-4 w-full lg:col-span-2 mb-4 ">
+            <h3 className="text-6xl mb-24 font-thasadith tracking-wide">
+              Comment se déroule une adoption
+            </h3>
             <p>fresque etape adoption</p>
             <Button type="button" className="mt-8">
               <Link href="/adoption">Voir les Amours</Link>
             </Button>
           </div>
-          <div className="flex border-gray-600 py-14 p-4 w-full lg:col-span-2 mb-4 dark:border-white">
+          <div className="flex py-14 p-4 w-full lg:col-span-2 mb-4 ">
             <Link
               href="https://www.facebook.com/profile.php?id=61561436403399&locale=fr_FR"
               className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"

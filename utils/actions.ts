@@ -296,6 +296,50 @@ export const addFosterFamilyForm = async (formData: any) => {
   }
 };
 
+//FORMULAIRE DEVENIR VOLONTAIRE
+// Fonction pour ajouter une demande de volontariat dans Supabase
+export const addVolunteerForm = async (formData: any) => {
+  try {
+    console.log("➡️ Données reçues en entrée :", formData);
+
+    // Séparation des types
+    const { type_volunteer, ...formValues } = formData;
+
+    // Insertion dans volunteer_form
+    const { data: formDataInserted, error: formError } = await supabase
+      .from("volunteer_form")
+      .insert([formValues])
+      .select("form_id") // pour récupérer l'ID du formulaire inséré
+      .single();
+
+    if (formError) {
+      throw formError;
+    }
+
+    const formId = formDataInserted.form_id;
+
+    // Insertion des types de bénévolat sélectionnés
+    const volunteerTypeInserts = (type_volunteer as string[]).map((typeId) => ({
+      volunteer_form_id: formId,
+      volunteer_type_id: typeId,
+    }));
+
+    const { error: typesError } = await supabase
+      .from("volunteer_form_types")
+      .insert(volunteerTypeInserts);
+
+    if (typesError) {
+      throw typesError;
+    }
+
+    console.log("✅ Formulaire + types insérés avec succès !");
+    return "OK";
+  } catch (error) {
+    console.error("❌ Erreur d'insertion dans Supabase :", error);
+    throw error;
+  }
+};
+
 // CALENDAR // événement date selectionner
 export async function fetchEventByDate(date: string) {
   try {

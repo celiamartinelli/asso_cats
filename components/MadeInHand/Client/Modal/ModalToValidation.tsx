@@ -30,21 +30,19 @@ const ModalToValidation: React.FC<ModalToValidationProps> = ({
           <DialogHeader>
             <DialogTitle>Demande envoyée</DialogTitle>
           </DialogHeader>
-          <div className="text-center">
-            <p className="text-gray-700">
-              Nous avons bien reçu votre demande, nous l'étudions attentivement
-              et revenons vers vous le plus rapidement possible.
-            </p>
-            <Button
-              className="mt-4"
-              onClick={() => {
-                setIsModalOpen(false);
-                setShowForm(false);
-              }}
-            >
-              OK
-            </Button>
-          </div>
+          <DialogDescription>
+            Nous avons bien reçu votre formulaire. Nous vous recontacterons très
+            vite.
+          </DialogDescription>
+          <Button
+            className="mt-4"
+            onClick={() => {
+              setIsModalOpen(false);
+              setShowForm(false);
+            }}
+          >
+            OK
+          </Button>
         </DialogContent>
       </Dialog>
     </div>

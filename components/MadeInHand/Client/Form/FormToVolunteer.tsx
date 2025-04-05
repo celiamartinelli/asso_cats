@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Input from "../Input";
 import Textarea from "../Textarea";
 import { Button } from "@/components/ui/button";
-import { addMaterialDonation, fetchAllTypeVolunteer } from "@/utils/actions";
+import { addVolunteerForm, fetchAllTypeVolunteer } from "@/utils/actions";
 import ModalToValidation from "../Modal/ModalToValidation";
 import { MultiSelect } from "@/components/multi-select";
 
@@ -10,11 +10,11 @@ export default function FormToVolunteer() {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
-    mail: "",
+    email: "",
     phone_number: "",
     motivation: "",
     why_volunteer: "",
-    type_volunteer: "" as string | string[],
+    type_volunteer: [] as string[],
   });
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,16 +45,16 @@ export default function FormToVolunteer() {
     setLoading(true);
 
     try {
-      await addMaterialDonation(formData);
+      await addVolunteerForm(formData);
       setIsModalOpen(true);
       setFormData({
         first_name: "",
         last_name: "",
-        mail: "",
+        email: "",
         phone_number: "",
         motivation: "",
         why_volunteer: "",
-        type_volunteer: "",
+        type_volunteer: [],
       });
     } catch (error) {
       alert("Une erreur est survenue, veuillez réessayer.");
@@ -96,7 +96,7 @@ export default function FormToVolunteer() {
             type="text"
             id="email"
             name="email"
-            value={formData.mail}
+            value={formData.email}
             onChange={handleChange}
           />
           <Input
@@ -141,11 +141,6 @@ export default function FormToVolunteer() {
               onValueChange={(values) => {
                 setFormData({ ...formData, type_volunteer: values });
               }}
-              defaultValue={
-                Array.isArray(formData.type_volunteer)
-                  ? formData.type_volunteer
-                  : []
-              }
               placeholder="Sélectionnez le type de volontariat"
               variant="inverted"
               animation={2}

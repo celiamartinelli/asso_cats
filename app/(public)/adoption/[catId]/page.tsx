@@ -1,8 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Carousel,
   CarouselContent,
@@ -52,9 +53,8 @@ interface CatIdPageProps {
 }
 
 export default function CatIdPage() {
-  const params = useParams(); // ✅ Récupère les params correctement
-  const catId = params?.catId; // ✅ Accès sécurisé
-  // const { catId } = params;
+  const params = useParams();
+  const catId = params?.catId;
   const [catData, setCatData] = useState<CatData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -63,11 +63,11 @@ export default function CatIdPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    if (!catId) return;
+    if (!catId) return; // S'assurer que catId existe avant de continuer
 
     const fetchCat = async () => {
       try {
-        const data = await getCatById(catId);
+        const data = await getCatById(catId as string);
         setCatData(data);
       } catch (err) {
         console.error(err);
@@ -79,10 +79,6 @@ export default function CatIdPage() {
 
     fetchCat();
   }, [catId]);
-
-  if (loading) return <p>Chargement...</p>;
-  if (error) return <p>{error}</p>;
-  if (!catData) return <p>Chat introuvable.</p>;
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(e.target.checked);
@@ -96,6 +92,37 @@ export default function CatIdPage() {
     setIsModalOpen(true);
     console.log("Modal ouverte ?", isModalOpen);
   };
+
+  const formattedBirthInfo = useMemo(() => {
+    if (!catData || !catData.date_of_birth) return "";
+
+    const birthDate = new Date(catData.date_of_birth);
+    const today = new Date();
+
+    const formattedDate = birthDate.toLocaleDateString("fr-FR", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+
+    const ageInMonths =
+      (today.getFullYear() - birthDate.getFullYear()) * 12 +
+      today.getMonth() -
+      birthDate.getMonth();
+
+    const years = Math.floor(ageInMonths / 12);
+    const months = ageInMonths % 12;
+
+    const ageText = `${years > 0 ? `${years} an${years > 1 ? "s" : ""}` : ""}${
+      years > 0 && months > 0 ? " et " : ""
+    }${months > 0 ? `${months} mois` : ""}`;
+
+    return `${formattedDate} (${ageText})`;
+  }, [catData]);
+
+  if (loading) return <p>Chargement...</p>;
+  if (error) return <p>{error}</p>;
+  if (!catData) return <p>Chat introuvable.</p>;
 
   return (
     <div className="flex flex-col items-center max-w-screen min-h-screen">
@@ -147,30 +174,7 @@ export default function CatIdPage() {
             </Carousel>
           </div>
           <div>
-            <p>
-              Date de naissance:{" "}
-              {new Date(catData.date_of_birth).toLocaleDateString("fr-FR", {
-                day: "2-digit",
-                month: "long",
-                year: "numeric",
-              })}
-              {" ("}
-              {(() => {
-                const birthDate = new Date(catData.date_of_birth);
-                const today = new Date();
-                const ageInMonths =
-                  (today.getFullYear() - birthDate.getFullYear()) * 12 +
-                  today.getMonth() -
-                  birthDate.getMonth();
-                const years = Math.floor(ageInMonths / 12);
-                const months = ageInMonths % 12;
-                return `${years > 0 ? `${years} an${years > 1 ? "s" : ""} ` : ""}${
-                  months > 0 ? `${months} mois` : ""
-                }`;
-              })()}
-              {")"}
-            </p>
-
+            <p>Date de naissance : {formattedBirthInfo}</p>
             <p>Sexe: {catData.sex_cat}</p>
             <p>Stérilisé: {catData.sterelized ? "Oui" : "Non"}</p>
             <p>Vacciné: {catData.vaccine ? "Oui" : "Non"}</p>

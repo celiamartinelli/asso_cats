@@ -2,7 +2,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { getImportantDates, getLatestNews } from "@/utils/actions";
+import {
+  getImportantDates,
+  getLatestNews,
+  getAdoptionSteps,
+} from "@/utils/actions";
 import ButtonCookiesSession from "@/components/ButtonCookiesSession";
 import CardNews from "@/components/MadeInHand/Client/Card/CardNews";
 
@@ -24,11 +28,21 @@ interface News {
   news_url_img: string;
 }
 
+type AdoptionStep = {
+  adoption_step_id: number;
+  title: string;
+  subtitle: string;
+  content: string;
+  image: string;
+  step_number: number;
+};
+
 export default function Index() {
   const [importantDates, setImportantDates] = useState<ImportantDate[]>([]);
   const [latestNews, setLatestNews] = useState<News[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [steps, setSteps] = useState<AdoptionStep[]>([]);
 
   useEffect(() => {
     async function fetchDates() {
@@ -60,6 +74,21 @@ export default function Index() {
     fetchNews();
   }, []);
 
+  // lecture des étapes d'adoption
+  useEffect(() => {
+    async function fetchAdoptionSteps() {
+      try {
+        const adoptionSteps = await getAdoptionSteps();
+        setSteps(adoptionSteps);
+      } catch (error) {
+        console.error(
+          "Erreur lors du chargement des étapes d'adoption :",
+          error
+        );
+      }
+    }
+    fetchAdoptionSteps();
+  }, []);
   return (
     <>
       <main className="flex min-h-screen flex-col justify-between  ">
@@ -160,7 +189,7 @@ export default function Index() {
           </div>
           <div className=" py-36 w-full lg:col-span-2 mb-4 bg-cover bg-fixed bg-center bg-no-repeat bg-[url('/bg.jpeg')]">
             <h3 className="text-6xl mb-24 font-thasadith tracking-wide">
-              Sur Quel secteur on agit? et quel commune
+              Sur Quel secteur agit-on? et quel commune
             </h3>
 
             <Button type="button" className="mt-8">
@@ -171,10 +200,43 @@ export default function Index() {
             <h3 className="text-6xl mb-24 font-thasadith tracking-wide">
               Comment se déroule une adoption
             </h3>
-            <p>fresque etape adoption</p>
-            <Button type="button" className="mt-8">
-              <Link href="/adoption">Voir les Amours</Link>
-            </Button>
+            {/* ici afficher les étapes d'adoption avec un map */}
+            <div className="flex items-start">
+              {steps.map((step) => (
+                <div
+                  key={step.adoption_step_id}
+                  className="mb-12 w-1/6 text-center items-start rounded-lg shadow-md border border-zinc-500 m-2"
+                >
+                  <p className="text-xl dancing-script text-black dark:text-zinc-200 text-right mr-2">
+                    {step.step_number}
+                  </p>
+                  {step.image && (
+                    <img
+                      src={step.image}
+                      alt={step.title}
+                      width={100}
+                      height={100}
+                      className="rounded-full shadow-lg mx-auto mb-3"
+                    />
+                  )}
+                  <h4 className="text-xl mb-2 font-thasadith tracking-wide">
+                    {step.title}
+                  </h4>
+                  <p className="mb-2 italic text-gray-500">{step.subtitle}</p>
+                  {/* <p className="mb-4">{step.content}</p> */}
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col justify-center items-center">
+              <Button type="button" className="mt-8" variant="link">
+                <Link href="/howtoadopt">
+                  En savoir plus sur la procédure d'adoption
+                </Link>
+              </Button>
+              <Button type="button" className="mt-8">
+                <Link href="/adoption">Voir les Amours</Link>
+              </Button>
+            </div>
           </div>
           <div className="flex py-14 p-4 w-full lg:col-span-2 mb-4 ">
             <Link

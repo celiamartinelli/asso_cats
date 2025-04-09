@@ -39,7 +39,7 @@ export default function Advice() {
           style={{ height: "300px", width: "300px" }}
         />
       )}
-      <div className="flex justify-center">
+      <div className="flex flex-wrap justify-center">
         {advice &&
           advice.map((item, index) =>
             item.advice_id && item.title ? (

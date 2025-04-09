@@ -55,6 +55,20 @@ export const getLatestNews = async () => {
   return data;
 };
 
+// Récupération des étapes d'adoption //
+export const getAdoptionSteps = async () => {
+  const { data, error } = await supabase
+    .from("adoption_steps")
+    .select("*")
+    .order("step_number", { ascending: true });
+  if (error) {
+    console.error("Erreur Supabase :", error.message);
+    return [];
+  }
+  console.log("Données des étapes d'adoption:", data);
+  return data;
+};
+
 // CAT //
 // Récupérer l'Id du chat //
 export const getCatById = async (catId: string) => {

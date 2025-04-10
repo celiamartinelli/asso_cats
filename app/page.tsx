@@ -238,7 +238,7 @@ export default function Index() {
               </Button>
             </div>
           </div>
-          <div className="flex py-14 p-4 w-full lg:col-span-2 mb-4 ">
+          <div className="flex py-14 p-4 w-full lg:col-span-2 mb-4 justify-center">
             <Link
               href="https://www.facebook.com/profile.php?id=61561436403399&locale=fr_FR"
               className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"

@@ -1,13 +1,16 @@
 "use client";
 
-import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
+import { createClient } from "@/utils/supabase/client";
 import CardCat from "@/components/MadeInHand/Client/Card/CardCat";
 import Player from "lottie-react";
 import loader from "../../../public/lottie/loader.json";
+import FilterModal from "@/components/MadeInHand/Client/Modal/FilterModal";
 
 export default function Page() {
   const [cat, setCat] = useState<any[] | null>(null);
+  const [filters, setFilters] = useState<any>({});
+  const [filteredCats, setFilteredCats] = useState<any[]>([]);
   const supabase = createClient();
 
   useEffect(() => {
@@ -21,14 +24,32 @@ export default function Page() {
         return;
       }
       console.log("Données récupérées:", data);
+
       setCat(data || []);
     };
 
     getData();
   }, []);
 
+  useEffect(() => {
+    if (cat) {
+      console.log("Filtres appliqués :", filters);
+      const newFiltered = cat.filter((c) => {
+        return (
+          (!filters.sex_cat || c.sex_cat === filters.sex_cat) &&
+          (!filters.age_of_cat || c.age_of_cat === filters.age_of_cat) &&
+          (!filters.coat_color || c.coat_color === filters.coat_color) &&
+          (!filters.pattern || c.pattern === filters.pattern)
+        );
+      });
+      console.log("Résultats filtrés :", newFiltered);
+
+      setFilteredCats(newFiltered);
+    }
+  }, [filters, cat]);
+
   return (
-    <div className="w-full min-h-screen  flex flex-col items-center dark:bg-black">
+    <div className="w-full min-h-screen flex flex-col items-center dark:bg-black">
       {cat ? null : (
         <Player
           autoplay
@@ -37,15 +58,18 @@ export default function Page() {
           style={{ height: "300px", width: "300px" }}
         />
       )}
-      <div className="w-11/12 flex justify-center flex-wrap ">
-        {cat &&
-          cat
+
+      <FilterModal onApply={setFilters} />
+
+      <div className="w-11/12 flex justify-center flex-wrap mt-4">
+        {filteredCats.length === 0 ? (
+          <p>Aucun chat trouvé.</p>
+        ) : (
+          filteredCats
             .sort((a, b) => {
-              // Trier par adoption (false en premier)
               if (a.adoption !== b.adoption) {
                 return a.adoption ? 1 : -1;
               }
-              // Si adoption est identique, trier par ordre alphabétique
               return a.name_cat.localeCompare(b.name_cat);
             })
             .map((item, index) =>
@@ -54,7 +78,8 @@ export default function Page() {
               ) : (
                 <div key={index}>Erreur : Données manquantes pour ce chat</div>
               )
-            )}
+            )
+        )}
       </div>
     </div>
   );

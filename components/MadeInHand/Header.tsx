@@ -22,14 +22,14 @@ export default function Header() {
       <NavBar />
       <div className="flex flex-col">
         <Button asChild className="mb-2">
-          <Link href="/donation">Make a Donation</Link>
+          <Link href="/donation">Faire un Don</Link>
         </Button>
         <Button asChild variant="outline">
           <Link
             href="/contact"
             className="dark:border-zinc-400 dark:bg-zinc-900"
           >
-            Contact Us
+            Contactez-nous
           </Link>
         </Button>
       </div>

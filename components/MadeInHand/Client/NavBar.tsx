@@ -3,11 +3,11 @@ import Link from "next/link";
 
 export default function NavBar() {
   const links = [
-    { href: "/", label: "Home" },
+    { href: "/", label: "Accueil" },
     { href: "/adoption", label: "Adoption" },
-    { href: "/helpthem", label: "Help Them" },
-    { href: "/about", label: "About" },
-    { href: "/advice", label: "Advice" },
+    { href: "/helpthem", label: "Aidez-les" },
+    { href: "/about", label: "À propos" },
+    { href: "/advice", label: "Article/Consiel" },
   ];
 
   return (

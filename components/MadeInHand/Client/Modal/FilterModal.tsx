@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
@@ -23,17 +28,41 @@ const sexMapping = {
 };
 
 const ageMapping = {
-  Chatons: "kitten",
-  "Jeune chat": "young",
-  Adulte: "adult",
+  Chatons: "chatons",
+  "Jeune chat": "jeune-chat",
+  Adulte: "adulte",
   Senior: "senior",
+  "Tous les âges": "tous-ages",
+};
+
+const colorMapping = {
+  Noir: "#000000",
+  Blanc: "#FFFFFF",
+  Doré: "#E5A823",
+  Beige: "#C4A484",
+  Sable: "#D1B280",
+  Crème: "#FFFFE0",
+  Brun: "#5C4033",
+};
+
+const colorHexToEnum = {
+  "#000000": "black",
+  "#FFFFFF": "white",
+  "#E5A823": "red", // ← à adapter selon ta base
+  "#C4A484": "cinnamon",
+  "#D1B280": "fawn",
+  "#FFFFE0": "cream",
+  "#5C4033": "chocolate",
 };
 
 const motifMapping = {
   Tigrés: "striped",
-  "Bi-Color": "bicolor",
+  "Bi-Color": "bi-color",
   Uni: "solid",
-  "Tricolor/ Ecaille de tortue": "tricolor",
+  "Ecaille de tortue": "tortoiseshell",
+  Tricolor: "tri-color",
+  "Tigré tacheté": "tortoiseshell",
+  "Tous les motifs": "all-patterns",
 };
 
 export default function FilterModal({
@@ -50,9 +79,9 @@ export default function FilterModal({
 
   const handleApply = () => {
     onApply({
-      sex_cat: selectedSex, // Utilise directement la valeur mappée
+      sex_cat: selectedSex,
       age_of_cat: selectedAge ? ageMapping[selectedAge] : null,
-      coat_color: selectedColor, // Les couleurs sont déjà compatibles
+      coat_color: selectedColor ? colorHexToEnum[selectedColor] : null,
       pattern: selectedMotif ? motifMapping[selectedMotif] : null,
     });
     setOpen(false);
@@ -62,11 +91,16 @@ export default function FilterModal({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" className="ml-4">
-          Filter
+          Filtres
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-md p-6">
-        <h2 className="text-xl font-bold mb-4">Filtres</h2>
+        <DialogHeader>
+          <DialogTitle>Filtres</DialogTitle>
+          <DialogDescription>
+            Selectionner les critères qui vous correspondent
+          </DialogDescription>
+        </DialogHeader>
 
         {/* Sexe */}
         <div className="mb-4">
@@ -94,7 +128,7 @@ export default function FilterModal({
         <div className="mb-4">
           <p className="font-semibold mb-2">Âge:</p>
           <div className="flex gap-2 flex-wrap">
-            {ages.map((age) => (
+            {Object.keys(ageMapping).map((age) => (
               <Button
                 key={age}
                 variant={selectedAge === age ? "default" : "outline"}
@@ -110,7 +144,7 @@ export default function FilterModal({
         <div className="mb-4">
           <p className="font-semibold mb-2">Robe:</p>
           <div className="flex gap-2">
-            {colors.map((color) => (
+            {Object.entries(colorMapping).map(([label, color]) => (
               <button
                 type="button"
                 key={color}
@@ -120,8 +154,9 @@ export default function FilterModal({
                 )}
                 style={{ backgroundColor: color }}
                 onClick={() =>
-                  setSelectedColor(color === selectedColor ? null : color)
+                  setSelectedColor(selectedColor === color ? null : color)
                 }
+                title={label}
               ></button>
             ))}
           </div>
@@ -131,7 +166,7 @@ export default function FilterModal({
         <div className="mb-4">
           <p className="font-semibold mb-2">Motifs:</p>
           <div className="flex gap-2 flex-wrap">
-            {motifs.map((motif) => (
+            {Object.keys(motifMapping).map((motif) => (
               <Button
                 key={motif}
                 variant={selectedMotif === motif ? "default" : "outline"}
@@ -144,6 +179,18 @@ export default function FilterModal({
             ))}
           </div>
         </div>
+        <Button
+          variant="ghost"
+          className="w-full mt-2 text-sm text-muted-foreground"
+          onClick={() => {
+            setSelectedSex(null);
+            setSelectedAge(null);
+            setSelectedColor(null);
+            setSelectedMotif(null);
+          }}
+        >
+          Réinitialiser les filtres
+        </Button>
 
         <Button onClick={handleApply} className="w-full mt-4">
           Enregistrer

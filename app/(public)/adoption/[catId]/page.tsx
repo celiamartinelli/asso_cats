@@ -125,10 +125,10 @@ export default function CatIdPage() {
   if (!catData) return <p>Chat introuvable.</p>;
 
   return (
-    <div className="flex flex-col items-center max-w-screen min-h-screen">
-      <h2 className="uppercase font-bold text-5xl">{catData.name_cat}</h2>
+    <div className="flex flex-col items-center max-w-screen min-h-screen mt-10">
+      <h2 className="uppercase font-bold text-5xl mb-10">{catData.name_cat}</h2>
       {catData ? (
-        <div className="flex flex-col w-2/3 justify-around md:flex-row ">
+        <div className="flex flex-col w-2/3 justify-around md:flex-row mb-12">
           <div>
             <Carousel className="w-full max-w-md">
               <CarouselContent>
@@ -175,7 +175,16 @@ export default function CatIdPage() {
           </div>
           <div>
             <p>Date de naissance : {formattedBirthInfo}</p>
-            <p>Sexe: {catData.sex_cat}</p>
+            <p>
+              Sexe:{" "}
+              {catData.sex_cat === "female" ? (
+                <span>♀️ (Femelle)</span>
+              ) : catData.sex_cat === "male" ? (
+                <span>♂️ (Mâle)</span>
+              ) : (
+                "Non spécifié"
+              )}
+            </p>
             <p>Stérilisé: {catData.sterelized ? "Oui" : "Non"}</p>
             <p>Vacciné: {catData.vaccine ? "Oui" : "Non"}</p>
             <p>FIV Test: {catData.fiv_test ? "Positif" : "Négatif"}</p>
@@ -183,7 +192,7 @@ export default function CatIdPage() {
             <p>Couleur du pelage: {catData.coat_color}</p>
             <p>Motif: {catData.pattern}</p>
             <p>Description: {catData.description}</p>
-            <p>Adoption: {catData.adoption ? "Oui" : "Non"}</p>
+            {/* <p>Adoption: {catData.adoption ? "Oui" : "Non"}</p> */}
             <p>Âge: {catData.age_of_cat}</p>
             <p>Catégorie: {catData.category_cat}</p>
           </div>

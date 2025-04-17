@@ -121,7 +121,7 @@ export default function Index() {
             </div>
           </div>
           <div className="py-36 p-4 w-full lg:col-span-2 mb-4 dark:border-white flex flex-col justify-center items-center border-2-gray-700">
-            <div className="flex justify-between items-center w-full mb-36 ">
+            <div className="flex justify-between items-center w-full mb-36 flex-col lg:flex-row">
               <h3 className="text-6xl ml-4 font-thasadith w-1/2 tracking-wide">
                 Les dernières actualités
               </h3>
@@ -141,7 +141,7 @@ export default function Index() {
                   ) : (
                     <motion.ul
                       key="list"
-                      className="flex justify-center items-center w-full gap-10"
+                      className="flex flex-col md:flex-row justify-center items-center w-full gap-10"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
@@ -175,12 +175,12 @@ export default function Index() {
             {loading ? (
               <p>Chargement des dates...</p>
             ) : (
-              <ul className="flex justify-center w-2/3 items-center flex-wrap ">
+              <ul className="flex flex-col justify-center w-2/3 items-center md:flex-wrap ">
                 {importantDates.length > 0 ? (
                   importantDates.map((date) => (
                     <li
                       key={date.calendar_id}
-                      className="p-8 flex flex-col items-center w-1/4 h-48 border border-zinc-500 dark:border-zinc-400 rounded-lg m-4 bg-zinc-100 dark:bg-black"
+                      className="p-8 flex flex-col  items-center w-full md:w-1/4 h-48 border border-zinc-500 dark:border-zinc-400 rounded-lg m-4 bg-zinc-100 dark:bg-black"
                     >
                       <p className="text-5xl dancing-script text-black dark:text-zinc-200">
                         {new Date(date.date_start).getDate()}

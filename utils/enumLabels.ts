@@ -48,11 +48,11 @@ export const SEX_CAT_LABELS: Record<string, string> = {
 };
 
 export const GARDEN_LABELS: Record<string, string> = {
-  "A secure garden": "Jardin sécurisé",
-  "A non-fenced garden": "Jardin non clôturé",
-  "A secure balcony": "Balcon sécurisé",
-  "A balcony": "Balcon",
-  None: "Aucun extérieur",
+  a_secure_garden: "Jardin sécurisé",
+  a_non_fenced_garden: "Jardin non clôturé",
+  a_secure_balcony: "Balcon sécurisé",
+  a_balcony: "Balcon",
+  none: "Aucun extérieur",
 };
 
 export const PATTERN_LABELS: Record<string, string> = {
@@ -77,4 +77,17 @@ export const HOUSING_TYPE_LABELS: Record<string, string> = {
   apartment: "Appartement",
   castle: "Château 🏰",
   caravan: "Caravane",
+};
+
+export const SUBJECT_CONTACT_LABELS: Record<string, string> = {
+  urgence_et_signalement: "Urgences et signalement",
+  evenement_et_campagne: "Événements et campagnes",
+  education_et_sensibilisation: "Éducation et sensibilisation",
+  informations_generale_sur_lasso: "Informations générales sur l'association",
+  dons: "Dons",
+  placement_temporaire_chatons: "Placement temporaire chatons",
+  benevolats: "Bénévolat",
+  parainnage: "Parrainage",
+  adoption: "Adoption",
+  autres: "Autres demandes",
 };

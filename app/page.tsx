@@ -10,6 +10,8 @@ import {
 import ButtonCookiesSession from "@/components/ButtonCookiesSession";
 import CardNews from "@/components/MadeInHand/Client/Card/CardNews";
 
+import { AnimatePresence, motion } from "framer-motion";
+
 interface ImportantDate {
   calendar_id: string;
   date_start: string;
@@ -126,24 +128,40 @@ export default function Index() {
               {loading ? (
                 <p>Chargement des actualités...</p>
               ) : (
-                <ul className="flex justify-center items-center w-full gap-10 ">
-                  {latestNews.length > 0 ? (
-                    latestNews.map((news) => (
-                      <CardNews
-                        key={news.news_id}
-                        item={news}
-                        isActive={activeId === news.news_id}
-                        onClick={() =>
-                          setActiveId(
-                            activeId === news.news_id ? null : news.news_id
-                          )
-                        }
-                      />
-                    ))
+                <AnimatePresence mode="wait">
+                  {activeId ? (
+                    <CardNews
+                      key={activeId}
+                      item={
+                        latestNews.find((news) => news.news_id === activeId)!
+                      }
+                      isActive={true}
+                      onClick={() => setActiveId(null)}
+                    />
                   ) : (
-                    <li>Aucun évenement à venir.</li>
+                    <motion.ul
+                      key="list"
+                      className="flex justify-center items-center w-full gap-10"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {latestNews.length > 0 ? (
+                        latestNews.map((news) => (
+                          <CardNews
+                            key={news.news_id}
+                            item={news}
+                            isActive={false}
+                            onClick={() => setActiveId(news.news_id)}
+                          />
+                        ))
+                      ) : (
+                        <li>Aucun événement à venir.</li>
+                      )}
+                    </motion.ul>
                   )}
-                </ul>
+                </AnimatePresence>
               )}
             </div>
             <Button type="button" className="gap-4 mt-8">
@@ -183,12 +201,15 @@ export default function Index() {
               </ul>
             )}
 
-            <Button type="button" className="mt-12 bg-white text-black ">
+            <Button
+              type="button"
+              className="mt-12 hover:bg-white hover:text-black text-zinc-100"
+            >
               <Link href="/calendar">Voir toutes les dates</Link>
             </Button>
           </div>
           <div className=" py-36 w-full lg:col-span-2 mb-4 bg-cover bg-fixed bg-center bg-no-repeat bg-[url('/bg.jpeg')]">
-            <h3 className="text-6xl mb-24 font-thasadith tracking-wide">
+            <h3 className="text-6xl mb-24 font-thasadith tracking-wide text-white">
               Sur Quel secteur agit-on? et quel commune
             </h3>
 
@@ -201,13 +222,13 @@ export default function Index() {
               Comment se déroule une adoption
             </h3>
             {/* ici afficher les étapes d'adoption avec un map */}
-            <div className="flex items-start">
+            <div className="flex items-start flex-col md:flex-row">
               {steps.map((step) => (
                 <div
                   key={step.adoption_step_id}
-                  className="mb-12 w-1/6 text-center items-start rounded-lg shadow-md border border-zinc-500 m-2"
+                  className="mb-12 w-full md:w-1/6 text-center items-start rounded-lg shadow-md border border-zinc-500 m-2 dark:bg-zinc-900 bg-white"
                 >
-                  <p className="text-xl dancing-script text-black dark:text-zinc-200 text-right mr-2">
+                  <p className="text-xl dancing-script  dark:text-zinc-200  text-right mr-2">
                     {step.step_number}
                   </p>
                   {step.image && (
@@ -219,7 +240,7 @@ export default function Index() {
                       className="rounded-full shadow-lg mx-auto mb-3"
                     />
                   )}
-                  <h4 className="text-xl mb-2 font-thasadith tracking-wide">
+                  <h4 className="text-xl mb-2 font-thasadith tracking-wide dark:text-zinc-200">
                     {step.title}
                   </h4>
                   <p className="mb-2 italic text-gray-500">{step.subtitle}</p>

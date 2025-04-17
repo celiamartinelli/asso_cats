@@ -65,7 +65,7 @@ const motifMapping = {
   "Tous les motifs": "all-patterns",
 };
 
-export default function FilterModal({
+export default function FilterModalCat({
   onApply,
 }: {
   onApply: (filters: any) => void;
@@ -187,6 +187,8 @@ export default function FilterModal({
             setSelectedAge(null);
             setSelectedColor(null);
             setSelectedMotif(null);
+            onApply({});
+            setOpen(false);
           }}
         >
           Réinitialiser les filtres

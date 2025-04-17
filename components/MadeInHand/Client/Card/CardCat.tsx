@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { SEX_CAT_LABELS, AGE_LABELS } from "@/utils/enumLabels";
 
 interface Cat {
   cat_id: string;
@@ -34,8 +35,8 @@ export default function CardCat({ item }: { item: Cat }) {
       )}
       <div>
         <h2 className="font-bold text-2xl">{item.name_cat}</h2>
-        <p>Sexe: {item.sex_cat}</p>
-        <p>Âge: {item.age_of_cat}</p>
+        <p>Sexe: {SEX_CAT_LABELS[item.sex_cat] || item.sex_cat}</p>
+        <p>Âge: {AGE_LABELS[item.age_of_cat] || item.age_of_cat}</p>
       </div>
       <div className="flex justify-center">
         <Image

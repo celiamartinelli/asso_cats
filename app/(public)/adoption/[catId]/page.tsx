@@ -3,7 +3,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+
 import {
   Carousel,
   CarouselContent,
@@ -25,6 +25,14 @@ import { getCatById } from "../../../../utils/actions";
 import { Button } from "@/components/ui/button";
 import FormToAdoption from "@/components/MadeInHand/Client/Form/FormToAdoption";
 import ConditionToAdoption from "@/components/MadeInHand/Client/ConditionToAdoption/ConditionToAdoption";
+
+import {
+  COAT_COLOR_LABELS,
+  SEX_CAT_LABELS,
+  PATTERN_LABELS,
+  AGE_LABELS,
+  CATEGORY_CAT_LABELS,
+} from "@/utils/enumLabels";
 
 interface Params {
   catId: string;
@@ -175,26 +183,34 @@ export default function CatIdPage() {
           </div>
           <div>
             <p>Date de naissance : {formattedBirthInfo}</p>
-            <p>
+            {/* <p>
               Sexe:{" "}
               {catData.sex_cat === "female" ? (
-                <span>♀️ (Femelle)</span>
+                <span> (Femelle)</span>
               ) : catData.sex_cat === "male" ? (
-                <span>♂️ (Mâle)</span>
+                <span> (Mâle)</span>
               ) : (
                 "Non spécifié"
               )}
-            </p>
+            </p> */}
+            <p>Âge: {SEX_CAT_LABELS[catData.sex_cat] || catData.sex_cat}</p>
             <p>Stérilisé: {catData.sterelized ? "Oui" : "Non"}</p>
             <p>Vacciné: {catData.vaccine ? "Oui" : "Non"}</p>
             <p>FIV Test: {catData.fiv_test ? "Positif" : "Négatif"}</p>
             <p>FeLV Test: {catData.felv_test ? "Positif" : "Négatif"}</p>
-            <p>Couleur du pelage: {catData.coat_color}</p>
-            <p>Motif: {catData.pattern}</p>
+            <p>
+              Couleur du pelage:{" "}
+              {COAT_COLOR_LABELS[catData.coat_color] || catData.coat_color}
+            </p>
+            <p>Motif: {PATTERN_LABELS[catData.pattern] || catData.pattern}</p>
             <p>Description: {catData.description}</p>
             {/* <p>Adoption: {catData.adoption ? "Oui" : "Non"}</p> */}
-            <p>Âge: {catData.age_of_cat}</p>
-            <p>Catégorie: {catData.category_cat}</p>
+            <p>Âge: {AGE_LABELS[catData.age_of_cat] || catData.age_of_cat}</p>
+            <p>
+              Catégorie:{" "}
+              {CATEGORY_CAT_LABELS[catData.category_cat] ||
+                catData.category_cat}
+            </p>
           </div>
         </div>
       ) : (

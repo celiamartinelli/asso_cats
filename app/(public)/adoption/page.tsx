@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/client";
 import CardCat from "@/components/MadeInHand/Client/Card/CardCat";
 import Player from "lottie-react";
 import loader from "../../../public/lottie/loader.json";
-import FilterModal from "@/components/MadeInHand/Client/Modal/FilterModal";
+import FilterModalCat from "@/components/MadeInHand/Client/Modal/FilterModalCat";
 
 export default function Page() {
   const [cat, setCat] = useState<any[] | null>(null);
@@ -59,7 +59,7 @@ export default function Page() {
         />
       )}
 
-      <FilterModal onApply={setFilters} />
+      <FilterModalCat onApply={setFilters} />
 
       <div className="w-11/12 flex justify-center flex-wrap mt-4">
         {filteredCats.length === 0 ? (

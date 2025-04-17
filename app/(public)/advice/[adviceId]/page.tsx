@@ -8,6 +8,11 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import FormToAdoption from "@/components/MadeInHand/Client/Form/FormToAdoption";
 import { UpvoteIcon } from "@/components/ui/upvote";
+import {
+  SUBJECT_LABELS,
+  CATEGORY_LABELS,
+  AGE_LABELS,
+} from "@/utils/enumLabels";
 
 interface Params {
   catId: string;
@@ -98,9 +103,18 @@ export default function CatIdPage({ params }: AdviceIdPageProps) {
               priority
             />
             <div className="flex gap-5 mb-10">
-              <h3>Categorie: {adviceData.category_advice}</h3>
-              <h3>Age chat: {adviceData.age_of_cat}</h3>
-              <h4>Sujet: {adviceData.subject}</h4>
+              <h3 className="bg-zinc-900 text-white rounded-md inline-block px-2 py-1 ">
+                {SUBJECT_LABELS[adviceData.subject] || adviceData.subject}
+              </h3>
+              <h3>
+                Catégorie:{" "}
+                {CATEGORY_LABELS[adviceData.category_advice] ||
+                  adviceData.category_advice}
+              </h3>
+              <h3>
+                Âge:{" "}
+                {AGE_LABELS[adviceData.age_of_cat] || adviceData.age_of_cat}
+              </h3>
             </div>
             <div
               dangerouslySetInnerHTML={{ __html: adviceData.body_of_advice }}

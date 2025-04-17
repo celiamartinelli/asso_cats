@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import {
+  SUBJECT_LABELS,
+  CATEGORY_LABELS,
+  AGE_LABELS,
+} from "@/utils/enumLabels";
 
 interface Advice {
   advice_id: string;
@@ -38,9 +43,13 @@ export default function CardAdvice({ item }: { item: Advice }) {
       </h2>
       <h3 className="italic text-zinc-700"> {item.subtitle}</h3>
       <h3 className="bg-zinc-900 text-white rounded-md inline-block px-2 py-1 ">
-        {item.subject}
+        {SUBJECT_LABELS[item.subject] || item.subject}
       </h3>
-      <h3>Catégorie: {item.category_advice}</h3>
+      <h3>
+        Catégorie:{" "}
+        {CATEGORY_LABELS[item.category_advice] || item.category_advice}
+      </h3>
+      <h3>Âge: {AGE_LABELS[item.age_of_cat] || item.age_of_cat}</h3>
 
       <Image
         src={

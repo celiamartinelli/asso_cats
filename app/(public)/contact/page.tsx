@@ -1,18 +1,42 @@
+"use client";
 import SocialNetwork from "@/components/MadeInHand/SocialNetwork";
+import FormContact from "@/components/MadeInHand/Client/Form/FormContact";
+import { Mail, PhoneCall, Contact2 } from "lucide-react";
 
 export default function Contact() {
   return (
-    <div className="p-6 min-h-screen bg-gray-100 dark:bg-black">
-      <h1 className="text-3xl font-bold mb-4">Contact</h1>
-      <section className="w-full h-3/4">
-        <h2>Comment nous contacter?</h2>
-        <p>Par téléphone: 06 08 87 28 94</p>
-        <p>Par mail: ecoledeschatsdupayshoudanais@gmail.com</p>
-        <p>Via nos réseaux sociaux</p>
-        <SocialNetwork />
-        <p>ou sinon via les formulaire juste ci dessous</p>
+    <div className=" flex  min-h-screen bg-white dark:bg-black gap-6 p-2">
+      {/* <h1 className="text-3xl font-bold mb-4">Contact</h1> */}
+      <section className="w-1/2 mt-10 ">
+        <h2 className="font-semi-bold text-2xl mb-10 text-center">
+          Comment pouvez-vous nous contacter?
+        </h2>
+        <div className="flex flex-col items-center gap-2 mb-10">
+          <PhoneCall />
+          <h3 className="font-thasadith text-zinc-700">Par Téléphone</h3>
+          <p>06 08 87 28 94</p>
+        </div>
+        <div className="flex flex-col items-center gap-2 mb-10">
+          <Mail />
+          <h3 className="font-thasadith text-zinc-700"> Par mail</h3>
+          <p>ecoledeschatsdupayshoudanais@gmail.com</p>
+        </div>
+        <div className="flex flex-col items-center gap-2 mb-16">
+          <Contact2 />
+          <h3 className="font-thasadith text-zinc-700">
+            {" "}
+            Via nos réseaux sociaux
+          </h3>
+          <SocialNetwork />
+        </div>
+
+        <p className="flex justify-center items-center">
+          ou sinon via les formulaire juste ici 👉
+        </p>
       </section>
-      <section></section>
+      <section className="w-1/2  ">
+        <FormContact />
+      </section>
     </div>
   );
 }

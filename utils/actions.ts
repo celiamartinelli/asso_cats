@@ -270,6 +270,41 @@ export const addMaterialDonation = async (formData: any) => {
   }
 };
 
+//FORMULAIRE CONTACT //
+//Fonction pour ajouter un formulaire a supabase
+export const addContactForm = async (formData: any) => {
+  try {
+    console.log("➡️ Données reçues en entrée :", formData);
+
+    // Formatage des données avant insertion
+    const formattedData = {
+      ...formData,
+      email: formData.email.toLowerCase().trim(), // Normalisation de l'email
+      phone_number: formData.phone_number.trim(),
+      message: formData.message.trim(),
+      subject: formData.subject.trim(),
+    };
+
+    console.log("✅ Données formatées pour insertion :", formattedData);
+
+    // Insertion dans Supabase
+    const { data, error } = await supabase
+      .from("contact_form")
+      .insert([formattedData]);
+
+    if (error) {
+      console.error("❌ Erreur d'insertion dans Supabase :", error);
+      throw error;
+    }
+
+    // console.log("✅ Formulaire de contact enregistré avec succès :", data);
+    return "Formulaire de contact enregistré avec succès";
+  } catch (error) {
+    console.error("❌ Erreur d'insertion dans la base de données :", error);
+    throw error;
+  }
+};
+
 //FORMULAIRE DEVENIR FAMILLE D'ACCUEIL //
 // Fonction pour ajouter une demande de famille d'accueil dans Supabase
 export const addFosterFamilyForm = async (formData: any) => {

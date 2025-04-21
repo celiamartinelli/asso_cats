@@ -67,11 +67,11 @@ export default function FormContact() {
   return (
     <div>
       <form
-        className="bg-white rounded p-10 border border-gray-300  dark:bg-zinc-950"
+        className="bg-white  rounded p-10 border border-gray-300  dark:bg-zinc-950"
         onSubmit={handleSubmit}
       >
         {/* <h1 className="text-3xl font-bold mb-4">Contactez-nous</h1> */}
-        <div className="flex flex-col my-4">
+        <div className="flex flex-col my-4 ">
           <label className="font-medium mb-1" htmlFor="type_of_housing">
             Sujet:
           </label>
@@ -81,7 +81,7 @@ export default function FormContact() {
               setFormData({ ...formData, subject: value })
             }
           >
-            <SelectTrigger>
+            <SelectTrigger className="border-gray-300">
               <SelectValue placeholder="Sélectionnez un sujet" />
             </SelectTrigger>
             <SelectContent>
@@ -140,11 +140,11 @@ export default function FormContact() {
             name="message"
             value={formData.message}
             onChange={handleChange}
-            className="border p-2 rounded"
+            className="border p-2 rounded border-gray-300"
             rows={5}
           />
         </div>
-        <Button className="w-full" type="submit">
+        <Button className="w-full " type="submit">
           Envoyer
         </Button>
       </form>

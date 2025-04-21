@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+import { SlidersHorizontal } from "lucide-react";
 
 const subjectMapping = {
   Maltraitance: "maltraitance",
@@ -59,8 +60,9 @@ export default function FilterModalAdvice({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="ml-4">
-          Filtres
+        <Button className="ml-4">
+          {" "}
+          <SlidersHorizontal />{" "}
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-md p-6">

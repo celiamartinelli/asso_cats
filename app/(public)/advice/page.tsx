@@ -6,6 +6,7 @@ import Player from "lottie-react";
 import loader from "../../../public/lottie/loader.json";
 import CardAdvice from "@/components/MadeInHand/Client/Card/CardAdvice";
 import FilterModalAdvice from "@/components/MadeInHand/Client/Modal/FilterModalAdvice";
+import { ArrowRight } from "lucide-react";
 
 export default function Advice() {
   const [advice, setAdvice] = useState<any[] | null>(null);
@@ -67,7 +68,13 @@ export default function Advice() {
           style={{ height: "300px", width: "300px" }}
         />
       )}
-      <FilterModalAdvice onApply={setFilters} />
+
+      <div className="w-full flex justify-end items-center mt-4 mr-12">
+        <p className="flex justify-center items-center gap-2 text-xs text-zinc-500">
+          ici choisissez précisémment ce que vous chercher <ArrowRight />
+        </p>
+        <FilterModalAdvice onApply={setFilters} />
+      </div>
 
       <div className="w-11/12 flex justify-center flex-wrap mt-4">
         {filteredAdvices.length === 0 ? (

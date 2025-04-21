@@ -6,6 +6,7 @@ import CardCat from "@/components/MadeInHand/Client/Card/CardCat";
 import Player from "lottie-react";
 import loader from "../../../public/lottie/loader.json";
 import FilterModalCat from "@/components/MadeInHand/Client/Modal/FilterModalCat";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 export default function Page() {
   const [cat, setCat] = useState<any[] | null>(null);
@@ -58,8 +59,12 @@ export default function Page() {
           style={{ height: "300px", width: "300px" }}
         />
       )}
-
-      <FilterModalCat onApply={setFilters} />
+      <div className="w-full flex justify-end items-center mt-4 mr-12">
+        <p className="flex justify-center items-center gap-2 text-xs text-zinc-500">
+          ici choisissez précisémment ce que vous chercher <ArrowRight />
+        </p>
+        <FilterModalCat onApply={setFilters} />
+      </div>
 
       <div className="w-11/12 flex justify-center flex-wrap mt-4">
         {filteredCats.length === 0 ? (

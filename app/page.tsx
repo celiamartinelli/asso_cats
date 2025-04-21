@@ -175,7 +175,7 @@ export default function Index() {
             {loading ? (
               <p>Chargement des dates...</p>
             ) : (
-              <ul className="flex flex-col justify-center w-2/3 items-center md:flex-wrap ">
+              <ul className="flex flex-col md:flex-row justify-center w-2/3 items-center md:flex-wrap ">
                 {importantDates.length > 0 ? (
                   importantDates.map((date) => (
                     <li

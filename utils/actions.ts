@@ -508,6 +508,31 @@ export const updateAdoptionRequestReadStatus = async (
   }
 };
 
+// Modifie le statut du switch pour marquer la demande d'adoption comme lue ou non lue //
+export const updateVolunteerRequestReadStatus = async (
+  formId: number,
+  newReadStatus: boolean
+) => {
+  try {
+    const { error } = await supabase
+      .from("volunteer_form")
+      .update({ read: newReadStatus })
+      .eq("form_id", formId);
+
+    if (error) {
+      throw new Error(`Erreur Supabase : ${error.message}`);
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error(
+      "Erreur lors de la mise à jour du statut de lecture :",
+      error
+    );
+    return { success: false, error };
+  }
+};
+
 //NEWS PAGE//
 // Toutes les news //
 export const getAllNews = async () => {
@@ -828,4 +853,31 @@ export const uploadImageEvent = async (imageFile: File) => {
     console.error("❌ Erreur upload image:", error);
     return null;
   }
+};
+
+// Fonction pour récupétrer tous les form de bénévole
+
+export const getVolunteerForm = async () => {
+  const { data, error } = await supabase
+    .from("volunteer_form")
+    .select(
+      `
+      *,
+      volunteer_form_types (
+        *,
+        volunteer_types (
+          title
+        )
+      )
+    `
+    )
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Erreur Supabase :", error.message);
+    return [];
+  }
+
+  console.log("Données des volontaires:", data);
+  return data;
 };

@@ -91,7 +91,10 @@ export default function FilterModalCat({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="ml-4"> </Button>
+        <Button className="ml-4">
+          {" "}
+          <SlidersHorizontal />
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-w-md p-6">
         <DialogHeader>

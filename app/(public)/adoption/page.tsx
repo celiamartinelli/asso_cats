@@ -61,7 +61,8 @@ export default function Page() {
       )}
       <div className="w-full flex justify-end items-center mt-4 mr-12">
         <p className="flex justify-center items-center gap-2 text-xs text-zinc-500">
-          ici choisissez précisémment ce que vous chercher <ArrowRight />
+          ici choisissez précisémment l'animal qui vous correpsond{" "}
+          <ArrowRight />
         </p>
         <FilterModalCat onApply={setFilters} />
       </div>

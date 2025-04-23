@@ -33,10 +33,21 @@ export default function VolunteerGroup() {
   const volunteersByType = volunteers.reduce((acc: any, volunteer) => {
     (volunteer.volunteer_form_types || []).forEach((entry: any) => {
       const typeTitle = entry.volunteer_types?.title || "Autre";
+      const description = entry.volunteer_types?.description || "";
+
+      // console.log("TYPE DEBUG :", {
+      //   title: typeTitle,
+      //   description,
+      // });
+
       if (!acc[typeTitle]) {
-        acc[typeTitle] = [];
+        acc[typeTitle] = {
+          description,
+          volunteers: [],
+        };
       }
-      acc[typeTitle].push(volunteer);
+
+      acc[typeTitle].volunteers.push(volunteer);
     });
     return acc;
   }, {});
@@ -86,10 +97,16 @@ export default function VolunteerGroup() {
           >
             <ArrowLeft size={20} /> Retour aux types
           </button>
-
-          <h2 className="text-xl font-semibold mb-4">{selectedType}</h2>
+          <h2 className="text-xl font-semibold">{selectedType}</h2>
+          <p className="text-sm text-gray-600 mb-4">
+            {console.log(
+              "Description:",
+              volunteersByType[selectedType]?.description
+            )}
+            {volunteersByType[selectedType]?.description}
+          </p>
           <ul className="space-y-4">
-            {volunteersByType[selectedType].map(
+            {volunteersByType[selectedType].volunteers.map(
               (volunteer: any, index: number) => {
                 const isOpen = expandedFormId === volunteer.form_id;
 
@@ -105,6 +122,15 @@ export default function VolunteerGroup() {
                         <strong>Nom :</strong> {volunteer.first_name}{" "}
                         {volunteer.last_name}
                       </p>
+                      <label className="flex items-center gap-2 text-sm text-gray-700">
+                        <Switch
+                          checked={volunteer.read}
+                          onCheckedChange={(checked) =>
+                            handleSwitchChange(volunteer.form_id, checked)
+                          }
+                        />
+                        Marquer comme lu
+                      </label>
                       <span className="text-gray-500">
                         {isOpen ? "▲" : "▼"}
                       </span>
@@ -121,20 +147,6 @@ export default function VolunteerGroup() {
                         >
                           <div className="p-4 bg-gray-50 rounded-md border">
                             <VolunteerContent volunteer={volunteer} />
-                            <div className="mt-4">
-                              <label className="flex items-center gap-2 text-sm text-gray-700">
-                                <Switch
-                                  checked={volunteer.read}
-                                  onCheckedChange={(checked) =>
-                                    handleSwitchChange(
-                                      volunteer.form_id,
-                                      checked
-                                    )
-                                  }
-                                />
-                                Marquer comme lu
-                              </label>
-                            </div>
                           </div>
                         </motion.div>
                       )}
@@ -161,7 +173,7 @@ export default function VolunteerGroup() {
           ) : (
             <ul className="space-y-4">
               {Object.entries(volunteersByType).map(
-                ([typeTitle, group]: [string, any[]]) => (
+                ([typeTitle, group]: [string, any]) => (
                   <li
                     key={typeTitle}
                     className="border p-4 rounded cursor-pointer flex items-center justify-between"
@@ -169,7 +181,7 @@ export default function VolunteerGroup() {
                   >
                     <span className="font-semibold">{typeTitle}</span>
                     <span className="bg-black text-white text-sm rounded-full px-2 py-1">
-                      {group.length}
+                      {group.volunteers.length}
                     </span>
                   </li>
                 )

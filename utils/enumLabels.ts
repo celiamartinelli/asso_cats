@@ -73,10 +73,10 @@ export const FOSTER_TYPE_LABELS: Record<string, string> = {
 };
 
 export const HOUSING_TYPE_LABELS: Record<string, string> = {
-  house: "Maison",
-  apartment: "Appartement",
+  house: "Maison 🏡",
+  apartment: "Appartement 🏬",
   castle: "Château 🏰",
-  caravan: "Caravane",
+  caravan: "Caravane 🚐",
 };
 
 export const SUBJECT_CONTACT_LABELS: Record<string, string> = {

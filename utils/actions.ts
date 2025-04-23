@@ -508,31 +508,6 @@ export const updateAdoptionRequestReadStatus = async (
   }
 };
 
-// Modifie le statut du switch pour marquer la demande d'adoption comme lue ou non lue //
-export const updateVolunteerRequestReadStatus = async (
-  formId: number,
-  newReadStatus: boolean
-) => {
-  try {
-    const { error } = await supabase
-      .from("volunteer_form")
-      .update({ read: newReadStatus })
-      .eq("form_id", formId);
-
-    if (error) {
-      throw new Error(`Erreur Supabase : ${error.message}`);
-    }
-
-    return { success: true };
-  } catch (error) {
-    console.error(
-      "Erreur lors de la mise à jour du statut de lecture :",
-      error
-    );
-    return { success: false, error };
-  }
-};
-
 //NEWS PAGE//
 // Toutes les news //
 export const getAllNews = async () => {
@@ -866,7 +841,7 @@ export const getVolunteerForm = async () => {
       volunteer_form_types (
         *,
         volunteer_types (
-          title
+          title, description
         )
       )
     `
@@ -880,4 +855,111 @@ export const getVolunteerForm = async () => {
 
   console.log("Données des volontaires:", data);
   return data;
+};
+
+// Modifie le statut du switch pour marquer la demande de volontaire comme lue ou non lue //
+export const updateVolunteerRequestReadStatus = async (
+  formId: number,
+  newReadStatus: boolean
+) => {
+  try {
+    const { error } = await supabase
+      .from("volunteer_form")
+      .update({ read: newReadStatus })
+      .eq("form_id", formId);
+
+    if (error) {
+      throw new Error(`Erreur Supabase : ${error.message}`);
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error(
+      "Erreur lors de la mise à jour du statut de lecture :",
+      error
+    );
+    return { success: false, error };
+  }
+};
+
+// Fonction pour récupérer les formulaires "Dons de Matériel"
+export const getMaterialDonationForm = async () => {
+  const { data, error } = await supabase
+    .from("material_donation_form")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Erreur Supabase :", error.message);
+    return [];
+  }
+
+  console.log("Données des dons de matériel:", data);
+  return data;
+};
+
+// Modifie le statut du switch pour marquer la demande de don de matériel comme lue ou non lue //
+export const updateMaterielDonationRequestReadStatus = async (
+  formId: number,
+  newReadStatus: boolean
+) => {
+  try {
+    const { error } = await supabase
+      .from("material_donation_form")
+      .update({ read: newReadStatus })
+      .eq("material_donation_form_id", formId);
+
+    if (error) {
+      throw new Error(`Erreur Supabase : ${error.message}`);
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error(
+      "Erreur lors de la mise à jour du statut de lecture :",
+      error
+    );
+    return { success: false, error };
+  }
+};
+
+// Fonction pour récupérer les formulaires "Devenir Famille d'accueil"
+export const getFosterFamilyForm = async () => {
+  const { data, error } = await supabase
+    .from("foster_family_form")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Erreur Supabase :", error.message);
+    return [];
+  }
+
+  console.log("Données des form de famille d'accueil:", data);
+  return data;
+};
+
+// Modifie le statut du switch pour marquer la demande de famille d'accueil comme lue ou non lue //
+export const updateFosterFamilyRequestReadStatus = async (
+  formId: number,
+  newReadStatus: boolean
+) => {
+  try {
+    const { error } = await supabase
+      .from("foster_family_form")
+      .update({ read: newReadStatus })
+      .eq("foster_family_form_id", formId);
+
+    if (error) {
+      throw new Error(`Erreur Supabase : ${error.message}`);
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error(
+      "Erreur lors de la mise à jour du statut de lecture :",
+      error
+    );
+    return { success: false, error };
+  }
 };

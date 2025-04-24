@@ -132,10 +132,10 @@ export default function HostFamilyGroup() {
           return (
             <div
               key={index}
-              className={`flex flex-col items-center justify-center w-16 h-16 rounded-xl border-2 p-2 text-xs ${
+              className={`flex flex-col items-center justify-center w-16 h-16 rounded-xl text-xs ${
                 isSelected
-                  ? "bg-blue-500 border-blue-600 text-white"
-                  : "bg-gray-100 border-gray-300 text-gray-600"
+                  ? "bg-zinc-800 border-zinc-900 text-white"
+                  : "bg-gray-100 border border-zinc-500 text-gray-600"
               }`}
             >
               <animal.icon size={24} />
@@ -149,7 +149,9 @@ export default function HostFamilyGroup() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Familles d'accueil</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        Formulaire de Familles d'accueil
+      </h1>
       {selectedFamily ? (
         // Vue individuelle d’une famille d'accueil
         <div>
@@ -184,11 +186,6 @@ export default function HostFamilyGroup() {
               const safeTypeAnimals = Array.isArray(family.type_animals)
                 ? family.type_animals
                 : [];
-              // console.log(
-              //   "Animaux sélectionnés pour",
-              //   family.first_name,
-              //   safeTypeAnimals
-              // );
               return (
                 <li
                   key={family.foster_family_form_id}
@@ -270,13 +267,14 @@ export default function HostFamilyGroup() {
                               family.type_of_housing}
                           </p>
                           <p>
-                            <strong>Superficie :</strong> {family.living_area}
+                            <strong>Superficie :</strong> {family.living_area}{" "}
+                            m²
                           </p>
                           <p>
                             <strong>Capacité d'accueil :</strong>{" "}
-                            {family.capacity_number_animals}
+                            {family.capacity_number_animals} animaux
                           </p>
-                          <div className="p-4 bg-gray-50 rounded-md border">
+                          <div className=" bg-gray-50 rounded-md ">
                             <div>
                               <strong>Type d'animaux :</strong>
                               <div className="flex flex-wrap">
@@ -294,6 +292,24 @@ export default function HostFamilyGroup() {
                               {family.specific_part_details}
                             </p>
                           )}
+                          <p>
+                            <strong>Autres animaux :</strong>{" "}
+                            {family.have_you_other_animals ? "Oui" : "Non"}
+                          </p>
+                          {family.have_you_other_animals && (
+                            <p>
+                              <strong>Détails :</strong>{" "}
+                              {family.have_you_other_animals_details}
+                            </p>
+                          )}
+                          <p>
+                            <strong>Description de la maison :</strong>{" "}
+                            {family.home_description}
+                          </p>
+                          <p>
+                            <strong>Pourquoi famille d'accueil :</strong>{" "}
+                            {family.why_foster_family}
+                          </p>
                         </div>
                       </motion.div>
                     )}

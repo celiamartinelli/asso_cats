@@ -75,6 +75,7 @@ export default function VolunteerGroup() {
   // Affichage de la page
   return (
     <div>
+      <h1 className="text-2xl font-bold mb-4">Formulaires de Bénévoles</h1>
       {selectedVolunteer ? (
         // Vue individuelle d’un formulaire
         <div>

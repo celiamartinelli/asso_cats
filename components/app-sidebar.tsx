@@ -29,7 +29,6 @@ import {
 import AdoptionContentCatGroup from "./MadeInHand/Admin/Content/AdoptionContent/AdoptionContentCatGroup";
 import HostFamilyContent from "./MadeInHand/Admin/Content/HostFamilyContent";
 import MaterielDonationContent from "./MadeInHand/Admin/Content/MaterielDonationContent";
-import ContactContent from "./MadeInHand/Admin/Content/ContactContent";
 import CatAction from "./MadeInHand/Admin/Actions/Cat/CatAction";
 import AdviceAction from "./MadeInHand/Admin/Actions/Advice/AdviceAction";
 import TownAction from "./MadeInHand/Admin/Actions/Town/TownAction";
@@ -37,6 +36,7 @@ import EventsAction from "./MadeInHand/Admin/Actions/Events/EventsAction";
 import { Button } from "react-day-picker";
 import NewsAction from "./MadeInHand/Admin/Actions/News/NewsAction";
 import VolunteerGroup from "./MadeInHand/Admin/Content/VolunteerContent/VolunteerGroup";
+import ContactGroup from "./MadeInHand/Admin/Content/ContactContent/ContactGroup";
 
 // This is sample data.
 const data = {
@@ -51,16 +51,16 @@ const data = {
       logo: GalleryVerticalEnd,
       plan: "Association",
     },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
+    // {
+    //   name: "Acme Corp.",
+    //   logo: AudioWaveform,
+    //   plan: "Startup",
+    // },
+    // {
+    //   name: "Evil Corp.",
+    //   logo: Command,
+    //   plan: "Free",
+    // },
   ],
   navMain: [
     {
@@ -86,7 +86,7 @@ const data = {
         },
         {
           title: "Contact",
-          content: <ContactContent />,
+          content: <ContactGroup />,
         },
       ],
     },

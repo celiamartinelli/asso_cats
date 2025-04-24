@@ -963,3 +963,44 @@ export const updateFosterFamilyRequestReadStatus = async (
     return { success: false, error };
   }
 };
+
+// Fonction pour récupérer les formulaires "Devenir Famille d'accueil"
+export const getContactForm = async () => {
+  const { data, error } = await supabase
+    .from("contact_form")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Erreur Supabase :", error.message);
+    return [];
+  }
+
+  console.log("Données des form de contact:", data);
+  return data;
+};
+
+// Modifie le statut du switch pour marquer la demande de famille d'accueil comme lue ou non lue //
+export const updateContactRequestReadStatus = async (
+  formId: number,
+  newReadStatus: boolean
+) => {
+  try {
+    const { error } = await supabase
+      .from("contact_form")
+      .update({ read: newReadStatus })
+      .eq("contact_form_id", formId);
+
+    if (error) {
+      throw new Error(`Erreur Supabase : ${error.message}`);
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error(
+      "Erreur lors de la mise à jour du statut de lecture :",
+      error
+    );
+    return { success: false, error };
+  }
+};

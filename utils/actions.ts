@@ -65,7 +65,7 @@ export const getAdoptionSteps = async () => {
     console.error("Erreur Supabase :", error.message);
     return [];
   }
-  console.log("Données des étapes d'adoption:", data);
+  // console.log("Données des étapes d'adoption:", data);
   return data;
 };
 
@@ -446,12 +446,28 @@ export const fetchAllEvents = async () => {
 
 //ADMIN PAGE//
 
+//Fonction pour récupérer tous les chats
+export const getAllCats = async () => {
+  const { data, error } = await supabase
+    .from("cat")
+    .select("*")
+    .order("cat_id", { ascending: true });
+
+  if (error) {
+    console.error("Erreur Supabase :", error.message);
+    return [];
+  }
+
+  // console.log("Données des chats:", data);
+  return data;
+};
+
 /// Fonction pour récupérer les chats avec le nombre de formulaires d'adoption
 export const getCatsWithAdoptionCount = async () => {
   const { data, error } = await supabase
     .from("cat")
     .select(
-      "cat_id, name_cat, sex_cat, age_of_cat, cat_url_image, date_of_birth, " +
+      "cat_id, name_cat, sex_cat, age_of_cat, cat_url_image, date_of_birth, adoption, " +
         "adoption_form(count)"
     )
     .eq("adoption_form.read", false);

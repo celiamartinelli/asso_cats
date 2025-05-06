@@ -67,6 +67,7 @@ const AdoptionContent: React.FC<AdoptionContentProps> = ({ cat }) => {
 
   return (
     <div className="w-full h-full ">
+      <h1>AdoptionContent</h1>
       <Card>
         <CardHeader>
           <CardTitle>{cat.name_cat}</CardTitle>

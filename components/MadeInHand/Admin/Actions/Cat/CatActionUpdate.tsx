@@ -1,19 +1,21 @@
-"use client";
-import { useState, useEffect } from "react";
-import { getCatsWithAdoptionCount } from "@/utils/actions";
-import Image from "next/image";
-import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { createClient } from "@/utils/supabase/client";
 import Player from "lottie-react";
 import loader from "../../../../../public/lottie/loader.json";
-import AdoptionContent from "./AdoptionContent";
+import CardCat from "@/components/MadeInHand/Client/Card/CardCat";
+import CardCatUpdate from "@/components/MadeInHand/Client/Card/CardCatUpdate";
+import { getAllCats } from "@/utils/actions";
+import { ArrowLeft } from "lucide-react";
+import Image from "next/image";
 
-export default function AdoptionContentCatGroup() {
+export default function CatActionUpdate() {
   const [cats, setCats] = useState<any[] | null>(null);
   const [selectedCat, setSelectedCat] = useState<any | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getCatsWithAdoptionCount();
+      const data = await getAllCats();
       setCats(data ?? []);
     };
 
@@ -27,16 +29,28 @@ export default function AdoptionContentCatGroup() {
     age_of_cat: number;
     cat_url_image: string[];
     date_of_birth: string;
-    adoption: boolean;
   }) => {
     setSelectedCat(cat); // Met à jour l'état avec le chat sélectionné
   };
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Formulaire d'Adoption</h1>
+      {/* {cat ? null : (
+        <Player
+          autoplay
+          loop
+          animationData={loader}
+          style={{ height: "300px", width: "300px" }}
+        />
+      )}
+      <div className="flex flex-col items-center">
+        <h1 className="text-2xl font-bold mb-4">Liste des chats</h1>
 
-      {selectedCat ? ( // Si un chat est sélectionné, afficher le composant AdoptionContent
+        {cat &&
+          cat.map((item) => <CardCatUpdate key={item.cat_id} item={item} />)}
+      </div> */}
+
+      {selectedCat ? (
         <div>
           <button
             className="flex items-center gap-2 text-gray-500 hover:underline mb-4"
@@ -44,8 +58,7 @@ export default function AdoptionContentCatGroup() {
           >
             <ArrowLeft size={20} /> Retour
           </button>
-
-          <AdoptionContent cat={selectedCat} />
+          <CardCatUpdate item={selectedCat} />
         </div>
       ) : cats === null ? (
         <Player
@@ -63,7 +76,7 @@ export default function AdoptionContentCatGroup() {
                 item.adoption ? "opacity-50" : ""
               }`}
               onClick={() => {
-                handleCardClick(item), console.log(item.adoption);
+                handleCardClick(item), console.log(item);
               }}
             >
               {item.adoption && (
@@ -78,11 +91,6 @@ export default function AdoptionContentCatGroup() {
                   <h2 className="font-bold text-2xl">{item.name_cat}</h2>
                   <p>Sexe: {item.sex_cat}</p>
                   <p>Âge: {item.age_of_cat}</p>
-                </div>
-                <div>
-                  <p className="flex w-7 h-7 bg-black rounded-full text-white justify-center items-center">
-                    {item.adoption_form?.[0]?.count ?? 0}
-                  </p>
                 </div>
               </div>
               <Image

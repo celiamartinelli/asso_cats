@@ -7,7 +7,17 @@ import {
   Command,
   Frame,
   GalleryVerticalEnd,
+  LetterText,
+  LetterTextIcon,
+  Mail,
+  MailCheckIcon,
+  MailMinus,
+  MailOpenIcon,
+  MailPlusIcon,
+  MailsIcon,
+  MailWarningIcon,
   Map,
+  PencilIcon,
   PieChart,
   Plus,
   Settings2,
@@ -37,6 +47,11 @@ import { Button } from "react-day-picker";
 import NewsAction from "./MadeInHand/Admin/Actions/News/NewsAction";
 import VolunteerGroup from "./MadeInHand/Admin/Content/VolunteerContent/VolunteerGroup";
 import ContactGroup from "./MadeInHand/Admin/Content/ContactContent/ContactGroup";
+import CatActionUpdate from "./MadeInHand/Admin/Actions/Cat/CatActionUpdate";
+import AdviceActionUpdate from "./MadeInHand/Admin/Actions/Advice/AdviceActionUpdate";
+import TownActionUpdate from "./MadeInHand/Admin/Actions/Town/TownActionUpdate";
+import EventsActionUpdate from "./MadeInHand/Admin/Actions/Events/EventsActionUpdate";
+import NewsActionUpdate from "./MadeInHand/Admin/Actions/News/NewsActionUpdate";
 
 // This is sample data.
 const data = {
@@ -65,7 +80,7 @@ const data = {
   navMain: [
     {
       title: "Formulaire de contact",
-      icon: Text,
+      icon: Mail,
       isActive: true,
       items: [
         {
@@ -116,24 +131,50 @@ const data = {
         },
       ],
     },
+    {
+      title: "Modifier/Supprimer",
+      icon: PencilIcon,
+      items: [
+        {
+          title: "Chat",
+          content: <CatActionUpdate />,
+        },
+        {
+          title: "Article",
+          content: <AdviceActionUpdate />,
+        },
+        {
+          title: "Ville",
+          content: <TownActionUpdate />,
+        },
+        {
+          title: "Calendrier",
+          content: <EventsActionUpdate />,
+        },
+        {
+          title: "Actualités",
+          content: <NewsActionUpdate />,
+        },
+      ],
+    },
   ],
-  projects: [
-    // {
-    //   name: "Design Engineering",
-    //   url: "#",
-    //   icon: Frame,
-    // },
-    // {
-    //   name: "Sales & Marketing",
-    //   url: "#",
-    //   icon: PieChart,
-    // },
-    // {
-    //   name: "Travel",
-    //   url: "#",
-    //   icon: Map,
-    // },
-  ],
+  // projects: [
+  //   {
+  //     name: "Design Engineering",
+  //     url: "#",
+  //     icon: Frame,
+  //   },
+  //   {
+  //     name: "Sales & Marketing",
+  //     url: "#",
+  //     icon: PieChart,
+  //   },
+  //   {
+  //     name: "Travel",
+  //     url: "#",
+  //     icon: Map,
+  //   },
+  // ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -150,7 +191,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarHeader>
         <SidebarContent>
           <NavMain items={data.navMain} onItemClick={handleItemClick} />
-          <NavProjects projects={data.projects} />
+          {/* <NavProjects projects={data.projects} /> */}
         </SidebarContent>
         <SidebarFooter>{/* <NavUser user={data.user} /> */}</SidebarFooter>
         <SidebarRail />

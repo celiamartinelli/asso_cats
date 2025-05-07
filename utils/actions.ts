@@ -524,6 +524,58 @@ export const updateAdoptionRequestReadStatus = async (
   }
 };
 
+export async function uploadImageToSupabase(
+  file: File,
+  bucket: string
+): Promise<string | null> {
+  try {
+    const fileExt = file.name.split(".").pop();
+    const fileName = `${Date.now()}.${fileExt}`;
+    const filePath = `${fileName}`;
+
+    // Upload image
+    const { error: uploadError } = await supabase.storage
+      .from(bucket)
+      .upload(filePath, file, {
+        cacheControl: "3600",
+        upsert: true,
+      });
+
+    if (uploadError) {
+      console.error("Erreur lors de l'upload :", uploadError.message);
+      return null;
+    }
+
+    // Récupérer l'URL publique
+    const { data } = supabase.storage.from(bucket).getPublicUrl(filePath);
+    return data.publicUrl;
+  } catch (error) {
+    console.error("Erreur générale d'upload :", error);
+    return null;
+  }
+}
+
+//Fonction pour mettre a jour un chat
+export const updateCat = async (catId: string, formData: any) => {
+  try {
+    const { data, error } = await supabase
+      .from("cat")
+      .update(formData)
+      .eq("cat_id", catId);
+
+    if (error) {
+      console.error("Erreur Supabase :", error.message);
+      throw new Error(`Erreur Supabase : ${error.message}`);
+    }
+
+    console.log("Chat mis à jour avec succès :", data);
+    return data;
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour du chat :", error);
+    throw error;
+  }
+};
+
 //NEWS PAGE//
 // Toutes les news //
 export const getAllNews = async () => {

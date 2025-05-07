@@ -8,17 +8,32 @@ import FormToUpdateCat from "../../Admin/Actions/Cat/FormToUpdateCat";
 interface Cat {
   cat_id: string;
   name_cat: string;
+  date_of_birth: string;
   sex_cat: string;
-  age_of_cat: string;
-  cat_url_image: string | string[];
+  coat_color: string;
+  pattern: string;
+  sterilized: boolean;
+  cat_url_image: string;
+  sterelized: boolean;
+  when_sterelized: string;
+  vaccine: boolean;
+  when_vaccine: string;
+  fiv_test: boolean;
+  felv_test: boolean;
+  description: string;
   adoption: boolean;
+  when_adopt: string;
+  age_of_cat: string;
+  category_cat: string;
+  where_cat_found: string;
+  which_host_family: string;
 }
 
 export default function CardCatUpdate({ item }: { item: Cat }) {
   return (
     <div>
       {" "}
-      <FormToUpdateCat />
+      <FormToUpdateCat initialData={item} />
     </div>
   );
 }

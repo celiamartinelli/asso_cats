@@ -39,8 +39,13 @@ interface Cat {
   where_cat_found: string;
   which_host_family: string;
 }
-
-export default function FormToUpdateCat({ initialData }: { initialData: Cat }) {
+export default function FormToUpdateCat({
+  initialData,
+  onBack,
+}: {
+  initialData: Cat;
+  onBack: () => void;
+}) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -120,12 +125,12 @@ export default function FormToUpdateCat({ initialData }: { initialData: Cat }) {
     const finalImageUrls = [...existingImages, ...uploadedUrls.filter(Boolean)];
     const updatedCat = {
       ...formData,
-      cat_url_image: finalImageUrls.join(","),
+      cat_url_image: finalImageUrls,
     };
 
     await updateCat(initialData.cat_id, updatedCat);
     router.refresh();
-    router.push("/dashboard/liste-des-chats");
+    onBack();
   };
 
   return (

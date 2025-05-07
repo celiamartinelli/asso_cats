@@ -63,7 +63,8 @@ export default function AdoptionContentCatGroup() {
                 item.adoption ? "opacity-50" : ""
               }`}
               onClick={() => {
-                handleCardClick(item), console.log(item.adoption);
+                handleCardClick(item);
+                console.log(item.adoption);
               }}
             >
               {item.adoption && (

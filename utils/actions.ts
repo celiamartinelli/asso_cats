@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { Cat } from "../utils/types";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE;
@@ -575,6 +576,20 @@ export const updateCat = async (catId: string, formData: any) => {
     throw error;
   }
 };
+
+export async function fetchCats(): Promise<Cat[]> {
+  const { data, error } = await supabase
+    .from("cat")
+    .select("*")
+    .order("name_cat", { ascending: true }); // ou autre champ si tu veux trier
+
+  if (error) {
+    console.error("Erreur lors de la récupération des chats :", error.message);
+    return [];
+  }
+
+  return data as Cat[];
+}
 
 //NEWS PAGE//
 // Toutes les news //

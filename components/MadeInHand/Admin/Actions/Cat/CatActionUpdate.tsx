@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import Player from "lottie-react";
 import loader from "../../../../../public/lottie/loader.json";
-import CardCat from "@/components/MadeInHand/Client/Card/CardCat";
-import CardCatUpdate from "@/components/MadeInHand/Client/Card/CardCatUpdate";
-import { getAllCats } from "@/utils/actions";
+import { getAllCats, fetchCats } from "@/utils/actions";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
+import FormToUpdateCat from "./FormToUpdateCat";
+import { Cat } from "@/utils/types";
 
 export default function CatActionUpdate() {
-  const [cats, setCats] = useState<any[] | null>(null);
+  const [cats, setCats] = useState<Cat[] | null>(null);
   const [selectedCat, setSelectedCat] = useState<any | null>(null);
 
   useEffect(() => {
@@ -22,34 +22,18 @@ export default function CatActionUpdate() {
     fetchData();
   }, []);
 
-  const handleCardClick = (cat: {
-    cat_id: number;
-    name_cat: string;
-    sex_cat: string;
-    age_of_cat: number;
-    cat_url_image: string[];
-    date_of_birth: string;
-  }) => {
+  const handleUpdate = async () => {
+    const updatedCats = await fetchCats();
+    setCats(updatedCats);
+    setSelectedCat(null); // cacher le formulaire
+  };
+
+  const handleCardClick = (cat: Cat) => {
     setSelectedCat(cat); // Met à jour l'état avec le chat sélectionné
   };
 
   return (
     <div>
-      {/* {cat ? null : (
-        <Player
-          autoplay
-          loop
-          animationData={loader}
-          style={{ height: "300px", width: "300px" }}
-        />
-      )}
-      <div className="flex flex-col items-center">
-        <h1 className="text-2xl font-bold mb-4">Liste des chats</h1>
-
-        {cat &&
-          cat.map((item) => <CardCatUpdate key={item.cat_id} item={item} />)}
-      </div> */}
-
       {selectedCat ? (
         <div>
           <button
@@ -58,7 +42,12 @@ export default function CatActionUpdate() {
           >
             <ArrowLeft size={20} /> Retour
           </button>
-          <CardCatUpdate item={selectedCat} />
+
+          <FormToUpdateCat
+            initialData={selectedCat}
+            onBack={() => setSelectedCat(null)}
+            onUpdate={handleUpdate}
+          />
         </div>
       ) : cats === null ? (
         <Player
@@ -76,7 +65,8 @@ export default function CatActionUpdate() {
                 item.adoption ? "opacity-50" : ""
               }`}
               onClick={() => {
-                handleCardClick(item), console.log(item);
+                handleCardClick(item);
+                console.log(item);
               }}
             >
               {item.adoption && (

@@ -21,7 +21,7 @@ export default function FormToVolunteer() {
   const [showForm, setShowForm] = useState(true);
 
   const [typeOfVolunteer, setTypeOfVolunteer] = useState<
-    { types_id: string; title: string; description: string }[]
+    { types_id: string; title: string; icon: string }[]
   >([]);
 
   useEffect(() => {
@@ -135,7 +135,7 @@ export default function FormToVolunteer() {
 
             <MultiSelect
               options={typeOfVolunteer.map((volunteerType) => ({
-                label: volunteerType.title,
+                label: volunteerType.icon + " " + volunteerType.title,
                 value: volunteerType.types_id,
               }))}
               onValueChange={(values) => {

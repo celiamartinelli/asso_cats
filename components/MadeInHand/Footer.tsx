@@ -87,6 +87,10 @@ const sections = [
         href: "/traitement-protection-des-donnees",
         label: "Signaler une maltraitance",
       },
+      {
+        href: "/becomeavolunteer",
+        label: "Devenir Bénévole",
+      },
     ],
   },
 ];

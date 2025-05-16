@@ -59,6 +59,15 @@ export default function Page() {
         </CardContent>
       </Card>
 
+      <Button
+        onClick={() => {
+          setIsModalOpen(true);
+        }}
+        className="text-lg px-6 py-4"
+      >
+        Remplir le Formulaire
+      </Button>
+
       <div className="space-y-8">
         <h2 className="text-2xl font-semibold">🌟 Les missions possibles</h2>
 
@@ -93,7 +102,7 @@ export default function Page() {
             }}
             className="text-lg px-6 py-4"
           >
-            Rejoignez-nous
+            Remplir le Formulaire
           </Button>
 
           <Link href="/contact">

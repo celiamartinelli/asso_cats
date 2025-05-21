@@ -55,7 +55,7 @@ export default function ButtonCookiesSession() {
   };
 
   return (
-    <div className="fixed bottom-0 right-0 sm:bottom-4 sm:right-4">
+    <div className="fixed bottom-0 right-0 sm:bottom-4 sm:right-4 z-50">
       <CookieModal
         isOpen={isModalOpen}
         onClose={handleReject}

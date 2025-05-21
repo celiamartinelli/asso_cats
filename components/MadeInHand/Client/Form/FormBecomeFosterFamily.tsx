@@ -9,6 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { Bird, Cat, Dog, Fish, Rabbit, Turtle } from "lucide-react";
 import { addFosterFamilyForm } from "@/utils/actions";
 import ModalToValidation from "../Modal/ModalToValidation";
+import { Info } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -17,7 +18,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const FormBecomFosterFamily: React.FC = () => {
+interface FormBecomFosterFamilyProps {
+  onFormSubmitted?: () => void;
+}
+
+const FormBecomFosterFamily: React.FC<FormBecomFosterFamilyProps> = ({
+  onFormSubmitted,
+}) => {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -102,6 +109,9 @@ const FormBecomFosterFamily: React.FC = () => {
       });
       setSelectedFrameworks([]);
       setSelectedHostFamily([]);
+      if (onFormSubmitted) {
+        onFormSubmitted();
+      }
     } catch (error) {
       alert("Une erreur est survenue, veuillez réessayer.");
     } finally {
@@ -233,6 +243,15 @@ const FormBecomFosterFamily: React.FC = () => {
           value={formData.home_description}
           onChange={handleChange}
         />
+        <div className="flex gap-4 my-4">
+          <Info className="" />
+          <p className="text-sm text-muted-foreground mt-1">
+            Merci de préciser si votre logement donne sur une rue, si les
+            fenêtres peuvent être sécurisées, s’il existe un espace dédié pour
+            accueillir un chat, et tout autre élément pertinent pour sa sécurité
+            et son confort.
+          </p>
+        </div>
         <div className="flex flex-col my-4">
           <div className="flex gap-6">
             <label

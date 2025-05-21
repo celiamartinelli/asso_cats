@@ -11,39 +11,51 @@ import {
 } from "@/components/ui/dialog";
 import { getCatById } from "../../../../utils/actions";
 import { Button } from "@/components/ui/button";
+import FormBecomFosterFamily from "../Form/FormBecomeFosterFamily";
+import ModalToValidation from "./ModalToValidation";
 
 interface ModalToValidationProps {
-  isModalOpen: boolean;
-  setIsModalOpen: (open: boolean) => void;
-  setShowForm: (show: boolean) => void;
+  isModalOpenVolunteer: boolean;
+  setIsModalOpenVolunteer: (open: boolean) => void;
+  setShowFormVolunteer: (show: boolean) => void;
 }
 
 const BecomeAVolunteerModal: React.FC<ModalToValidationProps> = ({
-  isModalOpen,
-  setIsModalOpen,
-  setShowForm,
+  isModalOpenVolunteer,
+  setIsModalOpenVolunteer,
+  setShowFormVolunteer,
 }) => {
+  // Fonction à passer au formulaire pour fermer la modal et masquer le formulaire
+  const handleFormSubmitted = () => {
+    setIsModalOpenVolunteer(false);
+    setShowFormVolunteer(false);
+    setIsModalOpen(true);
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showForm, setShowForm] = useState(true);
+
   return (
     <div>
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-md">
+      <Dialog
+        open={isModalOpenVolunteer}
+        onOpenChange={setIsModalOpenVolunteer}
+      >
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-6">
           <DialogHeader>
-            <DialogTitle>Modal form volontaires</DialogTitle>
+            <DialogTitle>Formulaire pour futur volontaire</DialogTitle>
           </DialogHeader>
           <DialogDescription>
-            quel type de bénévolats vous plairait
+            Merci de remplir ce formulaire pour devenir bénévole.
           </DialogDescription>
-          <Button
-            className="mt-4"
-            onClick={() => {
-              setIsModalOpen(false);
-              setShowForm(false);
-            }}
-          >
-            OK
-          </Button>
+          <FormBecomFosterFamily onFormSubmitted={handleFormSubmitted} />
         </DialogContent>
       </Dialog>
+      <ModalToValidation
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        setShowForm={setShowForm}
+      />
     </div>
   );
 };

@@ -28,8 +28,8 @@ export default function Page() {
     fetchData();
   }, []);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showForm, setShowForm] = useState(true);
+  const [isModalOpenVolunteer, setIsModalOpenVolunteer] = useState(false);
+  const [showFormVolunteer, setShowFormVolunteer] = useState(true);
   return (
     <section className="max-w-4xl mx-auto p-6 space-y-10">
       <div className="text-center space-y-4">
@@ -61,7 +61,7 @@ export default function Page() {
 
       <Button
         onClick={() => {
-          setIsModalOpen(true);
+          setIsModalOpenVolunteer(true);
         }}
         className="text-lg px-6 py-4"
       >
@@ -98,7 +98,7 @@ export default function Page() {
         <div className="flex justify-center gap-4 mt-6">
           <Button
             onClick={() => {
-              setIsModalOpen(true);
+              setIsModalOpenVolunteer(true);
             }}
             className="text-lg px-6 py-4"
           >
@@ -114,9 +114,9 @@ export default function Page() {
       </div>
 
       <BecomeAVolunteerModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        setShowForm={setShowForm}
+        isModalOpenVolunteer={isModalOpenVolunteer}
+        setIsModalOpenVolunteer={setIsModalOpenVolunteer}
+        setShowFormVolunteer={setShowFormVolunteer}
       />
     </section>
   );

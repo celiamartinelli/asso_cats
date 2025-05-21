@@ -5,7 +5,7 @@ export default function HOmeHeroPhotoNew() {
   return (
     <div
       className="text-white border-gray-600 w-full flex flex-col justify-center items-center lg:col-span-2 dark:border-white min-h-screen 
-        bg-cover bg-fixed bg-center bg-no-repeat bg-[url('/bg-new.png')] dark:text-black"
+        bg-cover bg-fixed bg-center bg-no-repeat bg-[url('/bg-hero.png')] dark:text-black"
     >
       <h2 className="text-6xl font-thasadith tracking-wide font-bold">
         L'École des chats du pays Houdanais

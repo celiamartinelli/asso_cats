@@ -24,13 +24,13 @@ export default function CardNews({ item, isActive, onClick }: CardNewsProps) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
-      className={`rounded-lg p-4 cursor-pointer bg-white dark:bg-zinc-900  transition-all 
+      className={`rounded-lg p-4 cursor-pointer bg-white dark:bg-zinc-950  transition-all 
       ${isActive ? "w-full flex flex-row items-start" : "w-[300px] flex flex-col hover:scale-105"}
     `}
     >
       <div
         onClick={onClick}
-        className={`border-2 rounded-lg p-4 cursor-pointer bg-white shadow-md transition-all duration-300  dark:bg-zinc-900  ${
+        className={`border-2 rounded-lg p-4 cursor-pointer bg-white shadow-md transition-all duration-300  dark:bg-zinc-900 ${
           isActive
             ? "min-w-[900px] flex flex-row items-start hover:border-gray-400 shadow-lg"
             : "flex flex-col overflow-hidden  hover:shadow-xl hover:border-gray-400 hover:scale-105"

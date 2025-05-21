@@ -106,7 +106,13 @@ const FooterSection = ({
   links,
   hasBorder = true,
 }: FooterSectionProps) => (
-  <div className={`w-full md:w-1/5 px-8 ${hasBorder ? "border-r" : ""} `}>
+  <div
+    className={`w-full md:w-1/5 px-8 ${
+      hasBorder
+        ? "md:border-r border-b md:border-b-0 py-4 md:py-4-0 border-zinc-700"
+        : ""
+    }`}
+  >
     <h4 className="font-bold text-xl mb-5 flex justify-start items-start">
       {title}
     </h4>
@@ -125,7 +131,7 @@ const FooterSection = ({
 export default function Footer() {
   return (
     <footer className="w-full bg-black text-white flex flex-col items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-      <div className="flex w-full justify-between pl-8 text-left">
+      <div className="flex flex-col md:flex-row w-full justify-between pl-8 text-left">
         {sections.map((section, index) => (
           <FooterSection
             key={index}
@@ -135,8 +141,8 @@ export default function Footer() {
           />
         ))}
       </div>
-      <div className="flex items-center justify-center gap-4">
-        <div className="flex items-center">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+        <div className="flex items-center gap-2">
           <p className="text-gray-400 mr-1">
             © Copyright 2025 par l'Association
           </p>
@@ -149,6 +155,7 @@ export default function Footer() {
             L'École des Chats du Pays Houdanais
           </a>
         </div>
+
         <ThemeSwitcher />
         <SocialNetwork />
       </div>

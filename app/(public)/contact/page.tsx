@@ -33,7 +33,7 @@ export default function Contact() {
         </div>
 
         <p className="flex justify-center items-center  text-zinc-100  ">
-          ou sinon via les formulaire juste ici 👉
+          ou sinon via le formulaire juste ici 👉
         </p>
       </section>
       <section className="w-1/2  ">

@@ -93,12 +93,12 @@ export default function Index() {
   }, []);
   return (
     <>
-      <main className="flex min-h-screen flex-col justify-between  ">
+      <main className="flex min-h-screen flex-col justify-between">
         <div className="flex-col text-center  ">
           <ButtonCookiesSession />
           <div
             className="text-white border-gray-600 w-full flex flex-col justify-center items-center lg:col-span-2 dark:border-white min-h-screen 
-        bg-cover bg-fixed bg-center bg-no-repeat bg-[url('/bg.jpeg')]"
+        bg-cover bg-fixed bg-center bg-no-repeat bg-[url('/bg.jpeg')] dark:text-black"
           >
             <h2 className="text-6xl font-thasadith tracking-wide font-bold">
               L'École des chats du pays Houdanais
@@ -106,7 +106,9 @@ export default function Index() {
             <h3 className="text-3xl my-14 font-dosis">
               Association à but non lucratif
             </h3>
-            <h4 className="font-bold text-6xl my-4 space-y-2.5">0678564738</h4>
+            <h4 className="font-bold text-4xl md:text-6xl my-4 space-y-2.5 ">
+              0678564738
+            </h4>
             <div className="flex gap-8">
               <Button
                 type="button"
@@ -121,8 +123,8 @@ export default function Index() {
             </div>
           </div>
           <div className="py-36 p-4 w-full lg:col-span-2 mb-4 dark:border-white flex flex-col justify-center items-center border-2-gray-700">
-            <div className="flex justify-between items-center w-full mb-36 flex-col lg:flex-row">
-              <h3 className="text-6xl ml-4 font-thasadith w-1/2 tracking-wide">
+            <div className="flex justify-between items-center w-full mb-36 flex-col xl:flex-row gap-8">
+              <h3 className="text-4xl md:text-6xl ml-4 font-thasadith w-1/2 tracking-wide">
                 Les dernières actualités
               </h3>
               {loading ? (
@@ -203,13 +205,13 @@ export default function Index() {
 
             <Button
               type="button"
-              className="mt-12 hover:bg-white hover:text-black text-zinc-100"
+              className="mt-12 border border-white bg-transparent text-white hover:bg-white hover:text-black dark:border-zinc-400 dark:text-zinc-100 dark:hover:bg-zinc-100 dark:hover:text-black"
             >
               <Link href="/calendar">Voir toutes les dates</Link>
             </Button>
           </div>
           <div className=" py-36 w-full lg:col-span-2 mb-4 bg-cover bg-fixed bg-center bg-no-repeat bg-[url('/bg.jpeg')]">
-            <h3 className="text-6xl mb-24 font-thasadith tracking-wide text-white">
+            <h3 className="text-4xl md:text-6xl mb-24 font-thasadith tracking-wide text-white p-4 dark:text-black">
               Sur Quel secteur agit-on? et quel commune
             </h3>
 
@@ -259,22 +261,24 @@ export default function Index() {
               </Button>
             </div>
           </div>
-          <div className="flex py-14 p-4 w-full lg:col-span-2 mb-4 justify-center">
+          <div className="flex flex-col md:flex-row py-14 p-4 w-full justify-center">
             <Link
               href="https://www.facebook.com/profile.php?id=61561436403399&locale=fr_FR"
-              className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+              className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30 "
               target="_blank"
               rel="noopener noreferrer"
             >
-              <h2 className="mb-3 text-2xl font-semibold">
-                Facebook{" "}
-                <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                  -&gt;
-                </span>
-              </h2>
-              <p className="m-0 max-w-[30ch] text-sm text-gray-500">
-                Découvrer notre page facebook
-              </p>
+              <div className="flex flex-col items-center">
+                <h2 className="mb-3 text-2xl font-semibold ">
+                  Facebook{" "}
+                  <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+                    -&gt;
+                  </span>
+                </h2>
+                <p className="m-0 max-w-[30ch] text-sm text-gray-500 text-center">
+                  Découvrer notre page facebook
+                </p>
+              </div>
             </Link>
 
             <Link
@@ -283,15 +287,17 @@ export default function Index() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <h2 className="mb-3 text-2xl font-semibold">
-                Hello Asso{" "}
-                <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                  -&gt;
-                </span>
-              </h2>
-              <p className="m-0 max-w-[30ch] text-sm text-gray-500">
-                Merci pour eux!
-              </p>
+              <div className="flex flex-col items-center">
+                <h2 className="mb-3 text-2xl font-semibold">
+                  Hello Asso{" "}
+                  <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+                    -&gt;
+                  </span>
+                </h2>
+                <p className="m-0 max-w-[30ch] text-sm text-gray-500">
+                  Merci pour eux!
+                </p>
+              </div>
             </Link>
             <Link
               href="https://www.instagram.com/ecoledeschats/"
@@ -299,15 +305,17 @@ export default function Index() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <h2 className="mb-3 text-2xl font-semibold">
-                Instagram{" "}
-                <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                  -&gt;
-                </span>
-              </h2>
-              <p className="m-0 max-w-[30ch] text-sm text-gray-500">
-                Découvrer notre Instagram
-              </p>
+              <div className="flex flex-col items-center">
+                <h2 className="mb-3 text-2xl font-semibold">
+                  Instagram{" "}
+                  <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+                    -&gt;
+                  </span>
+                </h2>
+                <p className="m-0 max-w-[30ch] text-sm text-gray-500">
+                  Découvrer notre Instagram
+                </p>
+              </div>
             </Link>
             <Link
               href="https://www.linkedin.com/groups/13126906/"
@@ -315,15 +323,17 @@ export default function Index() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <h2 className="mb-3 text-2xl font-semibold">
-                Linkedin{" "}
-                <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                  -&gt;
-                </span>
-              </h2>
-              <p className="m-0 max-w-[30ch] text-sm text-gray-500">
-                Découvrer notre page Linkedin
-              </p>
+              <div className="flex flex-col items-center">
+                <h2 className="mb-3 text-2xl font-semibold">
+                  Linkedin{" "}
+                  <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+                    -&gt;
+                  </span>
+                </h2>
+                <p className="m-0 max-w-[30ch] text-sm text-gray-500">
+                  Découvrer notre page Linkedin
+                </p>
+              </div>
             </Link>
           </div>
         </div>

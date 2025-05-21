@@ -27,10 +27,10 @@ export default function Header() {
       </div>
 
       {/* Logo - centré en mobile, gauche sinon */}
-      <div className="flex-1 flex justify-center md:justify-start">
+      <div className="flex-1 flex justify-center md:justify-start ">
         <a href="/" title="Back to Home">
           <Image
-            className="w-20 h-20"
+            className="w-20 h-20 dark:invert"
             src="/logo.png"
             alt="Logo Association de l'école des chats du pays houdanais"
             width={180}

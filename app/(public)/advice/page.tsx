@@ -50,8 +50,17 @@ export default function Advice() {
 
   return (
     <div className="p-6 min-h-screen  bg-gray-100 dark:bg-black">
-      <h1 className="text-3xl font-bold mb-4">Conseil</h1>
-      <p className="mb-4">
+      <section className="text-center my-10">
+        <h1 className="text-4xl font-bold mb-2">
+          Conseils félins et infos utiles 🐾🧠
+        </h1>
+        <p className="text-muted-foreground text-lg">
+          Mieux comprendre nos amis les chats, pour mieux les aimer chaque jour
+          ❤️🐾
+        </p>
+      </section>
+
+      <p className="mb-4 text-center">
         Bienvenue dans notre section de conseils ! Ici, vous trouverez des
         conseils utiles et pratiques pour prendre soin de votre chat. Que vous
         soyez un propriétaire de chat expérimenté ou un nouveau parent de chat,

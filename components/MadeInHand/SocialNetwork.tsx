@@ -20,7 +20,7 @@ export default function SocialNetwork() {
           <Instagram size={28} />
         </Link>
         <Link
-          href="https://www.linkedin.com/company/association-l-%C3%A9cole-des-chats-du-pays-houdanais/posts/?feedView=all"
+          href="https://www.linkedin.com/company/association-l-%C3%A9cole-des-chats-du-pays-houdanais/posts/?feedView=allhttps://www.linkedin.com/company/association-l-%C3%A9cole-des-chats-du-pays-houdanais"
           className="hover:bg-accent hover:rounded-lg p-2"
           target="_blank"
         >

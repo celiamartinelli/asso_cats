@@ -101,7 +101,7 @@ export default function Index() {
           <HOmeHeroPhotoNew />
           <div className="py-36 p-4 w-full lg:col-span-2 mb-4 dark:border-white flex flex-col justify-center items-center border-2-gray-700">
             <div className="flex justify-between items-center w-full mb-36 flex-col xl:flex-row gap-8">
-              <h3 className="text-4xl md:text-6xl ml-4 font-thasadith w-1/2 tracking-wide">
+              <h3 className="text-4xl md:text-6xl ml-4 font-thasadith w-1/2 tracking-wide ">
                 Les dernières actualités
               </h3>
               {loading ? (
@@ -187,7 +187,7 @@ export default function Index() {
               <Link href="/calendar">Voir toutes les dates</Link>
             </Button>
           </div>
-          <div className=" py-36 w-full lg:col-span-2 mb-4 bg-cover bg-fixed bg-center bg-no-repeat bg-[url('/bg.jpeg')]">
+          <div className=" py-36 w-full lg:col-span-2 mb-4 bg-cover bg-fixed bg-center bg-no-repeat bg-[url('/bg2.png')]">
             <h3 className="text-4xl md:text-6xl mb-24 font-thasadith tracking-wide text-white p-4 dark:text-black">
               Sur Quel secteur agit-on? et quel commune
             </h3>
@@ -295,7 +295,7 @@ export default function Index() {
               </div>
             </Link>
             <Link
-              href="https://www.linkedin.com/groups/13126906/"
+              href="https://www.linkedin.com/company/association-l-%C3%A9cole-des-chats-du-pays-houdanais/?viewAsMember=true"
               className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
               target="_blank"
               rel="noopener noreferrer"

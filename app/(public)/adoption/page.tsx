@@ -59,6 +59,14 @@ export default function Page() {
           style={{ height: "300px", width: "300px" }}
         />
       )}
+      <section className="text-center my-10">
+        <h1 className="text-4xl font-bold mb-2">
+          À la recherche d’un foyer chaleureux 🏡🐱
+        </h1>
+        <p className="text-muted-foreground text-lg">
+          Offrez une seconde chance à un chat qui n’attend que votre amour 💕🐾
+        </p>
+      </section>
       <div className="w-full flex justify-end items-center mt-4 mr-12">
         <p className="flex justify-center items-center gap-2 text-xs text-zinc-500">
           ici choisissez précisémment l'animal qui vous correpsond{" "}

@@ -7,10 +7,18 @@ export default function Contact() {
   return (
     <div className=" flex  min-h-screen bg-black gap-6 p-2">
       {/* <h1 className="text-3xl font-bold mb-4">Contact</h1> */}
+
       <section className="w-1/2 mt-10 ">
-        <h2 className="font-semi-bold text-2xl mb-10 text-center text-zinc-100 ">
+        <h1 className="text-3xl text-center text-muted-foreground  mb-4 text-white">
+          Une question ? Un miaou à nous transmettre ? 📩🐾
+        </h1>
+        <p className="text-muted-foreground text-lg text-center  mb-10">
+          Nous sommes là pour vous répondre, humains comme félins 😺
+        </p>
+        {/* <h2 className="font-semi-bold text-2xl mb-10 text-center text-zinc-100 ">
           Comment pouvez-vous nous contacter?
-        </h2>
+        </h2> */}
+
         <div className="flex flex-col items-center gap-2 mb-10 text-zinc-100 ">
           <PhoneCall />
           <h3 className="font-thasadith text-zinc-400">Par Téléphone</h3>

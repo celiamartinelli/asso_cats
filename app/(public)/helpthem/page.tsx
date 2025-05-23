@@ -76,7 +76,15 @@ export default function HelpThem() {
   ];
   return (
     <div className="p-6 min-h-screen bg-gray-100 dark:bg-black">
-      <h1 className="text-3xl font-bold mb-4">Aidez-les</h1>
+      <section className="text-center my-10">
+        <h1 className="text-4xl font-bold mb-2">
+          Ensemble, on peut changer leur destin ✨🐈
+        </h1>
+        <p className="text-muted-foreground text-lg">
+          Découvrez comment vous pouvez agir, même avec un petit geste 💝
+        </p>
+      </section>
+
       <div className="flex flex-col justify-around md:flex-row">
         {CardHelpThem.map((item, index) => (
           <Card

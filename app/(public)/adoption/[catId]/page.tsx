@@ -54,6 +54,7 @@ interface CatData {
   category_cat: string;
   cat_url_image: string[];
   cat_id: string;
+  when_adopt?: string; // Ajout de la propriété when_adopt
 }
 
 interface CatIdPageProps {
@@ -136,7 +137,7 @@ export default function CatIdPage() {
     <div className="flex flex-col items-center max-w-screen min-h-screen mt-10">
       <h2 className="uppercase font-bold text-5xl mb-10">{catData.name_cat}</h2>
       {catData ? (
-        <div className="flex flex-col w-2/3 justify-around md:flex-row mb-12">
+        <div className="flex flex-col w-2/3 justify-around md:flex-row mb-12 gap-16">
           <div>
             <Carousel className="w-full max-w-md">
               <CarouselContent>
@@ -181,18 +182,64 @@ export default function CatIdPage() {
               <CarouselNext />
             </Carousel>
           </div>
-          <div>
+          <div className="md:w-1/2 w-full px-6 py-4 bg-white text-black rounded-lg border border-gray-300 shadow-sm">
+            <h3 className="text-2xl font-bold mb-4">📝 Informations</h3>
+            <ul className="space-y-3 text-lg">
+              <li>
+                🎂 <strong>Date de naissance :</strong> {formattedBirthInfo}
+              </li>
+              <li>
+                🚻 <strong>Sexe :</strong>{" "}
+                {SEX_CAT_LABELS[catData.sex_cat] || catData.sex_cat}
+              </li>
+              <li>
+                💉 <strong>Stérilisé :</strong>{" "}
+                {catData.sterelized ? "Oui" : "Non"}
+              </li>
+              <li>
+                💉 <strong>Vacciné :</strong> {catData.vaccine ? "Oui" : "Non"}
+              </li>
+              <li>
+                🧪 <strong>Test FIV :</strong>{" "}
+                {catData.fiv_test ? "Positif" : "Négatif"}
+              </li>
+              <li>
+                🧪 <strong>Test FeLV :</strong>{" "}
+                {catData.felv_test ? "Positif" : "Négatif"}
+              </li>
+              <li>
+                🎨 <strong>Couleur :</strong>{" "}
+                {COAT_COLOR_LABELS[catData.coat_color] || catData.coat_color}
+              </li>
+              <li>
+                🐾 <strong>Motif :</strong>{" "}
+                {PATTERN_LABELS[catData.pattern] || catData.pattern}
+              </li>
+              <li>
+                🧶 <strong>Catégorie :</strong>{" "}
+                {CATEGORY_CAT_LABELS[catData.category_cat] ||
+                  catData.category_cat}
+              </li>
+              <li>
+                ⏳ <strong>Âge estimé :</strong>{" "}
+                {AGE_LABELS[catData.age_of_cat] || catData.age_of_cat}
+              </li>
+            </ul>
+
+            {catData.description && (
+              <div className="mt-6">
+                <h4 className="text-xl font-semibold mb-2">🗣️ Description</h4>
+                <p className="text-gray-800 leading-relaxed">
+                  {catData.description}
+                </p>
+              </div>
+            )}
+            <p>Adoption: {catData.adoption ? "Oui" : "Non"}</p>
+            <p>Adopté le : {catData.when_adopt}</p>
+          </div>
+
+          {/* <div>
             <p>Date de naissance : {formattedBirthInfo}</p>
-            {/* <p>
-              Sexe:{" "}
-              {catData.sex_cat === "female" ? (
-                <span> (Femelle)</span>
-              ) : catData.sex_cat === "male" ? (
-                <span> (Mâle)</span>
-              ) : (
-                "Non spécifié"
-              )}
-            </p> */}
             <p>Âge: {SEX_CAT_LABELS[catData.sex_cat] || catData.sex_cat}</p>
             <p>Stérilisé: {catData.sterelized ? "Oui" : "Non"}</p>
             <p>Vacciné: {catData.vaccine ? "Oui" : "Non"}</p>
@@ -204,14 +251,15 @@ export default function CatIdPage() {
             </p>
             <p>Motif: {PATTERN_LABELS[catData.pattern] || catData.pattern}</p>
             <p>Description: {catData.description}</p>
-            {/* <p>Adoption: {catData.adoption ? "Oui" : "Non"}</p> */}
+            <p>Adoption: {catData.adoption ? "Oui" : "Non"}</p>
+            <p>Adopté le : {catData.when_adopt}</p>
             <p>Âge: {AGE_LABELS[catData.age_of_cat] || catData.age_of_cat}</p>
             <p>
               Catégorie:{" "}
               {CATEGORY_CAT_LABELS[catData.category_cat] ||
                 catData.category_cat}
             </p>
-          </div>
+          </div> */}
         </div>
       ) : (
         <p>Chat introuvable ou erreur lors de la récupération des données.</p>

@@ -79,14 +79,14 @@ const sections = [
     title: "Nous contacter",
     links: [
       { href: "/contact", label: "Nous contacter" },
-      {
-        href: "/traitement-protection-des-donnees",
-        label: "Demander de l'aide",
-      },
-      {
-        href: "/traitement-protection-des-donnees",
-        label: "Signaler une maltraitance",
-      },
+      // {
+      //   href: "/traitement-protection-des-donnees",
+      //   label: "Demander de l'aide",
+      // },
+      // {
+      //   href: "/traitement-protection-des-donnees",
+      //   label: "Signaler une maltraitance",
+      // },
       {
         href: "/becomeavolunteer",
         label: "Devenir Bénévole",

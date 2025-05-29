@@ -85,7 +85,7 @@ export default function HelpThem() {
         </p>
       </section>
 
-      <div className="flex flex-col justify-around md:flex-row">
+      <div className="flex flex-col justify-around md:flex-row md:flex-wrap items-center">
         {CardHelpThem.map((item, index) => (
           <Card
             key={index}

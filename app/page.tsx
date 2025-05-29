@@ -13,6 +13,7 @@ import CardNews from "@/components/MadeInHand/Client/Card/CardNews";
 import { AnimatePresence, motion } from "framer-motion";
 import HomeHeroPhotoOld from "@/components/MadeInHand/HomeHeroPhotoOld";
 import HOmeHeroPhotoNew from "@/components/MadeInHand/HOmeHeroPhotoNew";
+import { Facebook, HeartHandshake, Instagram, Linkedin } from "lucide-react";
 
 interface ImportantDate {
   calendar_id: string;
@@ -246,8 +247,8 @@ export default function Index() {
               rel="noopener noreferrer"
             >
               <div className="flex flex-col items-center">
-                <h2 className="mb-3 text-2xl font-semibold ">
-                  Facebook{" "}
+                <h2 className="mb-3 text-2xl font-semibold flex gap-2 items-center">
+                  <Facebook /> Facebook{" "}
                   <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                     -&gt;
                   </span>
@@ -265,8 +266,8 @@ export default function Index() {
               rel="noopener noreferrer"
             >
               <div className="flex flex-col items-center">
-                <h2 className="mb-3 text-2xl font-semibold">
-                  Hello Asso{" "}
+                <h2 className="mb-3 text-2xl font-semibold flex gap-2 items-center">
+                  <HeartHandshake /> Hello Asso{" "}
                   <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                     -&gt;
                   </span>
@@ -283,8 +284,8 @@ export default function Index() {
               rel="noopener noreferrer"
             >
               <div className="flex flex-col items-center">
-                <h2 className="mb-3 text-2xl font-semibold">
-                  Instagram{" "}
+                <h2 className="mb-3 text-2xl font-semibold flex gap-2 items-center">
+                  <Instagram /> Instagram{" "}
                   <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                     -&gt;
                   </span>
@@ -301,8 +302,8 @@ export default function Index() {
               rel="noopener noreferrer"
             >
               <div className="flex flex-col items-center">
-                <h2 className="mb-3 text-2xl font-semibold">
-                  Linkedin{" "}
+                <h2 className="mb-3 text-2xl font-semibold flex gap-2 items-center">
+                  <Linkedin /> Linkedin{" "}
                   <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                     -&gt;
                   </span>

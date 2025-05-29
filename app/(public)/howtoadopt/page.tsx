@@ -1,8 +1,11 @@
+import PageHeader from "@/components/MadeInHand/PageHeader";
+
 export default function page() {
   return (
     <div className="p-6 min-h-screen  bg-gray-100 dark:bg-black ">
+      <PageHeader pageKey="howtoadopt" />
       <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
-        <h1 className="text-3xl font-bold mb-4">Comment Adopter</h1>
+        {/* <h1 className="text-3xl font-bold mb-4">Comment Adopter</h1> */}
         <div className="prose lg:prose-xl mx-auto text-gray-800 dark:text-gray-200">
           <p>
             L'adoption d’un chat est un engagement sérieux qui demande réflexion

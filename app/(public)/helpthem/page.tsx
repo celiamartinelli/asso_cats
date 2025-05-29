@@ -15,6 +15,8 @@ import FormFinancialDonation from "@/components/MadeInHand/Client/Form/FormFinan
 import FormBecomeFosterFamily from "@/components/MadeInHand/Client/Form/FormBecomeFosterFamily";
 import FormMaterielDonnation from "@/components/MadeInHand/Client/Form/FormMaterielDonation";
 import FormToVolunteer from "@/components/MadeInHand/Client/Form/FormToVolunteer";
+import Page from "../adoption/page";
+import PageHeader from "@/components/MadeInHand/PageHeader";
 
 export default function HelpThem() {
   const searchParams = useSearchParams();
@@ -30,7 +32,7 @@ export default function HelpThem() {
       // Attendre que le formulaire soit affiché, puis scroller avec un offset
       setTimeout(() => {
         if (formRef.current) {
-          const yOffset = -30; // Décalage en pixels (~ mt-10)
+          const yOffset = -200; // Décalage en pixels (~ mt-36)
           const y =
             formRef.current.getBoundingClientRect().top +
             window.scrollY +
@@ -131,27 +133,40 @@ export default function HelpThem() {
           </Card>
         ))}
       </div>
-      <div ref={formRef} className="mt-6">
-        {selectedForm === "don-materiel" && (
+      <div className="mt-36 scroll-mt-36" ref={formRef}>
+        {selectedForm && (
           <div>
+            <PageHeader pageKey={selectedForm as keyof typeof headers} />
+            {selectedForm === "don-materiel" && <FormMaterielDonnation />}
+            {selectedForm === "famille-accueil" && <FormBecomeFosterFamily />}
+            {selectedForm === "don-financier" && <FormFinancialDonation />}
+            {selectedForm === "benevole" && <FormToVolunteer />}
+          </div>
+        )}
+        {/* {selectedForm === "don-materiel" && (
+          <div>
+            <PageHeader pageKey="don-materiel" />
             <FormMaterielDonnation />
           </div>
         )}
         {selectedForm === "famille-accueil" && (
           <div>
+            <PageHeader pageKey="don-materiel" />
             <FormBecomeFosterFamily />
           </div>
         )}
         {selectedForm === "don-financier" && (
           <div>
+            <PageHeader pageKey="don-materiel" />
             <FormFinancialDonation />
           </div>
         )}
         {selectedForm === "benevole" && (
           <div>
+            <PageHeader pageKey="don-materiel" />
             <FormToVolunteer />
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

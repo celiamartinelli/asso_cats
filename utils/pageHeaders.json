@@ -1,0 +1,77 @@
+{
+  "actualites": {
+    "emoji": "📰",
+    "title": "Actualités de l'association",
+    "subtitle": "Suivez nos dernières actions, sauvetages, événements et belles histoires."
+  },
+  "legalnotice": {
+    "emoji": "⚖️",
+    "title": "Mentions Légales & CGU",
+    "subtitle": "Les règles qui encadrent l’utilisation de notre site."
+  },
+  "dataprotectionprocessing": {
+    "emoji": "🔐",
+    "title": "Traitement & Protection des Données",
+    "subtitle": "Vos données sont précieuses, nous les protégeons avec soin."
+  },
+  "accessyourpersonaldata": {
+    "emoji": "🧾",
+    "title": "Accéder à vos données personnelles",
+    "subtitle": "Demandez, consultez ou modifiez les informations vous concernant."
+  },
+  "cookiespolicies": {
+    "emoji": "🍪",
+    "title": "Politique de cookies",
+    "subtitle": "Découvrez comment et pourquoi nous utilisons des cookies sur ce site."
+  },
+  "legaldocuments": {
+    "emoji": "📄",
+    "title": "Documents Légaux & Réduction Fiscale",
+    "subtitle": "Accédez à nos statuts, bilans et informations fiscales."
+  },
+  "howtoadopt": {
+    "emoji": "🐱",
+    "title": "Comment adopter",
+    "subtitle": "Tout savoir sur les étapes à suivre pour adopter un chat."
+  },
+  "conditiontoadopt": {
+    "emoji": "✅",
+    "title": "Conditions d’adoption",
+    "subtitle": "Pour le bien-être de nos chats, certaines conditions doivent être respectées."
+  },
+  "adoptionfees": {
+    "emoji": "💶",
+    "title": "Frais d’adoption",
+    "subtitle": "Une participation pour permettre à d’autres chats d’être sauvés."
+  },
+  "howtohelpus": {
+    "emoji": "🤝",
+    "title": "Comment nous aider",
+    "subtitle": "Dons, bénévolat, parrainage… il y a plein de façons de contribuer."
+  },
+  "evenements": {
+    "emoji": "📅",
+    "title": "Calendrier des événements",
+    "subtitle": "Retrouvez tous nos événements passés et à venir."
+  },
+  "don-materiel": {
+    "emoji": "🎁",
+    "title": "Faire un don matériel",
+    "subtitle": "Croquettes, litières, jouets... vos dons matériels améliorent le quotidien de nos chats."
+  },
+  "famille-accueil": {
+    "emoji": "🏠",
+    "title": "Devenir famille d’accueil",
+    "subtitle": "Offrez un foyer temporaire à un chat en attente d’adoption : un geste qui sauve des vies."
+  },
+  "don-financier": {
+    "emoji": "💖",
+    "title": "Faire un don financier",
+    "subtitle": "Chaque euro compte pour soigner, nourrir et protéger nos protégés."
+  },
+  "benevole": {
+    "emoji": "🐾",
+    "title": "Devenir bénévole",
+    "subtitle": "S'engager à nos côtés, c'est offrir une seconde chance à ceux qui n’ont pas eu la première."
+  }
+}

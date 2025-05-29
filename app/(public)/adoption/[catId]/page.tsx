@@ -33,6 +33,7 @@ import {
   AGE_LABELS,
   CATEGORY_CAT_LABELS,
 } from "@/utils/enumLabels";
+import { Syringe } from "lucide-react";
 
 interface Params {
   catId: string;
@@ -196,8 +197,9 @@ export default function CatIdPage() {
                 💉 <strong>Stérilisé :</strong>{" "}
                 {catData.sterelized ? "Oui" : "Non"}
               </li>
-              <li>
-                💉 <strong>Vacciné :</strong> {catData.vaccine ? "Oui" : "Non"}
+              <li className="flex items-center gap-2">
+                <Syringe className="w-5 h-5" />
+                <strong>Vacciné :</strong> Oui
               </li>
               <li>
                 🧪 <strong>Test FIV :</strong>{" "}
@@ -234,8 +236,12 @@ export default function CatIdPage() {
                 </p>
               </div>
             )}
-            <p>Adoption: {catData.adoption ? "Oui" : "Non"}</p>
-            <p>Adopté le : {catData.when_adopt}</p>
+            {catData.adoption === true && (
+              <>
+                <p>Adoption: {catData.adoption ? "Oui" : "Non"}</p>
+                <p>Adopté le : {catData.when_adopt}</p>
+              </>
+            )}
           </div>
 
           {/* <div>

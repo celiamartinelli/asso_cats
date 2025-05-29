@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getAllNews } from "@/utils/actions";
 import CardNews from "@/components/MadeInHand/Client/Card/CardNews";
+import PageHeader from "@/components/MadeInHand/PageHeader";
 
 interface News {
   news_id: string;
@@ -34,7 +35,8 @@ export default function Actualites() {
 
   return (
     <div className="p-6 min-h-screen bg-gray-100 dark:bg-black">
-      <h1 className="text-3xl font-bold mb-4">Actualités de l'association</h1>
+      {/* <h1 className="text-3xl font-bold mb-4">Actualités de l'association</h1> */}
+      <PageHeader pageKey="actualites" />
       {loading ? (
         <p>Chargement des actualités...</p>
       ) : news.length > 0 ? (

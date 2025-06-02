@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import BecomeAVolunteerModal from "@/components/MadeInHand/Client/Modal/BecomeAVolunteerModal";
+import PageHeader from "@/components/MadeInHand/PageHeader";
 
 // Type TS pour typer proprement les données
 type VolunteerType = {
@@ -32,14 +33,14 @@ export default function Page() {
   const [showFormVolunteer, setShowFormVolunteer] = useState(true);
   return (
     <section className="max-w-4xl mx-auto p-6 space-y-10">
-      <div className="text-center space-y-4">
+      {/* <div className="text-center space-y-4">
         <h1 className="text-4xl font-bold">🐾 Devenir bénévole</h1>
         <p className="text-lg text-muted-foreground">
           S'engager à nos côtés, c'est offrir une seconde chance à ceux qui
           n’ont pas eu la première.
         </p>
-      </div>
-
+      </div> */}
+      <PageHeader pageKey="becomeavolunteer" />
       <Card>
         <CardContent className="space-y-4 pt-6">
           <h2 className="text-2xl font-semibold">💼 Ce que cela implique</h2>

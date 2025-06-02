@@ -24,16 +24,16 @@ export default function CardNews({ item, isActive, onClick }: CardNewsProps) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
-      className={`rounded-lg p-4 cursor-pointer  dark:bg-zinc-950  transition-all 
-      ${isActive ? "w-full flex flex-row items-start" : "w-[300px] flex flex-col hover:scale-105"}
-    `}
+      className={`rounded-lg p-4 cursor-pointer dark:bg-zinc-950 transition-all 
+  ${isActive ? " flex flex-col md:flex-row items-start" : "w-[300px] flex flex-col hover:scale-105"}
+`}
     >
       <div
         onClick={onClick}
-        className={`border-2 rounded-lg p-4 cursor-pointer shadow-md bg-white transition-all duration-300  dark:bg-zinc-900 ${
+        className={`border-2 rounded-lg p-4 cursor-pointer shadow-md bg-white transition-all duration-300 dark:bg-zinc-900 ${
           isActive
-            ? "min-w-[900px] flex flex-row items-start hover:border-gray-400 shadow-lg"
-            : "flex flex-col overflow-hidden  hover:shadow-xl hover:border-gray-400 hover:scale-105"
+            ? "lg:min-w-[900px] flex flex-col md:flex-row items-center md:items-start hover:border-gray-400 shadow-lg"
+            : "flex flex-col overflow-hidden hover:shadow-xl hover:border-gray-400 hover:scale-105"
         }`}
       >
         <div className="flex flex-col items-center min-h-[300px]">
@@ -54,7 +54,7 @@ export default function CardNews({ item, isActive, onClick }: CardNewsProps) {
             priority
           />
 
-          <p className={`flex text-xs text-gray-500 dark:text-zinc-500`}>
+          <p className={`flex text-xs text-gray-500 dark:text-zinc-500 `}>
             {new Date(item.created_at).toLocaleDateString("fr-FR", {
               day: "2-digit",
               month: "2-digit",
@@ -69,7 +69,7 @@ export default function CardNews({ item, isActive, onClick }: CardNewsProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.3 }}
-            className="mt-12 ml-6 p-4 text-zinc-300 bg-gray-100 rounded-lg shadow-inner w-2/3 dark:bg-zinc-800"
+            className=" mt-4 md:mt-12 md:ml-6 p-4 text-zinc-300 bg-gray-100 rounded-lg shadow-inner md:w-2/3 dark:bg-zinc-800"
           >
             <div dangerouslySetInnerHTML={{ __html: item.body }} />
           </motion.div>

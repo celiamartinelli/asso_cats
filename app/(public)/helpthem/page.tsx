@@ -78,20 +78,16 @@ export default function HelpThem() {
   ];
   return (
     <div className="p-6 min-h-screen bg-gray-100 dark:bg-black">
-      <section className="text-center my-10">
-        <h1 className="text-4xl font-bold mb-2">
-          Ensemble, on peut changer leur destin ✨🐈
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          Découvrez comment vous pouvez agir, même avec un petit geste 💝
-        </p>
-      </section>
-
+      <PageHeader pageKey="helpthem" />
+      <p className="text-lg text-center mb-8">
+        Vous souhaitez nous aider autrement qu'en adoptant ? Vous êtes au bon
+        endroit
+      </p>
       <div className="flex flex-col justify-around md:flex-row md:flex-wrap items-center">
         {CardHelpThem.map((item, index) => (
           <Card
             key={index}
-            className="max-w-sm m-2 flex flex-col justify-between items-center"
+            className="w-90 sm:w-80 h-[450px] max-w-sm m-2 flex flex-col justify-between items-center"
           >
             <CardHeader>
               <CardTitle>{item.title}</CardTitle>
@@ -100,20 +96,18 @@ export default function HelpThem() {
               <CardDescription>
                 <Button asChild className="mb-2">
                   <Link href={item.redirectDescription || "#"} target="_blank">
-                    {" "}
                     {item.buttonDescription}
                   </Link>
                 </Button>
               </CardDescription>
             )}
-            <CardContent>
+            <CardContent className="flex-1 flex items-center">
               <p>{item.content}</p>
             </CardContent>
             <CardFooter>
               <Button
                 onClick={() => {
                   setSelectedForm(item.id);
-                  // Attendre que le formulaire soit visible avant de scroller
                   setTimeout(() => {
                     if (formRef.current) {
                       const yOffset = -30;
@@ -134,39 +128,19 @@ export default function HelpThem() {
         ))}
       </div>
       <div className="mt-36 scroll-mt-36" ref={formRef}>
-        {selectedForm && (
-          <div>
+        {selectedForm ? (
+          <div className="flex flex-col items-center">
             <PageHeader pageKey={selectedForm as keyof typeof headers} />
             {selectedForm === "don-materiel" && <FormMaterielDonnation />}
             {selectedForm === "famille-accueil" && <FormBecomeFosterFamily />}
             {selectedForm === "don-financier" && <FormFinancialDonation />}
             {selectedForm === "benevole" && <FormToVolunteer />}
           </div>
-        )}
-        {/* {selectedForm === "don-materiel" && (
-          <div>
-            <PageHeader pageKey="don-materiel" />
-            <FormMaterielDonnation />
+        ) : (
+          <div className="mb-8">
+            <h2>Selectionner un action</h2>
           </div>
         )}
-        {selectedForm === "famille-accueil" && (
-          <div>
-            <PageHeader pageKey="don-materiel" />
-            <FormBecomeFosterFamily />
-          </div>
-        )}
-        {selectedForm === "don-financier" && (
-          <div>
-            <PageHeader pageKey="don-materiel" />
-            <FormFinancialDonation />
-          </div>
-        )}
-        {selectedForm === "benevole" && (
-          <div>
-            <PageHeader pageKey="don-materiel" />
-            <FormToVolunteer />
-          </div>
-        )} */}
       </div>
     </div>
   );

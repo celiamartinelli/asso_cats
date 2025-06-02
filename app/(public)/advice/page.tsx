@@ -7,6 +7,7 @@ import loader from "../../../public/lottie/loader.json";
 import CardAdvice from "@/components/MadeInHand/Client/Card/CardAdvice";
 import FilterModalAdvice from "@/components/MadeInHand/Client/Modal/FilterModalAdvice";
 import { ArrowRight } from "lucide-react";
+import PageHeader from "@/components/MadeInHand/PageHeader";
 
 export default function Advice() {
   const [advice, setAdvice] = useState<any[] | null>(null);
@@ -50,16 +51,7 @@ export default function Advice() {
 
   return (
     <div className="p-6 min-h-screen  bg-gray-100 dark:bg-black">
-      <section className="text-center my-10">
-        <h1 className="text-4xl font-bold mb-2">
-          Conseils félins et infos utiles 🐾🧠
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          Mieux comprendre nos amis les chats, pour mieux les aimer chaque jour
-          ❤️🐾
-        </p>
-      </section>
-
+      <PageHeader pageKey="advice" />
       <p className="mb-4 text-center">
         Bienvenue dans notre section de conseils ! Ici, vous trouverez des
         conseils utiles et pratiques pour prendre soin de votre chat. Que vous

@@ -2,6 +2,7 @@
 
 import CTASectionAboutPage from "@/components/MadeInHand/Client/CTASectionAboutPage";
 import HeroAboutPage from "@/components/MadeInHand/Client/HeroAboutPage";
+import PageHeader from "@/components/MadeInHand/PageHeader";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
@@ -9,14 +10,8 @@ export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 space-y-10">
       {/* Titre principal */}
-      <section className="text-center mb-10">
-        <h1 className="text-4xl font-bold mb-2">
-          À propos de notre association 🐾
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          Parce que chaque vie compte… 🐱💖
-        </p>
-      </section>
+
+      <PageHeader pageKey="about" />
       <HeroAboutPage />
       <Separator />
 

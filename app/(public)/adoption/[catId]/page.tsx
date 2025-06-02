@@ -135,30 +135,29 @@ export default function CatIdPage() {
   if (!catData) return <p>Chat introuvable.</p>;
 
   return (
-    <div className="flex flex-col items-center max-w-screen min-h-screen mt-10">
+    <div className="flex flex-col items-center max-w-screen min-h-screen mt-10 ">
       <h2 className="uppercase font-bold text-5xl mb-10">{catData.name_cat}</h2>
+
       {catData ? (
-        <div className="flex flex-col w-2/3 justify-around md:flex-row mb-12 gap-16">
-          <div>
-            <Carousel className="w-full max-w-md">
+        <div className="flex flex-col w-5/6 md:w-11/12 lg:w-5/6 justify-around lg:flex-row mb-12 gap-16 ">
+          <div className="lg:w-1/2">
+            <Carousel className="w-full max-w-md mx-auto">
               <CarouselContent>
                 {Array.isArray(catData.cat_url_image) &&
                 catData.cat_url_image.length > 0 ? (
                   catData.cat_url_image.map((src: string, index: number) => (
                     <CarouselItem key={index}>
-                      <div className="p-1">
-                        <Card>
-                          <CardContent className="flex items-center justify-center p-0 w-full h-96 overflow-hidden">
-                            <Image
-                              src={src}
-                              alt={`Image ${index + 1}`}
-                              width={700}
-                              height={700}
-                              className="w-full h-full object-cover rounded-lg"
-                            />
-                          </CardContent>
-                        </Card>
-                      </div>
+                      <Card>
+                        <CardContent className="  flex items-center justify-center p-0 w-full h-96 overflow-hidden">
+                          <Image
+                            src={src}
+                            alt={`Image ${index + 1}`}
+                            width={700}
+                            height={700}
+                            className="w-full h-full object-cover rounded-lg"
+                          />
+                        </CardContent>
+                      </Card>
                     </CarouselItem>
                   ))
                 ) : (
@@ -183,7 +182,8 @@ export default function CatIdPage() {
               <CarouselNext />
             </Carousel>
           </div>
-          <div className="md:w-1/2 w-full px-6 py-4 bg-white text-black rounded-lg border border-gray-300 shadow-sm">
+
+          {/* <div className="md:w-1/2 w-full px-6 py-4 bg-white text-black rounded-lg border border-gray-300 shadow-sm">
             <h3 className="text-2xl font-bold mb-4">📝 Informations</h3>
             <ul className="space-y-3 text-lg">
               <li>
@@ -242,7 +242,84 @@ export default function CatIdPage() {
                 <p>Adopté le : {catData.when_adopt}</p>
               </>
             )}
-          </div>
+          </div> */}
+
+          <ul className="text-lg px-6 py-4 bg-zinc-100 text-black rounded-lg border border-gray-300 shadow-sm flex flex-col lg:flex-row lg:flex-wrap gap-y-4 gap-x-[4%] lg:w-2/3">
+            {/* Identité */}
+            <li className="rounded-lg border border-gray-300 shadow-sm p-4 bg-white lg:w-[48%] ">
+              <h3 className="text-lg font-semibold mb-2">🧩 Identité</h3>
+              <ul className="space-y-2 ml-4 list-inside list-non text-sm md:text-lg">
+                <li>
+                  🎂 <strong>Date de naissance :</strong>
+                  <br />
+                  {formattedBirthInfo}
+                </li>
+                <li>
+                  🚻 <strong>Sexe :</strong>{" "}
+                  {SEX_CAT_LABELS[catData.sex_cat] || catData.sex_cat}
+                </li>
+                <li>
+                  ⏳ <strong>Âge estimé :</strong>{" "}
+                  {AGE_LABELS[catData.age_of_cat] || catData.age_of_cat}
+                </li>
+              </ul>
+            </li>
+
+            {/* Santé */}
+            <li className="rounded-lg border border-gray-300 shadow-sm p-4 bg-white lg:w-[48%] flex flex-col justify-between">
+              <h3 className="text-lg font-semibold mb-2">🧬 Santé</h3>
+              <ul className="space-y-2 md:ml-4 list-inside list-none text-sm md:text-lg">
+                <li>
+                  💉 <strong>Stérilisé :</strong>{" "}
+                  {catData.sterelized ? "Oui" : "Non"}
+                </li>
+                <li className="flex items-center gap-2">
+                  <Syringe className="w-5 h-5" />
+                  <strong>Vacciné :</strong> Oui
+                </li>
+                <li>
+                  🧪 <strong>Test FIV :</strong>{" "}
+                  {catData.fiv_test ? "Positif" : "Négatif"}
+                </li>
+                <li>
+                  🧪 <strong>Test FeLV :</strong>{" "}
+                  {catData.felv_test ? "Positif" : "Négatif"}
+                </li>
+              </ul>
+            </li>
+
+            {/* Apparence & Catégorie */}
+            <li className="rounded-lg border border-gray-300 shadow-sm p-4 bg-white lg:w-[48%] ">
+              <h3 className="text-lg font-semibold mb-2">
+                🎨 Apparence & Catégorie
+              </h3>
+              <ul className="space-y-2 md:ml-4 list-inside list-none text-sm md:text-lg">
+                <li>
+                  🎨 <strong>Couleur :</strong>{" "}
+                  {COAT_COLOR_LABELS[catData.coat_color] || catData.coat_color}
+                </li>
+                <li>
+                  🐾 <strong>Motif :</strong>{" "}
+                  {PATTERN_LABELS[catData.pattern] || catData.pattern}
+                </li>
+                <li>
+                  🧶 <strong>Catégorie :</strong>{" "}
+                  {CATEGORY_CAT_LABELS[catData.category_cat] ||
+                    catData.category_cat}
+                </li>
+              </ul>
+            </li>
+
+            {/* Description */}
+            {catData.description && (
+              <li className="rounded-lg border border-gray-300 shadow-sm p-4   bg-white md:text-lg lg:w-[48%] ">
+                <h3 className="text-lg font-semibold mb-2">📝 Description</h3>
+                <p className="md:ml-4  text-base text-zinc-700 dark:text-zinc-300">
+                  {catData.description}
+                </p>
+              </li>
+            )}
+          </ul>
 
           {/* <div>
             <p>Date de naissance : {formattedBirthInfo}</p>

@@ -81,7 +81,7 @@ export default function FormContact() {
               setFormData({ ...formData, subject: value })
             }
           >
-            <SelectTrigger className="border-gray-300">
+            <SelectTrigger className="border-gray-300 dark:bg-zinc-900">
               <SelectValue placeholder="Sélectionnez un sujet" />
             </SelectTrigger>
             <SelectContent>
@@ -140,7 +140,7 @@ export default function FormContact() {
             name="message"
             value={formData.message}
             onChange={handleChange}
-            className="border p-2 rounded border-gray-300"
+            className="border p-2 rounded border-gray-300 dark:bg-zinc-900"
             rows={5}
           />
         </div>

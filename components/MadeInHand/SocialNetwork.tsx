@@ -4,9 +4,9 @@ import { Facebook, Instagram, Linkedin } from "lucide-react";
 export default function SocialNetwork() {
   return (
     <div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 ">
         <Link
-          className="hover:bg-accent hover:rounded-lg p-2"
+          className="hover:bg-accent hover:rounded-lg p-2 hover:text-black"
           href="https://www.facebook.com/profile.php?id=61561436403399&locale=fr_FR"
           target="_blank"
         >
@@ -15,13 +15,13 @@ export default function SocialNetwork() {
         <Link
           href="https://www.instagram.com/ecoledeschats/"
           target="_blank"
-          className="hover:bg-accent hover:rounded-lg p-2"
+          className="hover:bg-accent hover:rounded-lg p-2 hover:text-black"
         >
           <Instagram size={28} />
         </Link>
         <Link
           href="https://www.linkedin.com/company/association-l-%C3%A9cole-des-chats-du-pays-houdanais/posts/?feedView=allhttps://www.linkedin.com/company/association-l-%C3%A9cole-des-chats-du-pays-houdanais"
-          className="hover:bg-accent hover:rounded-lg p-2"
+          className="hover:bg-accent hover:rounded-lg p-2 hover:text-black"
           target="_blank"
         >
           <Linkedin size={28} strokeWidth={1.5} />

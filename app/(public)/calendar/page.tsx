@@ -8,6 +8,7 @@ import {
 } from "@/utils/actions";
 import EventCard from "@/components/MadeInHand/Client/Card/EventCard";
 import Image from "next/image";
+import PageHeader from "@/components/MadeInHand/PageHeader";
 
 interface Event {
   title_event: string;
@@ -75,9 +76,7 @@ export default function CalendarPage() {
 
   return (
     <div className="min-h-screen bg-white text-black px-8 py-6">
-      <h1 className="text-4xl font-bold text-center mb-10 border-b pb-4">
-        🐾 Calendrier des Événements
-      </h1>
+      <PageHeader pageKey="calendar" />
       <div className="flex flex-col md:flex-row gap-6">
         {/* Colonne principale : soit liste des événements, soit détails d'un événement */}
         {/* <div className="w-3/4 ">

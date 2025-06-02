@@ -5,10 +5,6 @@ export default function page() {
     <div className="p-6 min-h-screen  bg-gray-100 dark:bg-black">
       <PageHeader pageKey="legaldocuments" />
       <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 dark:bg-zinc-900">
-        <h1 className="text-3xl font-bold text-center mb-6">
-          Documents Légaux et Réduction Fiscale
-        </h1>
-
         <section className="mb-6">
           <h2 className="text-2xl font-semibold mb-2">Documents Légaux</h2>
           <p>

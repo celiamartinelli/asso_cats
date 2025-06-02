@@ -1,4 +1,34 @@
 {
+  "adoption": {
+    "emoji": "🏡🐱",
+    "title": "À la recherche d’un foyer chaleureux",
+    "subtitle": "Offrez une seconde chance à un chat qui n’attend que votre amour 💕🐾"
+  },
+  "helpthem": {
+    "emoji": "✨🐈",
+    "title": " Ensemble, on peut changer leur destin ",
+    "subtitle": " Découvrez comment vous pouvez agir, même avec un petit geste 💝"
+  },
+  "about": {
+    "emoji": "🐾",
+    "title": "À propos de l’association",
+    "subtitle": "Parce que chaque vie compte… 🐱💖"
+  },
+  "advice": {
+    "emoji": "💡",
+    "title": "Conseils félins et infos utiles ",
+    "subtitle": " Mieux comprendre nos amis les chats, pour mieux les aimer chaque jour ❤️ 🐾"
+  },
+  "contact": {
+    "emoji": "📞",
+    "title": "Contactez-nous",
+    "subtitle": "Nous sommes là pour vous aider et répondre à vos questions 🐱💬"
+  },
+  "becomeavolunteer": {
+    "emoji": "🤗",
+    "title": "Devenir bénévole",
+    "subtitle": "Rejoignez notre équipe et faites la différence pour nos amis à quatre pattes 🐾❤️"
+  },
   "actualites": {
     "emoji": "📰",
     "title": "Actualités de l'association",
@@ -49,10 +79,10 @@
     "title": "Comment nous aider",
     "subtitle": "Dons, bénévolat, parrainage… il y a plein de façons de contribuer."
   },
-  "evenements": {
+  "calendar": {
     "emoji": "📅",
     "title": "Calendrier des événements",
-    "subtitle": "Retrouvez tous nos événements passés et à venir."
+    "subtitle": "Retrouvez tous nos événements passés et à venir. ⛳️"
   },
   "don-materiel": {
     "emoji": "🎁",
@@ -73,5 +103,10 @@
     "emoji": "🐾",
     "title": "Devenir bénévole",
     "subtitle": "S'engager à nos côtés, c'est offrir une seconde chance à ceux qui n’ont pas eu la première."
+  },
+  "donation": {
+    "emoji": "💝",
+    "title": "Faire un don",
+    "subtitle": "Votre générosité permet de sauver des vies et de changer le quotidien de nos chats 🙏 ."
   }
 }

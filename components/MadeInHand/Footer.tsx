@@ -67,7 +67,7 @@ const sections = [
       },
       {
         href: "/calendar",
-        label: "Date éenements à venir",
+        label: "Date évenements à venir",
       },
       {
         href: "/news",

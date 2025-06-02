@@ -1,7 +1,9 @@
+import PageHeader from "@/components/MadeInHand/PageHeader";
+
 export default function Donation() {
   return (
     <div className="p-6  bg-gray-100 dark:bg-black">
-      <h1 className="text-3xl font-bold mb-4">Donation</h1>
+      <PageHeader pageKey="donation" />
       <iframe
         id="haWidget"
         allowTransparency={true}

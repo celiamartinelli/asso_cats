@@ -198,32 +198,34 @@ export default function Index() {
             </Button>
           </div>
           <div className="py-14 p-4 w-full lg:col-span-2 mb-4 ">
-            <h3 className="text-6xl mb-24 font-thasadith tracking-wide">
+            <h3 className="text-3xl md:text-6xl mb-12 md:mb-24 font-thasadith tracking-wide">
               Comment se déroule une adoption
             </h3>
             {/* ici afficher les étapes d'adoption avec un map */}
-            <div className="flex items-start flex-col md:flex-row">
+            <div className="flex items-center justify-center flex-col md:flex-row md:flex-wrap xl:flex-nowrap ">
               {steps.map((step) => (
                 <div
                   key={step.adoption_step_id}
-                  className="mb-12 w-full md:w-1/6 text-center items-start rounded-lg shadow-md border border-zinc-500 m-2 dark:bg-zinc-900 bg-white"
+                  className="mb-12 w-5/6 md:w-2/6 xl:w-1/6 md:h-[250px]  text-center items-start rounded-lg shadow-md border border-zinc-500 m-2 dark:bg-zinc-900 bg-white"
                 >
                   <p className="text-xl dancing-script  dark:text-zinc-200  text-right mr-2">
                     {step.step_number}
                   </p>
-                  {step.image && (
-                    <img
-                      src={step.image}
-                      alt={step.title}
-                      width={100}
-                      height={100}
-                      className="rounded-full shadow-lg mx-auto mb-3"
-                    />
-                  )}
-                  <h4 className="text-xl mb-2 font-thasadith tracking-wide dark:text-zinc-200">
-                    {step.title}
-                  </h4>
-                  <p className="mb-2 italic text-gray-500">{step.subtitle}</p>
+                  <div className="flex flex-col items-center justify-center p-4">
+                    {step.image && (
+                      <img
+                        src={step.image}
+                        alt={step.title}
+                        width={100}
+                        height={100}
+                        className="rounded-full shadow-lg mx-auto mb-3"
+                      />
+                    )}
+                    <h4 className="text-xl mb-2 font-thasadith tracking-wide dark:text-zinc-200">
+                      {step.title}
+                    </h4>
+                    <p className="mb-2 italic text-gray-500">{step.subtitle}</p>
+                  </div>
                   {/* <p className="mb-4">{step.content}</p> */}
                 </div>
               ))}
@@ -239,7 +241,7 @@ export default function Index() {
               </Button>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row py-14 p-4 w-full justify-center">
+          <div className="flex flex-col md:flex-row flex-wrap py-14 p-4 w-full justify-center">
             <Link
               href="https://www.facebook.com/profile.php?id=61561436403399&locale=fr_FR"
               className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30 "

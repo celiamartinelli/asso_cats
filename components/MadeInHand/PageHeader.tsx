@@ -7,6 +7,7 @@ interface PageHeaderProps {
   emoji?: string;
   title?: string;
   subtitle?: string;
+  textColorClass?: string;
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({
@@ -14,12 +15,13 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   emoji,
   title,
   subtitle,
+  textColorClass,
 }) => {
   const content = pageKey ? headers[pageKey] : null;
 
   return (
-    <div className="text-center space-y-4 mb-10 animate-fade-in">
-      <h1 className="text-4xl font-bold">
+    <div className="text-center space-y-4 my-10 animate-fade-in">
+      <h1 className={`text-4xl font-bold ${textColorClass ?? ""}`}>
         {emoji || content?.emoji ? (
           <span className="mr-2">{emoji || content?.emoji}</span>
         ) : null}

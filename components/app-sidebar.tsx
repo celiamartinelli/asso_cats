@@ -86,24 +86,26 @@ const data = {
       items: [
         {
           title: "Adoption",
-          content: <AdoptionContentCatGroup />,
+          // content: <AdoptionContentCatGroup />,
+          href: "/admin/contactform/adoption",
         },
         {
           title: "FA",
-          content: <HostFamilyContent />,
+          // content: <HostFamilyContent />,
+          href: "/admin/contactform/hostfamily",
         },
-        {
-          title: "Don Matériel",
-          content: <MaterielDonationContent />,
-        },
-        {
-          title: "Bénévole",
-          content: <VolunteerGroup />,
-        },
-        {
-          title: "Contact",
-          content: <ContactGroup />,
-        },
+        // {
+        //   title: "Don Matériel",
+        //   content: <MaterielDonationContent />,
+        // },
+        // {
+        //   title: "Bénévole",
+        //   content: <VolunteerGroup />,
+        // },
+        // {
+        //   title: "Contact",
+        //   content: <ContactGroup />,
+        // },
       ],
     },
     {
@@ -112,52 +114,53 @@ const data = {
       items: [
         {
           title: "Chat",
-          content: <CatAction />,
+          // content: <CatAction />,
+          href: "/admin/actions/cat",
         },
-        {
-          title: "Article",
-          content: <AdviceAction />,
-        },
-        {
-          title: "Ville",
-          content: <TownAction />,
-        },
-        {
-          title: "Calendrier",
-          content: <EventsAction />,
-        },
-        {
-          title: "Actualités",
-          content: <NewsAction />,
-        },
+        // {
+        //   title: "Article",
+        //   content: <AdviceAction />,
+        // },
+        // {
+        //   title: "Ville",
+        //   content: <TownAction />,
+        // },
+        // {
+        //   title: "Calendrier",
+        //   content: <EventsAction />,
+        // },
+        // {
+        //   title: "Actualités",
+        //   content: <NewsAction />,
+        // },
       ],
     },
-    {
-      title: "Modifier/Supprimer",
-      icon: PencilIcon,
-      items: [
-        {
-          title: "Chat",
-          content: <CatActionUpdate />,
-        },
-        {
-          title: "Article",
-          content: <AdviceActionUpdate />,
-        },
-        {
-          title: "Ville",
-          content: <TownActionUpdate />,
-        },
-        {
-          title: "Calendrier",
-          content: <EventsActionUpdate />,
-        },
-        {
-          title: "Actualités",
-          content: <NewsActionUpdate />,
-        },
-      ],
-    },
+    // {
+    //   title: "Modifier/Supprimer",
+    //   icon: PencilIcon,
+    //   items: [
+    //     {
+    //       title: "Chat",
+    //       content: <CatActionUpdate />,
+    //     },
+    //     {
+    //       title: "Article",
+    //       content: <AdviceActionUpdate />,
+    //     },
+    //     {
+    //       title: "Ville",
+    //       content: <TownActionUpdate />,
+    //     },
+    //     {
+    //       title: "Calendrier",
+    //       content: <EventsActionUpdate />,
+    //     },
+    //     {
+    //       title: "Actualités",
+    //       content: <NewsActionUpdate />,
+    //     },
+    //   ],
+    // },
   ],
   // projects: [
   //   {
@@ -185,7 +188,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     setSelectedContent(content);
   };
   return (
-    <div className="flex h-full">
+    <div className="flex h-full bg-red-500">
       <Sidebar collapsible="none" {...props}>
         <SidebarHeader>
           <TeamSwitcher teams={data.teams} />
@@ -198,7 +201,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarRail />
       </Sidebar>
       <div className="flex-1 p-4">
-        {selectedContent || <AdoptionContentCatGroup />}
+        {/* {selectedContent || <AdoptionContentCatGroup />} */}
       </div>
     </div>
   );

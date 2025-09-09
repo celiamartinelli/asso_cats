@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import {
   getContactForm,
@@ -114,7 +115,9 @@ export default function ContactGroup() {
                       />
                       Marquer comme lu
                     </label>
-                    <span className="text-gray-500">{isOpen ? "▲" : "▼"}</span>{" "}
+                    <span className="text-gray-500">
+                      {isOpen ? "▲" : "▼"}
+                    </span>{" "}
                   </div>
                   <AnimatePresence initial={false}>
                     {isOpen && (

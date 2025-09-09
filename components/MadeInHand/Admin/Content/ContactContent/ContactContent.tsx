@@ -1,3 +1,4 @@
+"use client";
 export default function ContactContent() {
   return (
     <div className="w-full h-full">

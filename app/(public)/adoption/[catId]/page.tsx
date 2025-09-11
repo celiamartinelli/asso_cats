@@ -54,6 +54,7 @@ interface CatData {
   age_of_cat: string;
   category_cat: string;
   cat_url_image: string[];
+  cat_url_video: string[];
   cat_id: string;
   when_adopt?: string; // Ajout de la propriété when_adopt
 }
@@ -140,22 +141,30 @@ export default function CatIdPage() {
 
       {catData ? (
         <div className="flex flex-col w-5/6 md:w-11/12 lg:w-5/6 justify-around lg:flex-row mb-12 gap-16 ">
-          <div className="lg:w-1/2">
+          {/* <div className="lg:w-1/2">
             <Carousel className="w-full max-w-md mx-auto">
-              <CarouselContent>
+              {/* <CarouselContent>
                 {Array.isArray(catData.cat_url_image) &&
                 catData.cat_url_image.length > 0 ? (
                   catData.cat_url_image.map((src: string, index: number) => (
                     <CarouselItem key={index}>
                       <Card>
                         <CardContent className="  flex items-center justify-center p-0 w-full h-96 overflow-hidden">
-                          <Image
-                            src={src}
-                            alt={`Image ${index + 1}`}
-                            width={700}
-                            height={700}
-                            className="w-full h-full object-cover rounded-lg"
-                          />
+                          {src.match(/\.(mp4|webm|ogg)$/i) ? (
+                            <video
+                              src={src}
+                              controls
+                              className="w-full h-full object-cover rounded-lg"
+                            />
+                          ) : (
+                            <Image
+                              src={src}
+                              alt={`Media ${index + 1}`}
+                              width={700}
+                              height={700}
+                              className="w-full h-full object-cover rounded-lg"
+                            />
+                          )}
                         </CardContent>
                       </Card>
                     </CarouselItem>
@@ -175,6 +184,98 @@ export default function CatIdPage() {
                         </CardContent>
                       </Card>
                     </div>
+                  </CarouselItem>
+                )}
+              </CarouselContent> 
+              <CarouselContent>
+                {[
+                  ...(Array.isArray(catData.cat_url_image)
+                    ? catData.cat_url_image
+                    : []),
+                  ...(catData.video_cat_url ? [catData.video_cat_url] : []), // ajoute la vidéo à la fin
+                ].map((src: string, index: number) => (
+                  <CarouselItem key={index}>
+                    <Card>
+                      <CardContent className="flex items-center justify-center p-0 w-full h-96 overflow-hidden">
+                        {src.match(/\.(mp4|webm|ogg)$/i) ||
+                        src === catData.video_cat_url ? (
+                          <video
+                            src={src}
+                            controls
+                            className="w-full h-full object-cover rounded-lg"
+                          />
+                        ) : (
+                          <Image
+                            src={src}
+                            alt={`Media ${index + 1}`}
+                            width={700}
+                            height={700}
+                            className="w-full h-full object-cover rounded-lg"
+                          />
+                        )}
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </div> */}
+
+          <div className="lg:w-1/2">
+            <Carousel className="w-full max-w-md mx-auto">
+              <CarouselContent>
+                {[
+                  ...(Array.isArray(catData.cat_url_image)
+                    ? catData.cat_url_image
+                    : []),
+                  ...(Array.isArray(catData.cat_url_video)
+                    ? catData.cat_url_video
+                    : catData.cat_url_video
+                      ? [catData.cat_url_video]
+                      : []),
+                ]
+                  .filter((src): src is string => typeof src === "string")
+                  .map((src: string, index: number) => (
+                    <CarouselItem key={index}>
+                      <Card>
+                        <CardContent className="flex items-center justify-center p-0 w-full h-96 overflow-hidden">
+                          {src.match(/\.(mp4|webm|ogg)$/i) ? (
+                            <video
+                              src={src}
+                              autoPlay
+                              muted
+                              playsInline
+                              className="w-full h-full object-cover rounded-lg"
+                            />
+                          ) : (
+                            <Image
+                              src={src}
+                              alt={`Media ${index + 1}`}
+                              width={700}
+                              height={700}
+                              className="w-full h-full object-cover rounded-lg"
+                            />
+                          )}
+                        </CardContent>
+                      </Card>
+                    </CarouselItem>
+                  ))}
+                {!catData.cat_url_image?.length && !catData.cat_url_video && (
+                  <CarouselItem>
+                    <Card>
+                      <CardContent className="flex items-center justify-center p-0 w-full h-96 overflow-hidden">
+                        <Image
+                          src="/placeholder.png"
+                          alt="Aucune image disponible"
+                          width={700}
+                          height={700}
+                          className="w-full h-full object-cover rounded-lg"
+                        />
+                      </CardContent>
+                    </Card>
                   </CarouselItem>
                 )}
               </CarouselContent>

@@ -35,14 +35,93 @@ export default function FormToAddCat() {
     age_of_cat: "",
     category_cat: "",
     cat_url_image: [] as File[],
+    cat_url_video: [] as File[],
     where_cat_found: "",
     which_host_family: "",
   });
 
   const [preview, setPreview] = useState<string | null>(null);
   const [previews, setPreviews] = useState<string[]>([]);
+  const [videoPreviews, setVideoPreviews] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [images, setImages] = useState<File[]>([]);
+
+  // Input unique images + vidéos
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files || []);
+
+    files.forEach((file) => {
+      if (file.type.startsWith("image/")) {
+        const url = URL.createObjectURL(file);
+        setPreviews((prev) => [...prev, url]);
+        setFormData((prev) => ({
+          ...prev,
+          cat_url_image: [...prev.cat_url_image, file],
+        }));
+      } else if (file.type.startsWith("video/")) {
+        const url = URL.createObjectURL(file);
+        setVideoPreviews((prev) => [...prev, url]);
+        setFormData((prev) => ({
+          ...prev,
+          cat_url_video: [...prev.cat_url_video, file],
+        }));
+      }
+    });
+  };
+
+  // Supprimer une image
+  const handleRemoveImage = (index: number) => {
+    setPreviews((prev) => prev.filter((_, i) => i !== index));
+    setFormData((prev) => ({
+      ...prev,
+      cat_url_image: prev.cat_url_image.filter((_, i) => i !== index),
+    }));
+  };
+
+  // Supprimer une vidéo
+  const handleRemoveVideo = (index: number) => {
+    setVideoPreviews((prev) => prev.filter((_, i) => i !== index));
+    setFormData((prev) => ({
+      ...prev,
+      cat_url_video: prev.cat_url_video.filter((_, i) => i !== index),
+    }));
+  };
+
+  // Soumission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      let imageUrls: string[] = [];
+      let videoUrls: string[] = [];
+
+      if (formData.cat_url_image.length > 0) {
+        imageUrls = await Promise.all(
+          formData.cat_url_image.map((file) => uploadImage(file))
+        );
+      }
+
+      if (formData.cat_url_video.length > 0) {
+        videoUrls = await Promise.all(
+          formData.cat_url_video.map((file) => uploadImage(file))
+        );
+      }
+
+      const formDataToSubmit = {
+        ...formData,
+        when_adopt: formData.when_adopt || null,
+        when_sterelized: formData.when_sterelized || null,
+        when_vaccine: formData.when_vaccine || null,
+        cat_url_image: imageUrls.length ? `{${imageUrls.join(",")}}` : null,
+        cat_url_video: videoUrls.length ? `{${videoUrls.join(",")}}` : null,
+      };
+
+      await addCat(formDataToSubmit);
+      alert("Chat ajouté avec succès !");
+    } catch (error) {
+      console.error("Erreur lors de l'ajout du chat:", error);
+      alert("Une erreur est survenue, veuillez réessayer.");
+    }
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -76,56 +155,56 @@ export default function FormToAddCat() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("📤 Formulaire soumis");
-    try {
-      let imageUrls = [];
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   console.log("📤 Formulaire soumis");
+  //   try {
+  //     let imageUrls = [];
 
-      // Si des images sont envoyées, traite-les
-      if (formData.cat_url_image.length > 0) {
-        imageUrls = await Promise.all(
-          formData.cat_url_image.map(async (file) => {
-            const uploadedUrl = await uploadImage(file);
-            console.log("Uploaded URL:", uploadedUrl); // Vérifiez l'URL retournée
-            return uploadedUrl;
-          })
-        );
-      }
+  //     // Si des images sont envoyées, traite-les
+  //     if (formData.cat_url_image.length > 0) {
+  //       imageUrls = await Promise.all(
+  //         formData.cat_url_image.map(async (file) => {
+  //           const uploadedUrl = await uploadImage(file);
+  //           console.log("Uploaded URL:", uploadedUrl); // Vérifiez l'URL retournée
+  //           return uploadedUrl;
+  //         })
+  //       );
+  //     }
 
-      // Filtrer les URLs nulles ou undefined
-      const validImageUrls = imageUrls.filter(
-        (url) => url !== undefined && url !== null
-      );
-      console.log("URLs valides avant envoi:", validImageUrls);
+  //     // Filtrer les URLs nulles ou undefined
+  //     const validImageUrls = imageUrls.filter(
+  //       (url) => url !== undefined && url !== null
+  //     );
+  //     console.log("URLs valides avant envoi:", validImageUrls);
 
-      const formDataToSubmit = {
-        ...formData,
-        when_adopt: formData.when_adopt || null,
-        when_sterelized: formData.when_sterelized || null,
-        when_vaccine: formData.when_vaccine || null,
-        cat_url_image:
-          validImageUrls.length > 0 ? `{${validImageUrls.join(",")}}` : null, // Utilise uniquement les URLs valides
-      };
+  //     const formDataToSubmit = {
+  //       ...formData,
+  //       when_adopt: formData.when_adopt || null,
+  //       when_sterelized: formData.when_sterelized || null,
+  //       when_vaccine: formData.when_vaccine || null,
+  //       cat_url_image:
+  //         validImageUrls.length > 0 ? `{${validImageUrls.join(",")}}` : null, // Utilise uniquement les URLs valides
+  //     };
 
-      console.log("Form data to submit:", formDataToSubmit);
+  //     console.log("Form data to submit:", formDataToSubmit);
 
-      // Envoie les données à Supabase
-      await addCat(formDataToSubmit);
-      alert("Chat ajouté avec succès !");
-    } catch (error) {
-      console.error("Erreur lors de l'ajout du chat:", error);
-      alert("Une erreur est survenue, veuillez réessayer.");
-    }
-  };
+  //     // Envoie les données à Supabase
+  //     await addCat(formDataToSubmit);
+  //     alert("Chat ajouté avec succès !");
+  //   } catch (error) {
+  //     console.error("Erreur lors de l'ajout du chat:", error);
+  //     alert("Une erreur est survenue, veuillez réessayer.");
+  //   }
+  // };
 
-  const handleRemoveImage = (index: number) => {
-    setPreviews((prev) => prev.filter((_, i) => i !== index));
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      cat_url_image: prevFormData.cat_url_image.filter((_, i) => i !== index),
-    }));
-  };
+  // const handleRemoveImage = (index: number) => {
+  //   setPreviews((prev) => prev.filter((_, i) => i !== index));
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     cat_url_image: prevFormData.cat_url_image.filter((_, i) => i !== index),
+  //   }));
+  // };
 
   return (
     <Card className="max-w-2xl mx-auto p-6">
@@ -141,11 +220,11 @@ export default function FormToAddCat() {
             <div className=" w-1/4">
               <input
                 type="file"
-                accept="image/*"
+                accept="image/*,video/*"
                 multiple
                 className="hidden"
                 ref={fileInputRef}
-                onChange={handleImageChange}
+                onChange={handleFileChange}
                 title="Upload an image"
               />
               <Button
@@ -153,11 +232,11 @@ export default function FormToAddCat() {
                 variant="outline"
                 className="w-48 h-48 rounded-lg flex items-center justify-center border border-dashed overflow-hidden relative hover:border-gray-500 hover:shadow-lg hover:opacity-80"
                 onClick={(e) => {
-                  e.preventDefault();
+                  // e.preventDefault();
                   fileInputRef.current?.click();
                 }}
               >
-                {previews.length > 0 ? (
+                {/* {previews.length > 0 ? (
                   <div className="relative w-full h-full">
                     <img
                       src={previews[0]}
@@ -165,7 +244,7 @@ export default function FormToAddCat() {
                       className="w-full h-full object-cover rounded-lg"
                     />
                     {/* Croix pour supprimer la première image */}
-                    <button
+                {/*  <button
                       onClick={(e) => {
                         e.stopPropagation(); // 👈 Empêche l'événement d'atteindre le Button parent
                         handleRemoveImage(0);
@@ -177,8 +256,52 @@ export default function FormToAddCat() {
                   </div>
                 ) : (
                   <ImageIcon className="w-8 h-8 text-gray-400" />
-                )}
+                )} */}
               </Button>
+
+              {/* Préviews des images */}
+              {previews.length > 0 && (
+                <div className="flex gap-2 flex-wrap">
+                  {previews.map((url, index) => (
+                    <div key={index} className="relative w-24 h-24">
+                      <img
+                        src={url}
+                        alt={`image-${index}`}
+                        className="w-full h-full object-cover rounded-md border"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveImage(index)}
+                        className="absolute top-0 right-0 bg-gray-400 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Préviews des vidéos */}
+              {videoPreviews.length > 0 && (
+                <div className="flex gap-2 flex-wrap">
+                  {videoPreviews.map((url, index) => (
+                    <div key={index} className="relative w-32 h-32">
+                      <video
+                        src={url}
+                        controls
+                        className="w-full h-full rounded-md border"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveVideo(index)}
+                        className="absolute top-0 right-0 bg-gray-400 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
             <div className="w-3/5">
               {/* Nom */}
@@ -322,7 +445,7 @@ export default function FormToAddCat() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="white">Blanc</SelectItem>
-                <SelectItem value="blue/grey">Blue/grey</SelectItem>
+                <SelectItem value="blue-grey">Blue/grey</SelectItem>
                 <SelectItem value="cinnamon">Cinamon</SelectItem>
                 <SelectItem value="chocolate">chocolat</SelectItem>
                 <SelectItem value="cream">Crème</SelectItem>

@@ -658,14 +658,22 @@ export const addCat = async (formData: any) => {
       // Supprimer les accolades et diviser en tableau si nécessaire
       catUrlImage = catUrlImage.replace(/^{|}$/g, "").split(",");
     }
+    let catUrlVideo = formData.cat_url_video;
+
+    if (typeof catUrlVideo === "string") {
+      catUrlVideo = catUrlVideo.replace(/^{|}$/g, "").split(",");
+    }
 
     console.log("📌 Type après correction :", Array.isArray(catUrlImage));
     console.log("📌 Valeur après correction :", catUrlImage);
+    console.log("📌 Images après correction :", catUrlImage);
+    console.log("📌 Vidéos après correction :", catUrlVideo);
 
     // Formatage final
     const formattedData = {
       ...formData,
       cat_url_image: Array.isArray(catUrlImage) ? catUrlImage : [],
+      cat_url_video: Array.isArray(catUrlVideo) ? catUrlVideo : [],
     };
 
     console.log("✅ Données formatées pour insertion :", formattedData);

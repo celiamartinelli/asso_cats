@@ -206,6 +206,37 @@ export default function FormToAddCat() {
   //   }));
   // };
 
+  // Exemple de fonction pour calculer la catégorie d'âge
+  const calculateAgeCategory = (date_of_birth: string) => {
+    const today = new Date();
+    const dob = new Date(date_of_birth);
+
+    let ageInMonths =
+      (today.getFullYear() - dob.getFullYear()) * 12 +
+      (today.getMonth() - dob.getMonth());
+
+    if (today.getDate() < dob.getDate()) {
+      ageInMonths -= 1;
+    }
+
+    if (ageInMonths < 6) return "chatons"; // < 6 mois
+    if (ageInMonths < 24) return "jeune-chat"; // 6 mois – 2 ans
+    if (ageInMonths < 96) return "adulte"; // 2 – 8 ans
+    return "senior"; // 8 ans et +
+  };
+
+  // Dans ton composant formulaire :
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    // Met à jour la date de naissance
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+      age_of_cat: calculateAgeCategory(value), // met à jour automatiquement l'âge
+    }));
+  };
+
   return (
     <Card className="max-w-2xl mx-auto p-6">
       <CardHeader>
@@ -322,8 +353,29 @@ export default function FormToAddCat() {
                   type="date"
                   name="date_of_birth"
                   value={formData.date_of_birth}
-                  onChange={handleChange}
+                  onChange={handleDateChange}
                 />
+              </div>
+              {/* Age of cat */}
+              <div>
+                <label>Age du chat</label>
+                <Select
+                  value={formData.age_of_cat} // pour afficher la valeur auto
+                  onValueChange={(value) =>
+                    handleSelectChange("age_of_cat", value)
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Choisir un age" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="chatons">chatons</SelectItem>
+                    <SelectItem value="jeune-chat">jeune-chat</SelectItem>
+                    <SelectItem value="adulte">adulte</SelectItem>
+                    <SelectItem value="senior">senior</SelectItem>
+                    <SelectItem value="tous-ages">tous-ages</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               {/* Sex */}
@@ -508,25 +560,6 @@ export default function FormToAddCat() {
               />
             </div>
           )}
-
-          {/* Age of cat */}
-          <div>
-            <label>Age du chat</label>
-            <Select
-              onValueChange={(value) => handleSelectChange("age_of_cat", value)}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Choisir une age" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="chatons">chatons</SelectItem>
-                <SelectItem value="jeune-chat">jeune-chat</SelectItem>
-                <SelectItem value="adulte">adulte</SelectItem>
-                <SelectItem value="senior">senior</SelectItem>
-                <SelectItem value="tous-ages">tous-ages</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
 
           {/* Catégorie */}
           <div>

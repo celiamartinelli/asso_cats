@@ -15,6 +15,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ImageIcon } from "lucide-react";
 import { uploadImage, addCat } from "@/utils/actions";
+import { AGE_LABELS } from "@/utils/enumLabels";
+import { MultiSelect } from "@/components/multi-select";
 
 export default function FormToAddCat() {
   const [formData, setFormData] = useState({
@@ -27,7 +29,7 @@ export default function FormToAddCat() {
     when_vaccine: "",
     fiv_test: false,
     felv_test: false,
-    coat_color: "",
+    coat_color: "" as string | string[],
     pattern: "",
     description: "",
     adoption: false,
@@ -206,6 +208,30 @@ export default function FormToAddCat() {
   //   }));
   // };
 
+  // Liste des couleurs de pelage
+
+  const coatColorList = [
+    { value: "white", label: "Blanc" },
+    { value: "blue-grey", label: "Bleu/Gris" },
+    { value: "cinnamon", label: "Cannelle" },
+    { value: "chocolate", label: "Chocolat" },
+    { value: "cream", label: "Crème" },
+    { value: "fawn", label: "Fauve" },
+    { value: "black", label: "Noir" },
+    { value: "red", label: "Roux" },
+  ];
+  const colorMapping: Record<string, string> = {
+    white: "#FFFFFF",
+    "blue-grey": "#666670",
+    cinnamon: "#753800",
+    chocolate: "#502A05",
+    cream: "#f7f0de",
+    fawn: "#D0B280", // sable
+    black: "#000000",
+    red: "#e29024",
+  };
+  const [selectedColors, setSelectedColors] = useState<string[]>([]);
+
   // Exemple de fonction pour calculer la catégorie d'âge
   const calculateAgeCategory = (date_of_birth: string) => {
     const today = new Date();
@@ -358,26 +384,21 @@ export default function FormToAddCat() {
               </div>
               {/* Age of cat */}
               <div>
-                <label>Age du chat</label>
-                <Select
-                  value={formData.age_of_cat} // pour afficher la valeur auto
-                  onValueChange={(value) =>
-                    handleSelectChange("age_of_cat", value)
+                <label>Âge du chat</label>
+                <Input
+                  placeholder="Calcul Automatique"
+                  type="text"
+                  value={
+                    formData.age_of_cat ? AGE_LABELS[formData.age_of_cat] : ""
                   }
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Choisir un age" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="chatons">chatons</SelectItem>
-                    <SelectItem value="jeune-chat">jeune-chat</SelectItem>
-                    <SelectItem value="adulte">adulte</SelectItem>
-                    <SelectItem value="senior">senior</SelectItem>
-                    <SelectItem value="tous-ages">tous-ages</SelectItem>
-                  </SelectContent>
-                </Select>
+                  readOnly
+                  className={`cursor-not-allowed transition-colors duration-500 ${
+                    formData.age_of_cat
+                      ? "bg-black text-white"
+                      : "bg-white text-black"
+                  }`}
+                />
               </div>
-
               {/* Sex */}
               <div>
                 <label>Sexe de l'animal</label>
@@ -488,24 +509,39 @@ export default function FormToAddCat() {
 
           {/* Couleur du pelage */}
           <div>
-            <label>Couleur du pelage</label>
-            <Select
-              onValueChange={(value) => handleSelectChange("coat_color", value)}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Choisir une couleur de pelage" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="white">Blanc</SelectItem>
-                <SelectItem value="blue-grey">Blue/grey</SelectItem>
-                <SelectItem value="cinnamon">Cinamon</SelectItem>
-                <SelectItem value="chocolate">chocolat</SelectItem>
-                <SelectItem value="cream">Crème</SelectItem>
-                <SelectItem value="fawn">Fauve</SelectItem>
-                <SelectItem value="black">Noir</SelectItem>
-                <SelectItem value="red">Roux</SelectItem>
-              </SelectContent>
-            </Select>
+            <label>Couleur(s) du pelage</label>
+            <MultiSelect
+              options={coatColorList.map((color) => ({
+                value: color.value,
+                label: color.label,
+                icon: () => (
+                  <span
+                    className="inline-block w-4 h-4 rounded-full border border-gray-400"
+                    style={{ backgroundColor: colorMapping[color.value] }}
+                  />
+                ),
+              }))}
+              onValueChange={(values) => {
+                setFormData({ ...formData, coat_color: values });
+              }}
+              value={formData.coat_color || []}
+              placeholder="Choisir une ou plusieurs couleurs"
+            />
+            {/* <div className="mt-4">
+              <h2 className="text-sm font-semibold">
+                Couleurs sélectionnées :
+              </h2>
+              <ul className="list-disc list-inside">
+                {selectedColors.map((color) => (
+                  <li key={color}>
+                    {coatColorList.find((c) => c.value === color)?.label}
+                    {Array.isArray(formData.coat_color)
+                      ? formData.coat_color.join(", ")
+                      : formData.coat_color}
+                  </li>
+                ))}
+              </ul>
+            </div> */}
           </div>
 
           {/* Motif */}

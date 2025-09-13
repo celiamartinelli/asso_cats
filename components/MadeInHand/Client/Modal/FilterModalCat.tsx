@@ -39,21 +39,22 @@ const ageMapping = {
 const colorMapping = {
   Noir: "#000000",
   Blanc: "#FFFFFF",
-  Doré: "#E5A823",
-  Beige: "#C4A484",
-  Sable: "#D1B280",
-  Crème: "#FFFFE0",
-  Brun: "#5C4033",
+  "Bleu/Gris": "#666670",
+  Cannelle: "#753800",
+  Chocolat: "#502A05",
+  Crème: "#f7f0de",
+  Sable: "#D0B280",
+  Roux: "#e29024",
 };
-
 const colorHexToEnum = {
   "#000000": "black",
   "#FFFFFF": "white",
-  "#E5A823": "red", // ← à adapter selon ta base
-  "#C4A484": "cinnamon",
-  "#D1B280": "fawn",
-  "#FFFFE0": "cream",
-  "#5C4033": "chocolate",
+  "#666670": "blue-grey",
+  "#753800": "cinnamon",
+  "#502A05": "chocolate",
+  "#f7f0de": "cream",
+  "#D0B280": "sand",
+  "#e29024": "red",
 };
 
 const motifMapping = {

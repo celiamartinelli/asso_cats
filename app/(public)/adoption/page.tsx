@@ -78,7 +78,9 @@ export default function Page() {
 
       <div className="w-11/12 flex justify-center flex-wrap mt-4">
         {filteredCats.length === 0 ? (
-          <p>Aucun chat trouvé.</p>
+          <p className="text-center text-lg italic text-gray-600 bg-red-50 rounded-2xl p-4 shadow-sm">
+            🐾 Oups… aucun petit matou n’a pointé le bout de sa truffe.
+          </p>
         ) : (
           filteredCats
             .sort((a, b) => {

@@ -37,7 +37,7 @@ export const COAT_COLOR_LABELS: Record<string, string> = {
   cinnamon: "Cannelle",
   chocolate: "Chocolat",
   cream: "Crème",
-  fawn: "Fauve",
+  sand: "Sable",
   black: "Noir",
   red: "Roux",
 };
@@ -61,7 +61,7 @@ export const PATTERN_LABELS: Record<string, string> = {
   striped: "Rayé",
   tortoiseshell: "Écaille de tortue",
   "tri-color": "Tricolore",
-  colourpoint: "Colourpoint",
+  colourpoint: "Une Touche de couleur",
   "all-patterns": "Tous motifs",
 };
 

@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ImageIcon } from "lucide-react";
 import { uploadImage, addCat } from "@/utils/actions";
-import { AGE_LABELS } from "@/utils/enumLabels";
+import { AGE_LABELS, PATTERN_LABELS } from "@/utils/enumLabels";
 import { MultiSelect } from "@/components/multi-select";
 
 export default function FormToAddCat() {
@@ -209,14 +209,13 @@ export default function FormToAddCat() {
   // };
 
   // Liste des couleurs de pelage
-
   const coatColorList = [
     { value: "white", label: "Blanc" },
     { value: "blue-grey", label: "Bleu/Gris" },
     { value: "cinnamon", label: "Cannelle" },
     { value: "chocolate", label: "Chocolat" },
     { value: "cream", label: "Crème" },
-    { value: "fawn", label: "Fauve" },
+    { value: "sand", label: "Sable" },
     { value: "black", label: "Noir" },
     { value: "red", label: "Roux" },
   ];
@@ -226,7 +225,7 @@ export default function FormToAddCat() {
     cinnamon: "#753800",
     chocolate: "#502A05",
     cream: "#f7f0de",
-    fawn: "#D0B280", // sable
+    sand: "#D0B280", // sable
     black: "#000000",
     red: "#e29024",
   };
@@ -266,44 +265,40 @@ export default function FormToAddCat() {
   return (
     <Card className="max-w-2xl mx-auto p-6">
       <CardHeader>
-        <div className="flex justify-between items-center">
-          <CardTitle>Ajouter un Chat</CardTitle>
-        </div>
+        <div className="flex justify-between items-center"></div>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="grid gap-4">
           <div className="flex gap-4 justify-between">
             {/* Image Upload */}
-            <div className=" w-1/4">
+            <div className="w-1/4">
+              {/* Input caché */}
               <input
+                aria-label="Upload Images or Videos"
                 type="file"
                 accept="image/*,video/*"
                 multiple
                 className="hidden"
                 ref={fileInputRef}
                 onChange={handleFileChange}
-                title="Upload an image"
               />
-              <Button
-                type="button"
-                variant="outline"
-                className="w-48 h-48 rounded-lg flex items-center justify-center border border-dashed overflow-hidden relative hover:border-gray-500 hover:shadow-lg hover:opacity-80"
-                onClick={(e) => {
-                  // e.preventDefault();
-                  fileInputRef.current?.click();
-                }}
+
+              {/* Carré principal */}
+              <div
+                className="w-56 h-56 rounded-lg flex items-center justify-center border border-dashed overflow-hidden relative hover:border-gray-500 hover:shadow-lg hover:opacity-80 cursor-pointer"
+                onClick={() => fileInputRef.current?.click()}
               >
-                {/* {previews.length > 0 ? (
+                {previews.length > 0 ? (
                   <div className="relative w-full h-full">
                     <img
                       src={previews[0]}
                       alt="Prévisualisation principale"
                       className="w-full h-full object-cover rounded-lg"
                     />
-                    {/* Croix pour supprimer la première image */}
-                {/*  <button
+                    {/* Croix pour supprimer l'image principale */}
+                    <button
                       onClick={(e) => {
-                        e.stopPropagation(); // 👈 Empêche l'événement d'atteindre le Button parent
+                        e.stopPropagation();
                         handleRemoveImage(0);
                       }}
                       className="absolute top-1 right-1 bg-gray-400 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs"
@@ -313,52 +308,8 @@ export default function FormToAddCat() {
                   </div>
                 ) : (
                   <ImageIcon className="w-8 h-8 text-gray-400" />
-                )} */}
-              </Button>
-
-              {/* Préviews des images */}
-              {previews.length > 0 && (
-                <div className="flex gap-2 flex-wrap">
-                  {previews.map((url, index) => (
-                    <div key={index} className="relative w-24 h-24">
-                      <img
-                        src={url}
-                        alt={`image-${index}`}
-                        className="w-full h-full object-cover rounded-md border"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveImage(index)}
-                        className="absolute top-0 right-0 bg-gray-400 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Préviews des vidéos */}
-              {videoPreviews.length > 0 && (
-                <div className="flex gap-2 flex-wrap">
-                  {videoPreviews.map((url, index) => (
-                    <div key={index} className="relative w-32 h-32">
-                      <video
-                        src={url}
-                        controls
-                        className="w-full h-full rounded-md border"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveVideo(index)}
-                        className="absolute top-0 right-0 bg-gray-400 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
+                )}
+              </div>
             </div>
             <div className="w-3/5">
               {/* Nom */}
@@ -418,17 +369,20 @@ export default function FormToAddCat() {
               </div>
             </div>
           </div>
-          {/* Affichage des autres images en dessous */}
-          {previews.length > 1 && (
-            <div className="mt-2 flex gap-2 overflow-x-auto">
+          <div>
+            {/* Galerie horizontale : autres images + vidéos + bouton + */}
+            <div className="flex gap-2 mt-3 ">
+              {/* Autres images */}
               {previews.slice(1).map((url, index) => (
-                <div key={index} className="relative w-16 h-16">
+                <div
+                  key={index + 1}
+                  className="relative w-24 h-24 flex-shrink-0"
+                >
                   <img
                     src={url}
-                    alt={`Prévisualisation ${index + 1}`}
+                    alt={`image-${index + 1}`}
                     className="w-full h-full object-cover rounded-md border"
                   />
-                  {/* Croix pour supprimer cette image */}
                   <button
                     type="button"
                     onClick={() => handleRemoveImage(index + 1)}
@@ -438,8 +392,25 @@ export default function FormToAddCat() {
                   </button>
                 </div>
               ))}
+              {/* Vidéos */}
+              {videoPreviews.map((url, index) => (
+                <div key={index} className="relative w-24 h-24 flex-shrink-0">
+                  <video
+                    src={url}
+                    controls
+                    className="w-full h-full rounded-md border object-cover"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveVideo(index)}
+                    className="absolute top-0 right-0 bg-gray-400 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
             </div>
-          )}
+          </div>
 
           {/* Stérilisation */}
           <div className="flex justify-between items-center">
@@ -489,7 +460,7 @@ export default function FormToAddCat() {
 
           {/* Test FIV */}
           <div className="flex justify-between items-center">
-            <label>Positif FIV ?</label>
+            <label>Testé FIV ?</label>
             <Switch
               checked={formData.fiv_test}
               onCheckedChange={(value) => handleSwitchChange("fiv_test", value)}
@@ -498,7 +469,7 @@ export default function FormToAddCat() {
 
           {/* Test FELV */}
           <div className="flex justify-between items-center">
-            <label>Positif FELV ?</label>
+            <label>Testé FELV ?</label>
             <Switch
               checked={formData.felv_test}
               onCheckedChange={(value) =>
@@ -527,21 +498,6 @@ export default function FormToAddCat() {
               value={formData.coat_color || []}
               placeholder="Choisir une ou plusieurs couleurs"
             />
-            {/* <div className="mt-4">
-              <h2 className="text-sm font-semibold">
-                Couleurs sélectionnées :
-              </h2>
-              <ul className="list-disc list-inside">
-                {selectedColors.map((color) => (
-                  <li key={color}>
-                    {coatColorList.find((c) => c.value === color)?.label}
-                    {Array.isArray(formData.coat_color)
-                      ? formData.coat_color.join(", ")
-                      : formData.coat_color}
-                  </li>
-                ))}
-              </ul>
-            </div> */}
           </div>
 
           {/* Motif */}
@@ -555,12 +511,11 @@ export default function FormToAddCat() {
                 <SelectValue placeholder="Choisir un motif du pelage" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="solid">Uni</SelectItem>
-                <SelectItem value="bi-color">bi-color</SelectItem>
-                <SelectItem value="tabby">tabby</SelectItem>
-                <SelectItem value="tortoiseshell">tortoiseshell</SelectItem>
-                <SelectItem value="tri-color">tricolor calico</SelectItem>
-                <SelectItem value="colourpoint">colourpoint</SelectItem>
+                {Object.entries(PATTERN_LABELS).map(([value, label]) => (
+                  <SelectItem key={value} value={value}>
+                    {label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>

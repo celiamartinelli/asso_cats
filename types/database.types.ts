@@ -527,7 +527,7 @@ export type Database = {
         | "Cinnamon"
         | "Chocolate"
         | "Cream"
-        | "Fawn"
+        | "Sand"
         | "Black"
         | "Red";
       have_you_garden:

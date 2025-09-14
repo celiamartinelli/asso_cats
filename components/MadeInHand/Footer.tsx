@@ -23,6 +23,11 @@ const sections = [
         href: "/legaldocuments",
         label: "Documents légaux et Réduction fiscales",
       },
+
+      {
+        href: "/legaltext",
+        label: "Textes de loi",
+      },
     ],
   },
   {

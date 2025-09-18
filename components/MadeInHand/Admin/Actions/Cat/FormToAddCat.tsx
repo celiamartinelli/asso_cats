@@ -17,6 +17,7 @@ import { ImageIcon } from "lucide-react";
 import { uploadImage, addCat } from "@/utils/actions";
 import { AGE_LABELS, PATTERN_LABELS } from "@/utils/enumLabels";
 import { MultiSelect } from "@/components/multi-select";
+import ModalToValidationAddCat from "@/components/MadeInHand/Client/Modal/ModalToValidationAddCat";
 
 export default function FormToAddCat() {
   const [formData, setFormData] = useState({
@@ -42,6 +43,7 @@ export default function FormToAddCat() {
     which_host_family: "",
   });
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const [previews, setPreviews] = useState<string[]>([]);
   const [videoPreviews, setVideoPreviews] = useState<string[]>([]);
@@ -89,6 +91,42 @@ export default function FormToAddCat() {
     }));
   };
 
+  // // Soumission
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   try {
+  //     let imageUrls: string[] = [];
+  //     let videoUrls: string[] = [];
+
+  //     if (formData.cat_url_image.length > 0) {
+  //       imageUrls = await Promise.all(
+  //         formData.cat_url_image.map((file) => uploadImage(file))
+  //       );
+  //     }
+
+  //     if (formData.cat_url_video.length > 0) {
+  //       videoUrls = await Promise.all(
+  //         formData.cat_url_video.map((file) => uploadImage(file))
+  //       );
+  //     }
+
+  //     const formDataToSubmit = {
+  //       ...formData,
+  //       when_adopt: formData.when_adopt || null,
+  //       when_sterelized: formData.when_sterelized || null,
+  //       when_vaccine: formData.when_vaccine || null,
+  //       cat_url_image: imageUrls.length ? `{${imageUrls.join(",")}}` : null,
+  //       cat_url_video: videoUrls.length ? `{${videoUrls.join(",")}}` : null,
+  //     };
+
+  //     await addCat(formDataToSubmit);
+  //     alert("Chat ajouté avec succès !");
+  //   } catch (error) {
+  //     console.error("Erreur lors de l'ajout du chat:", error);
+  //     alert("Une erreur est survenue, veuillez réessayer.");
+  //   }
+  // };
+
   // Soumission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -118,7 +156,41 @@ export default function FormToAddCat() {
       };
 
       await addCat(formDataToSubmit);
-      alert("Chat ajouté avec succès !");
+      // alert("Chat ajouté avec succès !");
+      // Ouvre la modal au lieu d'un alert
+      setIsModalOpen(true);
+
+      // 🔄 Réinitialisation du formulaire
+      setFormData({
+        name_cat: "",
+        date_of_birth: "",
+        sex_cat: "male",
+        sterelized: false,
+        when_sterelized: "",
+        vaccine: false,
+        when_vaccine: "",
+        fiv_test: false,
+        felv_test: false,
+        coat_color: [] as string[],
+        pattern: "",
+        description: "",
+        adoption: false,
+        when_adopt: "",
+        age_of_cat: "",
+        category_cat: "",
+        cat_url_image: [] as File[],
+        cat_url_video: [] as File[],
+        where_cat_found: "",
+        which_host_family: "",
+      });
+
+      setPreviews([]);
+      setVideoPreviews([]);
+      setSelectedColors([]);
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ""; // reset input file
+      }
     } catch (error) {
       console.error("Erreur lors de l'ajout du chat:", error);
       alert("Une erreur est survenue, veuillez réessayer.");
@@ -354,6 +426,7 @@ export default function FormToAddCat() {
               <div>
                 <label>Sexe de l'animal</label>
                 <Select
+                  value={formData.sex_cat}
                   onValueChange={(value) =>
                     handleSelectChange("sex_cat", value)
                   }
@@ -492,10 +565,10 @@ export default function FormToAddCat() {
                   />
                 ),
               }))}
+              value={formData.coat_color as string[]}
               onValueChange={(values) => {
                 setFormData({ ...formData, coat_color: values });
               }}
-              value={formData.coat_color || []}
               placeholder="Choisir une ou plusieurs couleurs"
             />
           </div>
@@ -556,6 +629,7 @@ export default function FormToAddCat() {
           <div>
             <label>Catégorie du chat</label>
             <Select
+              value={formData.category_cat}
               onValueChange={(value) =>
                 handleSelectChange("category_cat", value)
               }
@@ -598,6 +672,11 @@ export default function FormToAddCat() {
             Ajouter le chat
           </Button>
         </form>
+        <ModalToValidationAddCat
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          setShowForm={() => {}} // si tu veux cacher le form après OK, tu passes une vraie fonction
+        />
       </CardContent>
     </Card>
   );

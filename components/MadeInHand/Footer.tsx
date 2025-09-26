@@ -136,7 +136,7 @@ const FooterSection = ({
 export default function Footer() {
   return (
     <footer className="w-full bg-black text-white flex flex-col items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-      <div className="flex flex-col md:flex-row w-full justify-between pl-8 text-left">
+      <div className="flex flex-col md:flex-row w-full justify-between pl-8 text-left mt-12">
         {sections.map((section, index) => (
           <FooterSection
             key={index}

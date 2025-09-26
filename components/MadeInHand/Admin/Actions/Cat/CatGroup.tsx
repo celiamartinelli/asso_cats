@@ -21,7 +21,7 @@ export default function CatGroup() {
   }, []);
 
   const handleCardClick = (cat: {
-    cat_id: number;
+    cat_id: string;
     name_cat: string;
     sex_cat: string;
     age_of_cat: number;

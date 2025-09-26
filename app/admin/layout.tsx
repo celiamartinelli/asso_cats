@@ -26,7 +26,7 @@ export default async function AdminLayout({
       <NavBarAdmin />
 
       <SidebarProvider>
-        <div className="flex flex-1">
+        <div className="flex flex-1 bg-white">
           {/* Sidebar */}
           <AppSidebar />
 

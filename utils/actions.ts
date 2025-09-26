@@ -104,6 +104,19 @@ export const getAdviceById = async (adviceId: string) => {
   return data;
 };
 
+//Récupérer tous les Articles de conseils //
+export const getAllAdvices = async () => {
+  const { data, error } = await supabase.from("advice").select("*");
+
+  if (error) {
+    console.error("Erreur Supabase :", error.message);
+    return [];
+  }
+
+  // console.log("Données des conseils:", data);
+  return data;
+};
+
 // AJOUTER UN LIKE //
 // Ajouter un like à un conseil //
 export const addLike = async (adviceId: string) => {

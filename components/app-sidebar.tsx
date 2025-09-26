@@ -178,7 +178,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     setSelectedContent(content);
   };
   return (
-    <div className="flex h-full bg-red-500">
+    <div className="flex h-full">
       <Sidebar collapsible="none" {...props}>
         <SidebarHeader>
           {/* <TeamSwitcher teams={data.teams} /> */}
@@ -190,9 +190,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarFooter>{/* <NavUser user={data.user} /> */}</SidebarFooter>
         <SidebarRail />
       </Sidebar>
-      <div className="flex-1 p-4">
-        {/* {selectedContent || <AdoptionContentCatGroup />} */}
-      </div>
     </div>
   );
 }

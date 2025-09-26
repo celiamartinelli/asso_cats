@@ -12,32 +12,34 @@ import {
 import { getCatById } from "../../../../utils/actions";
 import { Button } from "@/components/ui/button";
 
-interface ModalToValidationAddCatProps {
+interface ModalToValidationAddProps {
   isModalOpen: boolean;
   setIsModalOpen: (open: boolean) => void;
-  setShowForm: (show: boolean) => void;
+  setShowForm?: (show: boolean) => void;
+  title: string;
+  message: string;
 }
 
-const ModalToValidationAddCat: React.FC<ModalToValidationAddCatProps> = ({
+const ModalToValidationAdd: React.FC<ModalToValidationAddProps> = ({
   isModalOpen,
   setIsModalOpen,
   setShowForm,
+  title,
+  message,
 }) => {
   return (
     <div>
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Chat Ajouté</DialogTitle>
+            <DialogTitle>{title}</DialogTitle>
           </DialogHeader>
-          <DialogDescription>
-            Votre chat a bien été ajouté à la base de données.
-          </DialogDescription>
+          <DialogDescription>{message}</DialogDescription>
           <Button
             className="mt-4"
             onClick={() => {
               setIsModalOpen(false);
-              setShowForm(false);
+              if (setShowForm) setShowForm(false);
             }}
           >
             OK
@@ -48,4 +50,4 @@ const ModalToValidationAddCat: React.FC<ModalToValidationAddCatProps> = ({
   );
 };
 
-export default ModalToValidationAddCat;
+export default ModalToValidationAdd;

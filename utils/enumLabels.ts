@@ -1,22 +1,5 @@
 // lib/enumLabels.ts
 
-export const SUBJECT_LABELS: Record<string, string> = {
-  maltraitance: "Maltraitance",
-  adoption: "Adoption",
-  "chats-errants": "Chats errants",
-  "collecte-de-dons": "Collecte de dons",
-  informations: "Informations",
-  "autres-demande": "Autres demandes",
-};
-
-export const CATEGORY_LABELS: Record<string, string> = {
-  sante_et_securite: "Santé et Sécurité",
-  "bien-etre_et_comportement": "Bien-être et comportement",
-  activites_et_enrichissement: "Activités et enrichissement",
-  education_et_sensibilisation: "Éducation et sensibilisation",
-  guide_pratique: "Guide Pratique",
-};
-
 export const AGE_LABELS: Record<string, string> = {
   chatons: "Chatons",
   "jeune-chat": "Jeune chat",
@@ -90,4 +73,21 @@ export const SUBJECT_CONTACT_LABELS: Record<string, string> = {
   parainnage: "Parrainage",
   adoption: "Adoption",
   autres: "Autres demandes",
+};
+
+export const CATEGORY_ADVICE_LABELS: Record<string, string> = {
+  sante_et_securite: "Santé et Sécurité",
+  bien_etre_et_comportement: "Bien-être et comportement",
+  activites_et_enrichissement: "Activités et enrichissement",
+  education_et_sensibilisation: "Éducation et sensibilisation",
+  guide_pratique: "Guide Pratique",
+};
+
+export const SUBJECT_ADVICE_LABELS: Record<string, string> = {
+  maltraitance: "Maltraitance",
+  adoption: "Adoption",
+  chats_errants: "Chats errants",
+  collecte_de_dons: "Collecte de dons",
+  informations: "Informations",
+  autres_demande: "Autres demandes",
 };

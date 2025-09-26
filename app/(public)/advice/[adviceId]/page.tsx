@@ -9,8 +9,8 @@ import Link from "next/link";
 import FormToAdoption from "@/components/MadeInHand/Client/Form/FormToAdoption";
 import { UpvoteIcon } from "@/components/ui/upvote";
 import {
-  SUBJECT_LABELS,
-  CATEGORY_LABELS,
+  SUBJECT_ADVICE_LABELS,
+  CATEGORY_ADVICE_LABELS,
   AGE_LABELS,
 } from "@/utils/enumLabels";
 
@@ -104,11 +104,12 @@ export default function CatIdPage({ params }: AdviceIdPageProps) {
             />
             <div className="flex gap-5 mb-10">
               <h3 className="bg-zinc-900 text-white rounded-md inline-block px-2 py-1 ">
-                {SUBJECT_LABELS[adviceData.subject] || adviceData.subject}
+                {SUBJECT_ADVICE_LABELS[adviceData.subject] ||
+                  adviceData.subject}
               </h3>
               <h3>
                 Catégorie:{" "}
-                {CATEGORY_LABELS[adviceData.category_advice] ||
+                {CATEGORY_ADVICE_LABELS[adviceData.category_advice] ||
                   adviceData.category_advice}
               </h3>
               <h3>

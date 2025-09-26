@@ -17,7 +17,7 @@ import { ImageIcon } from "lucide-react";
 import { uploadImage, addCat } from "@/utils/actions";
 import { AGE_LABELS, PATTERN_LABELS } from "@/utils/enumLabels";
 import { MultiSelect } from "@/components/multi-select";
-import ModalToValidationAddCat from "@/components/MadeInHand/Client/Modal/ModalToValidationAddCat";
+import ModalToValidationAdd from "@/components/MadeInHand/Client/Modal/ModalToValidationAdd";
 
 export default function FormToAddCat() {
   const [formData, setFormData] = useState({
@@ -672,10 +672,12 @@ export default function FormToAddCat() {
             Ajouter le chat
           </Button>
         </form>
-        <ModalToValidationAddCat
+        <ModalToValidationAdd
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
-          setShowForm={() => {}} // si tu veux cacher le form après OK, tu passes une vraie fonction
+          setShowForm={() => {}}
+          title="Chat Ajouté"
+          message="Votre chat a bien été ajouté à la base de données."
         />
       </CardContent>
     </Card>

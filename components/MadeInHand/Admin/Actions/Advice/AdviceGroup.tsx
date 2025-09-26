@@ -5,8 +5,8 @@ import { getAllAdvices } from "@/utils/actions";
 import Player from "lottie-react";
 import loader from "../../../../../public/lottie/loader.json";
 import {
-  SUBJECT_LABELS,
-  CATEGORY_LABELS,
+  SUBJECT_ADVICE_LABELS,
+  CATEGORY_ADVICE_LABELS,
   AGE_LABELS,
 } from "@/utils/enumLabels";
 
@@ -15,20 +15,20 @@ import PageHeader from "@/components/MadeInHand/PageHeader";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 
-export default function AdviceGroup() {
-  const [advices, setAdvices] = useState<any[] | null>(null);
+export default function AdviceGroup({ advices }: { advices: any[] }) {
+  // const [advices, setAdvices] = useState<any[] | null>(null);
   const [selectedAdvice, setSelectedAdvice] = useState<any | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllAdvices();
-      setAdvices(data ?? []);
+      // setAdvices(data ?? []);
     };
 
     fetchData();
   }, []);
 
-  const handleCardClick = (cat: {
+  const handleCardClick = (advice: {
     advice_id: string;
     title: string;
     subtitle: string;
@@ -45,7 +45,7 @@ export default function AdviceGroup() {
   };
 
   return (
-    <div className="  bg-gray-100 dark:bg-black">
+    <div className=" bg-gray-100 dark:bg-black">
       <h1 className="text-2xl font-bold mb-4">Liste des conseils</h1>
       {selectedAdvice ? ( // Si un chat est sélectionné, afficher le composant AdoptionContent
         <div>
@@ -82,11 +82,12 @@ export default function AdviceGroup() {
               </h2>
               <h3 className="italic text-zinc-700"> {item.subtitle}</h3>
               <h3 className="bg-zinc-900 text-white rounded-md inline-block px-2 py-1 ">
-                {SUBJECT_LABELS[item.subject] || item.subject}
+                {SUBJECT_ADVICE_LABELS[item.subject] || item.subject}
               </h3>
               <h3>
                 Catégorie:{" "}
-                {CATEGORY_LABELS[item.category_advice] || item.category_advice}
+                {CATEGORY_ADVICE_LABELS[item.category_advice] ||
+                  item.category_advice}
               </h3>
               <h3>Âge: {AGE_LABELS[item.age_of_cat] || item.age_of_cat}</h3>
 

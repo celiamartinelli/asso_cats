@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { uploadImageNews, addNews } from "@/utils/actions";
 import { Image } from "lucide-react";
+import ModalToValidationAdd from "@/components/MadeInHand/Client/Modal/ModalToValidationAdd";
 
 export default function NewsAction() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ export default function NewsAction() {
   });
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -120,6 +122,14 @@ export default function NewsAction() {
           {loading ? "Chargement..." : "Ajouter l'actualité"}
         </Button>
       </form>
+
+      <ModalToValidationAdd
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        setShowForm={() => {}}
+        title="News Ajouté"
+        message="Votre news a bien été ajouté à la base de données."
+      />
     </div>
   );
 }

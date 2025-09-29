@@ -12,6 +12,7 @@ export default function NavBar({ onLinkClick }: NavBarProps) {
     { href: "/helpthem", label: "Aidez-les" },
     { href: "/about", label: "À propos" },
     { href: "/advice", label: "Article/Conseil" },
+    { href: "/news", label: "Actualités" },
   ];
 
   return (

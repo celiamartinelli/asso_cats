@@ -20,14 +20,14 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   const content = pageKey ? headers[pageKey] : null;
 
   return (
-    <div className="text-center space-y-4 my-10 animate-fade-in">
-      <h1 className={`text-4xl font-bold ${textColorClass ?? ""}`}>
+    <div className="my-12 text-center space-y-4 animate-fade-in">
+      <h1 className={`text-3xl md:text-4xl font-bold ${textColorClass ?? ""}`}>
         {emoji || content?.emoji ? (
-          <span className="mr-2">{emoji || content?.emoji}</span>
+          <span className="mr-2">{emoji || content?.emoji} </span>
         ) : null}
         {title || content?.title}
       </h1>
-      <p className="text-lg text-muted-foreground">
+      <p className="text-base md:text-lg text-muted-foreground">
         {subtitle || content?.subtitle}
       </p>
     </div>

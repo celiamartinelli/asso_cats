@@ -32,7 +32,7 @@ export default function Page() {
   const [isModalOpenVolunteer, setIsModalOpenVolunteer] = useState(false);
   const [showFormVolunteer, setShowFormVolunteer] = useState(true);
   return (
-    <section className="max-w-4xl mx-auto p-6 space-y-10">
+    <section className=" p-6 min-h-screen mx-auto space-y-10 bg-gray-100 dark:bg-black">
       {/* <div className="text-center space-y-4">
         <h1 className="text-4xl font-bold">🐾 Devenir bénévole</h1>
         <p className="text-lg text-muted-foreground">
@@ -41,8 +41,8 @@ export default function Page() {
         </p>
       </div> */}
       <PageHeader pageKey="becomeavolunteer" />
-      <Card>
-        <CardContent className="space-y-4 pt-6">
+      <Card className="max-w-4xl mx-auto dark:bg-zinc-900">
+        <CardContent className="space-y-4 pt-6  ">
           <h2 className="text-2xl font-semibold">💼 Ce que cela implique</h2>
           <p>
             Être bénévole chez nous, c’est avant tout partager{" "}
@@ -60,21 +60,20 @@ export default function Page() {
         </CardContent>
       </Card>
 
-      <Button
-        onClick={() => {
-          setIsModalOpenVolunteer(true);
-        }}
-        className="text-lg px-6 py-4"
-      >
-        Remplir le Formulaire
-      </Button>
-
-      <div className="space-y-8">
+      <div className="max-w-4xl mx-auto space-y-10">
+        <Button
+          onClick={() => {
+            setIsModalOpenVolunteer(true);
+          }}
+          className="text-lg px-6 py-4 "
+        >
+          Remplir le Formulaire
+        </Button>
         <h2 className="text-2xl font-semibold">🌟 Les missions possibles</h2>
 
         {volunteerTypes.map((type) => (
-          <Card key={type.types_id}>
-            <CardContent className="pt-6 space-y-2">
+          <Card key={type.types_id} className="">
+            <CardContent className="pt-6 space-y-2 bg-white dark:bg-zinc-900">
               <h3 className="text-xl font-medium">
                 {type.icon ? `${type.icon} ` : ""}
                 {type.title}

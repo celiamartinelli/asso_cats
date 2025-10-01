@@ -6,7 +6,7 @@ import { HandHeart, Mail, Users } from "lucide-react";
 
 export default function CTASectionAboutPage() {
   return (
-    <section className="text-center py-12 px-4 bg-accent rounded-2xl mt-10 space-y-6">
+    <section className="text-center py-12 px-4 bg-accent rounded-2xl mt-10 space-y-6 mx-auto max-w-4xl dark:bg-zinc-900">
       <h2 className="text-3xl font-bold">
         Envie d’agir pour la cause féline ? 🐾
       </h2>
@@ -21,7 +21,11 @@ export default function CTASectionAboutPage() {
           </Button>
         </Link>
         <Link href="/contact">
-          <Button variant="secondary" size="lg">
+          <Button
+            variant="secondary"
+            size="lg"
+            className="bg-zinc-200 hover:bg-zinc-300"
+          >
             <Mail className="mr-2 w-5 h-5" /> Nous contacter
           </Button>
         </Link>

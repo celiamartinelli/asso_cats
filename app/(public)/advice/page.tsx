@@ -50,7 +50,7 @@ export default function Advice() {
   }, [filters, advice]);
 
   return (
-    <div className="p-6 min-h-screen  bg-gray-100 dark:bg-black">
+    <div className="p-6 min-h-screen  bg-gray-100 dark:bg-black mx-auto ">
       <PageHeader pageKey="advice" />
       <p className="mb-4 text-center">
         Bienvenue dans notre section de conseils ! Ici, vous trouverez des
@@ -70,14 +70,14 @@ export default function Advice() {
         />
       )}
 
-      <div className="w-full flex justify-end items-center mt-4 mr-12">
+      <div className="w-full flex justify-end items-center mt-4 mr-12 ">
         <p className="flex justify-center items-center gap-2 text-xs text-zinc-500">
           ici choisissez précisémment ce que vous chercher <ArrowRight />
         </p>
         <FilterModalAdvice onApply={setFilters} />
       </div>
 
-      <div className="w-11/12 flex justify-center flex-wrap mt-4">
+      <div className=" flex justify-center flex-wrap mt-4 ">
         {filteredAdvices.length === 0 ? (
           <p>Aucun conseils trouvé.</p>
         ) : (

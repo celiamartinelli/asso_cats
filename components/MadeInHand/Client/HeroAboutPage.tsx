@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function HeroAboutPage() {
   return (
-    <section className="relative w-full bg-muted rounded-2xl overflow-hidden mb-10">
+    <section className="relative w-full bg-muted rounded-2xl overflow-hidden mb-10 max-w-4xl mx-auto dark:bg-zinc-900">
       <div className="max-w-5xl mx-auto px-6 py-16 grid md:grid-cols-2 items-center gap-8">
         <div>
           <h1 className="text-4xl font-bold mb-4">

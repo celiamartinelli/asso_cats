@@ -53,6 +53,7 @@ export default function CatGroup() {
           loop
           animationData={loader}
           style={{ height: "300px", width: "300px" }}
+          className="mx-auto"
         />
       ) : (
         <div className="flex justify-center flex-wrap">

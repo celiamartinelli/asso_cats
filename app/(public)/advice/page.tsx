@@ -67,6 +67,7 @@ export default function Advice() {
           loop
           animationData={loader}
           style={{ height: "300px", width: "300px" }}
+          className="mx-auto"
         />
       )}
 

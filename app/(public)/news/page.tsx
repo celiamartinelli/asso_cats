@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { getAllNews } from "@/utils/actions";
 import CardNews from "@/components/MadeInHand/Client/Card/CardNews";
 import PageHeader from "@/components/MadeInHand/PageHeader";
+import Player from "lottie-react";
+import loader from "@/public/lottie/loader.json";
 
 interface News {
   news_id: string;
@@ -38,7 +40,13 @@ export default function Actualites() {
       {/* <h1 className="text-3xl font-bold mb-4">Actualités de l'association</h1> */}
       <PageHeader pageKey="actualites" />
       {loading ? (
-        <p>Chargement des actualités...</p>
+        <Player
+          autoplay
+          loop
+          animationData={loader}
+          style={{ height: "300px", width: "300px" }}
+          className="mx-auto"
+        />
       ) : news.length > 0 ? (
         <ul className="flex flex-wrap gap-6 justify-center">
           {news.map((item) => (

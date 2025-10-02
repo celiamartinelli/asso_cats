@@ -8,6 +8,8 @@ import { ArrowLeft, Dog, Cat, Rabbit, Turtle, Bird, Fish } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { motion, AnimatePresence } from "framer-motion";
 import { HOUSING_TYPE_LABELS } from "@/utils/enumLabels";
+import Player from "lottie-react";
+import loader from "../../../../public/lottie/loader.json";
 
 interface HostFamily {
   created_at: string;
@@ -321,7 +323,16 @@ export default function HostFamilyGroup() {
           </ul>
         </div>
       ) : hostFamilies === null ? (
-        <div>Chargement...</div>
+        <div>
+          <p>Chargement...</p>
+          <Player
+            autoplay
+            loop
+            animationData={loader}
+            style={{ height: "300px", width: "300px" }}
+            className="mx-auto"
+          />
+        </div>
       ) : (
         // Vue des types de famille d'accueil
         <div>

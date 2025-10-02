@@ -84,6 +84,7 @@ export default function VolunteerGroup() {
           loop
           animationData={loader}
           style={{ height: "300px", width: "300px" }}
+          className="mx-auto"
         />
       ) : (
         <>

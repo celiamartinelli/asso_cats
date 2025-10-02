@@ -58,6 +58,7 @@ export default function Page() {
           loop
           animationData={loader}
           style={{ height: "300px", width: "300px" }}
+          className="mx-auto"
         />
       )}
       {/* <section className="text-center my-10">

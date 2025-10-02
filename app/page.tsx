@@ -9,6 +9,8 @@ import {
 } from "@/utils/actions";
 import ButtonCookiesSession from "@/components/ButtonCookiesSession";
 import CardNews from "@/components/MadeInHand/Client/Card/CardNews";
+import Player from "lottie-react";
+import loader from "@/public/lottie/loader.json";
 
 import { AnimatePresence, motion } from "framer-motion";
 import HomeHeroPhotoOld from "@/components/MadeInHand/HomeHeroPhotoOld";
@@ -102,11 +104,17 @@ export default function Index() {
           <HOmeHeroPhotoNew />
           <div className="py-36 p-4 w-full lg:col-span-2 mb-4 dark:border-white flex flex-col justify-center items-center border-2-gray-700">
             <div className="flex justify-between items-center w-full mb-36 flex-col xl:flex-row gap-8">
-              <h3 className="text-4xl md:text-6xl ml-4 font-thasadith w-1/2 tracking-wide ">
+              <h3 className="text-4xl md:text-6xl ml-4 font-thasadith w-1/2 tracking-wide">
                 Les dernières actualités
               </h3>
               {loading ? (
-                <p>Chargement des actualités...</p>
+                <Player
+                  autoplay
+                  loop
+                  animationData={loader}
+                  style={{ height: "300px", width: "300px" }}
+                  className="mx-auto"
+                />
               ) : (
                 <AnimatePresence mode="wait">
                   {activeId ? (
@@ -121,7 +129,7 @@ export default function Index() {
                   ) : (
                     <motion.ul
                       key="list"
-                      className="flex flex-col md:flex-row justify-center items-center w-full gap-10"
+                      className="flex flex-col md:flex-row justify-center items-center w-full gap-5"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
@@ -144,16 +152,23 @@ export default function Index() {
                 </AnimatePresence>
               )}
             </div>
-            <Button type="button" className="gap-4 mt-8">
+            <Button type="button" className="gap-4">
               <Link href="/news">Voir toutes les actualités</Link>
             </Button>
           </div>
           <div className="py-36 p-4 w-full lg:col-span-2  bg-zinc-900 text-zinc-100 dark:border-zinc-400 flex flex-col items-center ">
-            <h3 className="text-6xl mb-24 font-thasadith tracking-wide">
-              Prochaine dates importantes
+            <h3 className="text-6xl mb-16 font-thasadith tracking-wide">
+              Les petites dates qui ronronnent
             </h3>
             {loading ? (
-              <p>Chargement des dates...</p>
+              // <p>Chargement des dates...</p>
+              <Player
+                autoplay
+                loop
+                animationData={loader}
+                style={{ height: "300px", width: "300px" }}
+                className="mx-auto"
+              />
             ) : (
               <ul className="flex flex-col md:flex-row justify-center w-2/3 items-center md:flex-wrap ">
                 {importantDates.length > 0 ? (
@@ -188,8 +203,8 @@ export default function Index() {
               <Link href="/calendar">Voir toutes les dates</Link>
             </Button>
           </div>
-          <div className=" py-36 w-full lg:col-span-2 mb-4 bg-cover bg-fixed bg-center bg-no-repeat bg-[url('/bg2.png')]">
-            <h3 className="text-4xl md:text-6xl mb-24 font-thasadith tracking-wide text-white p-4 dark:text-black">
+          <div className=" py-36 px-16 w-full lg:col-span-2 mb-4 bg-cover bg-fixed  bg-center bg-no-repeat bg-[url('/bg2.png')]">
+            <h3 className="text-4xl md:text-6xl rounded-lg mb-24 font-thasadith tracking-wide text-white p-4 dark:text-black dark:bg-white/60">
               Sur Quel secteur agit-on? et quel commune
             </h3>
 

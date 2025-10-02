@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import FormToAdoption from "@/components/MadeInHand/Client/Form/FormToAdoption";
 import { UpvoteIcon } from "@/components/ui/upvote";
+import Player from "lottie-react";
+import loader from "../../../../public/lottie/loader.json";
 import {
   SUBJECT_ADVICE_LABELS,
   CATEGORY_ADVICE_LABELS,
@@ -70,7 +72,16 @@ export default function CatIdPage({ params }: AdviceIdPageProps) {
     }
   };
 
-  if (loading) return <p>Chargement...</p>;
+  if (loading)
+    return (
+      <Player
+        autoplay
+        loop
+        animationData={loader}
+        style={{ height: "300px", width: "300px" }}
+        className="mx-auto"
+      />
+    );
   if (error) return <p>{error}</p>;
   if (!adviceData) return <p>Chat introuvable.</p>;
 

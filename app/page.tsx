@@ -170,7 +170,7 @@ export default function Index() {
                 className="mx-auto"
               />
             ) : (
-              <ul className="flex flex-col md:flex-row justify-center w-2/3 items-center md:flex-wrap ">
+              <ul className="flex flex-col md:flex-row justify-center lg:w-2/3 items-center md:flex-wrap ">
                 {importantDates.length > 0 ? (
                   importantDates.map((date) => (
                     <li
@@ -185,7 +185,7 @@ export default function Index() {
                           month: "long",
                         })}
                       </p>
-                      <p className="text-zinc-500 dark:text-zinc-200">
+                      <p className="text-zinc-500 dark:text-zinc-200 md:text-sm lg:text-lg">
                         {date.title_event}
                       </p>
                     </li>
@@ -203,7 +203,7 @@ export default function Index() {
               <Link href="/calendar">Voir toutes les dates</Link>
             </Button>
           </div>
-          <div className=" py-36 px-16 w-full lg:col-span-2 mb-4 bg-cover bg-fixed  bg-center bg-no-repeat bg-[url('/bg2.png')]">
+          {/* <div className=" py-36 px-16 w-full lg:col-span-2 mb-4 bg-cover bg-fixed  bg-center bg-no-repeat bg-[url('/bg2.png')]">
             <h3 className="text-4xl md:text-6xl rounded-lg mb-24 font-thasadith tracking-wide text-white p-4 dark:text-black dark:bg-white/60">
               Sur Quel secteur agit-on? et quel commune
             </h3>
@@ -211,6 +211,25 @@ export default function Index() {
             <Button type="button" className="mt-8">
               <Link href="/municipality">Voir la liste complète</Link>
             </Button>
+          </div> */}
+          <div className="relative py-36 px-6 md:px-16 w-full lg:col-span-2 mb-4 overflow-hidden">
+            {/* Background image responsive */}
+            <div className="absolute inset-0">
+              <div className="h-full w-full bg-center bg-no-repeat bg-cover bg-[url('/bg2.png')]" />
+              {/* Overlay pour lisibilité du texte */}
+              <div className="absolute inset-0 bg-black/40 " />
+            </div>
+
+            {/* Contenu */}
+            <div className="relative z-10 ">
+              <h3 className="text-3xl md:text-6xl rounded-lg mb-12 font-thasadith  text-white dark:text-black p-4 dark:bg-white/60  flex flex-col items-center">
+                Sur Quel secteur agit-on? et quel commune
+              </h3>
+
+              <Button type="button" className="mt-8">
+                <Link href="/municipality">Voir la liste complète</Link>
+              </Button>
+            </div>
           </div>
           <div className="py-14 p-4 w-full lg:col-span-2 mb-4 ">
             <h3 className="text-3xl md:text-6xl mb-12 md:mb-24 font-thasadith tracking-wide">

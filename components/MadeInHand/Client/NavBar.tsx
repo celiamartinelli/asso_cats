@@ -17,7 +17,7 @@ export default function NavBar({ onLinkClick }: NavBarProps) {
 
   return (
     <nav className="rounded-md py-6 px-4 mr-2">
-      <ul className="flex flex-col md:flex-row">
+      <ul className="flex flex-col lg:flex-row">
         {links.map((link, index) => (
           <li
             key={index}

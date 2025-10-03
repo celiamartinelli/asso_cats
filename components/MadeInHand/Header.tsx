@@ -13,7 +13,7 @@ export default function Header() {
   return (
     <div className="flex justify-between items-center p-4 shadow-md sticky top-0 bg-white dark:bg-zinc-900 z-50">
       {/* Menu Burger - visible en mobile uniquement */}
-      <div className="md:hidden">
+      <div className="lg:hidden">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon">
@@ -27,7 +27,7 @@ export default function Header() {
       </div>
 
       {/* Logo - centré en mobile, gauche sinon */}
-      <div className="flex-1 flex justify-center md:justify-start ">
+      <div className="flex-1 flex justify-center lg:justify-start ">
         <a href="/" title="Back to Home">
           <Image
             className="w-20 h-20 dark:invert"
@@ -41,7 +41,7 @@ export default function Header() {
       </div>
 
       {/* Navbar desktop - cachée en mobile */}
-      <div className="hidden md:flex flex-row ">
+      <div className="hidden lg:flex flex-row ">
         <NavBar />
       </div>
 

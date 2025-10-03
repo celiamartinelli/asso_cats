@@ -1,5 +1,7 @@
+"use server";
 import { createClient } from "@supabase/supabase-js";
 import { Cat } from "../utils/types";
+import { headers } from "next/headers";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE;
@@ -18,6 +20,81 @@ const sanitizeFileName = (fileName: string) => {
     .replace(/[^a-zA-Z0-9._-]/g, "_") // Remplace les caractères spéciaux
     .replace(/\s+/g, "_"); // Remplace les espaces par des underscores
 };
+
+//Sécurity check limitation de 5 formulaire par jour par IP
+// export async function submitForm(formType: string, data: any) {
+//   // 1. Récupérer l’IP
+//   const headersList = await headers();
+//   const ip =
+//     headersList.get("x-forwarded-for")?.split(",")[0].trim() ||
+//     headersList.get("x-real-ip") ||
+//     "unknown";
+
+//   // 2. Essayer d’insérer dans form_submissions
+//   const { error: logError } = await supabase.from("form_submissions").insert([
+//     {
+//       ip_address: ip,
+//       form_type: formType,
+//     },
+//   ]);
+
+//   if (logError) {
+//     throw new Error("Vous avez atteint la limite de 5 formulaires par jour.");
+//   }
+
+//   // 3. Déterminer la table cible
+//   let tableName: string;
+//   switch (formType) {
+//     case "adoption":
+//       tableName = "adoption_form";
+//       break;
+//     case "contact":
+//       tableName = "contact_form";
+//       break;
+//     case "foster_family":
+//       tableName = "foster_family_form";
+//       break;
+//     case "material_donation":
+//       tableName = "material_donation_form";
+//       break;
+//     case "volunteer":
+//       tableName = "volunteer_form";
+//       break;
+//     default:
+//       throw new Error("Type de formulaire inconnu.");
+//   }
+
+//   // 4. Insérer dans la table cible
+//   const { error } = await supabase.from(tableName).insert([data]);
+//   if (error) throw new Error(error.message);
+
+//   return { success: true };
+// }
+
+// Vérifie la limite IP/jour pour un type de formulaire
+export async function submitForm(formType: string) {
+  // 1. Récupérer l’IP
+  const headersList = await headers();
+  const ip =
+    headersList.get("x-forwarded-for")?.split(",")[0].trim() ||
+    headersList.get("x-real-ip") ||
+    "unknown";
+
+  // 2. Essayer d’insérer dans form_submissions
+  const { error: logError } = await supabase.from("form_submissions").insert([
+    {
+      ip_address: ip,
+      form_type: formType,
+      submission_date: new Date().toISOString().slice(0, 10), // YYYY-MM-DD
+    },
+  ]);
+
+  if (logError) {
+    throw new Error("Vous avez atteint la limite de 5 formulaires par jour.");
+  }
+
+  return { success: true };
+}
 
 // HOME PAGE //
 // Récupération des dates importantes Home Page //
@@ -214,6 +291,8 @@ export const submitAdoptionForm = async (formData: {
     throw new Error("Tous les champs obligatoires doivent être remplis.");
   }
 
+  await submitForm("adoption");
+
   const { data, error } = await supabase
     .from("adoption_form")
     .insert([
@@ -253,6 +332,7 @@ export const submitAdoptionForm = async (formData: {
 //FORMULAIRE DON MATERIEL //
 // Fonction pour ajouter une donation de matériel dans Supabase
 export const addMaterialDonation = async (formData: any) => {
+  await submitForm("material_donation");
   try {
     console.log("➡️ Données reçues en entrée :", formData);
 
@@ -287,6 +367,7 @@ export const addMaterialDonation = async (formData: any) => {
 //FORMULAIRE CONTACT //
 //Fonction pour ajouter un formulaire a supabase
 export const addContactForm = async (formData: any) => {
+  await submitForm("contact");
   try {
     console.log("➡️ Données reçues en entrée :", formData);
 
@@ -312,7 +393,8 @@ export const addContactForm = async (formData: any) => {
     }
 
     // console.log("✅ Formulaire de contact enregistré avec succès :", data);
-    return "Formulaire de contact enregistré avec succès";
+    // return "Formulaire de contact enregistré avec succès";
+    return await submitForm("contact", formattedData);
   } catch (error) {
     console.error("❌ Erreur d'insertion dans la base de données :", error);
     throw error;
@@ -322,6 +404,7 @@ export const addContactForm = async (formData: any) => {
 //FORMULAIRE DEVENIR FAMILLE D'ACCUEIL //
 // Fonction pour ajouter une demande de famille d'accueil dans Supabase
 export const addFosterFamilyForm = async (formData: any) => {
+  await submitForm("foster_family");
   try {
     console.log("➡️ Données reçues en entrée :", formData);
 
@@ -362,6 +445,7 @@ export const addFosterFamilyForm = async (formData: any) => {
 //FORMULAIRE DEVENIR VOLONTAIRE
 // Fonction pour ajouter une demande de volontariat dans Supabase
 export const addVolunteerForm = async (formData: any) => {
+  await submitForm("volunteer");
   try {
     console.log("➡️ Données reçues en entrée :", formData);
 

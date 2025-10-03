@@ -10,6 +10,7 @@ import { Bird, Cat, Dog, Fish, Rabbit, Turtle } from "lucide-react";
 import { addFosterFamilyForm } from "@/utils/actions";
 import ModalToValidation from "../Modal/ModalToValidation";
 import { Info } from "lucide-react";
+import { HOUSING_TYPE_LABELS } from "@/utils/enumLabels";
 import {
   Select,
   SelectContent,
@@ -214,10 +215,17 @@ const FormBecomFosterFamily: React.FC<FormBecomFosterFamilyProps> = ({
             <SelectTrigger>
               <SelectValue placeholder="Sélectionnez un type de logement" />
             </SelectTrigger>
-            <SelectContent>
+            {/* <SelectContent>
               {housingOptions.map((option, index) => (
                 <SelectItem key={index} value={option}>
                   {option}
+                </SelectItem>
+              ))}
+            </SelectContent> */}
+            <SelectContent>
+              {Object.entries(HOUSING_TYPE_LABELS).map(([key, label]) => (
+                <SelectItem key={key} value={key}>
+                  {label}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -284,7 +292,7 @@ const FormBecomFosterFamily: React.FC<FormBecomFosterFamilyProps> = ({
 
         <Input
           htmlFor="capacity_number_animals"
-          textLabel="Capacité d'accueil (nombre d'animaux):"
+          textLabel="Capacité d'accueil (nombre d'animaux, en dehors de vos animaux):"
           type="text"
           id="capacity_number_animals"
           name="capacity_number_animals"

@@ -6,7 +6,6 @@ import {
   fetchAllEvents,
   fetchAllEventDates,
 } from "@/utils/actions";
-import EventCard from "@/components/MadeInHand/Client/Card/EventCard";
 import Image from "next/image";
 import PageHeader from "@/components/MadeInHand/PageHeader";
 
@@ -28,30 +27,26 @@ export default function CalendarPage() {
   const [eventDates, setEventDates] = useState<Date[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
-  // Charger tous les événements au montage de la page
+  // Charger tous les événements
   useEffect(() => {
     async function loadEvents() {
       const events = await fetchAllEvents();
-      console.log("Événements récupérés :", events);
-      if (Array.isArray(events)) {
-        setAllEvents(events);
-      }
+      if (Array.isArray(events)) setAllEvents(events);
     }
     loadEvents();
   }, []);
 
-  // Charger toutes les dates des événements pour le calendrier
+  // Charger toutes les dates des événements
   useEffect(() => {
     async function loadEventDates() {
       const dates = await fetchAllEventDates();
-      if (Array.isArray(dates)) {
-        setEventDates(dates.map((date) => new Date(date.date_start)));
-      }
+      if (Array.isArray(dates))
+        setEventDates(dates.map((d) => new Date(d.date_start)));
     }
     loadEventDates();
   }, []);
 
-  // Charger les événements de la date sélectionnée
+  // Charger événements de la date sélectionnée
   useEffect(() => {
     if (date) {
       const formattedDate = new Date(
@@ -62,7 +57,7 @@ export default function CalendarPage() {
       fetchEventByDate(formattedDate).then((data: Event[] | null) => {
         if (Array.isArray(data) && data.length > 0) {
           setFilteredEvents(data);
-          setSelectedEvent(data[0]); // Sélectionner le premier événement de la liste
+          setSelectedEvent(data[0]);
         } else {
           setFilteredEvents([]);
           setSelectedEvent(null);
@@ -74,121 +69,155 @@ export default function CalendarPage() {
     }
   }, [date]);
 
-  return (
-    <div className="w-full min-h-screen flex flex-col items-center dark:bg-black ">
-      <PageHeader pageKey="calendar" />
-      <div className="flex flex-col md:flex-row gap-6 m-12 ">
-        <div className="md:w-3/4 lg:w-full ">
-          {selectedEvent ? (
-            <div className="bg-gray-50 dark:bg-zinc-900 border border-gray-300 rounded-lg p-6 shadow-sm ">
-              <button
-                className="text-sm text-gray-600 underline mb-4 dark:text-gray-500"
-                onClick={() => {
-                  setSelectedEvent(null);
-                  setDate(null);
-                }}
-              >
-                ← Retour à la liste
-              </button>
-              <h2 className="text-2xl font-bold mb-2">
-                {selectedEvent.title_event}
-              </h2>
-              <p className="text-gray-800 mb-2 dark:text-gray-200">
-                {new Date(selectedEvent.date_start).toLocaleDateString(
-                  "fr-FR",
-                  {
-                    weekday: "long",
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  }
-                )}
-              </p>
-              {selectedEvent.date_end &&
-                selectedEvent.date_end !== selectedEvent.date_start && (
-                  <p className="text-gray-800 mb-2 dark:text-gray-200">
-                    Jusqu'au{" "}
-                    {new Date(selectedEvent.date_end).toLocaleDateString(
-                      "fr-FR"
-                    )}
-                  </p>
-                )}
-              <p className="italic text-gray-600 dark:text-gray-500">
-                {selectedEvent.subject}
-              </p>
-              <p className="text-sm text-gray-600 dark:text-gray-200">
-                {selectedEvent.description}
-              </p>
-              <p className="text-gray-700">
-                {selectedEvent.location_address ? (
-                  <> 📍 {selectedEvent.location_address}</>
-                ) : null}
-              </p>
-              {/* <div className="mt-4 justify-center flex">
-                <Image
-                  src={selectedEvent.event_url_img || "/placeholder.png"}
-                  alt="Image événement"
-                  width={600}
-                  height={400}
-                  className="rounded-lg border border-gray-200 object-cover"
-                />
-              </div> */}
-            </div>
-          ) : (
-            <div className="">
-              <h2 className="text-2xl font-semibold mb-4">Événements</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
-                {(date && filteredEvents.length > 0
-                  ? filteredEvents
-                  : allEvents
-                ).map((event, index) => (
-                  <div
-                    key={index}
-                    onClick={() => setSelectedEvent(event)}
-                    className="cursor-pointer transition hover:shadow-lg "
-                  >
-                    <div className="bg-white border border-gray-300 rounded-lg p-4 shadow-sm dark:bg-zinc-900">
-                      <h3 className="text-lg font-bold">{event.title_event}</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-200">
-                        {new Date(event.date_start).toLocaleDateString("fr-FR")}
-                      </p>
-                      <p className="text-sm italic dark:text-gray-400">
-                        {event.subject}
-                      </p>
-                      <p className="text-sm text-gray-600 dark:text-gray-200">
-                        {event.description}
-                      </p>
-                      <p className="text-sm text-gray-700 dark:text-gray-300">
-                        {event.location_address ? (
-                          <> 📍 {event.location_address}</>
-                        ) : null}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+  // Fonction utilitaire pour obtenir le mois en français
+  const getMonthName = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString("fr-FR", { month: "long", year: "numeric" });
+  };
 
-        {/* Calendrier et détails de l'événement sélectionné */}
-        <div className=" w-full bg-zinc-50 p-4 rounded-lg border border-gray-300 dark:bg-zinc-900 shadow-sm">
-          <h2 className="text-xl font-semibold mb-4 text-center">
-            Sélectionné une date
+  // Regrouper événements par mois
+  const eventsToDisplay =
+    date && filteredEvents.length ? filteredEvents : allEvents;
+  const eventsByMonth: { [month: string]: Event[] } = {};
+  eventsToDisplay.forEach((event) => {
+    const month = getMonthName(event.date_start);
+    if (!eventsByMonth[month]) eventsByMonth[month] = [];
+    eventsByMonth[month].push(event);
+  });
+
+  return (
+    <div className="w-full min-h-screen flex flex-col items-center dark:bg-black">
+      <PageHeader pageKey="calendar" />
+
+      <div className="flex flex-col lg:flex-row gap-6 m-12 w-full">
+        {/* Calendrier */}
+        <div className="w-full rounded-lg dark:bg-zinc-900 shadow-sm lg:mr-6 md:w-1/3 lg:w-1/3">
+          <h2 className="text-2xl font-semibold mb-4 text-center dark:text-white">
+            Sélectionner une date
           </h2>
           <Calendar
             mode="single"
             selected={date || undefined}
             onSelect={(day) => setDate(day || null)}
             className="rounded-md border border-gray-300 shadow-sm flex justify-center bg-white dark:bg-zinc-950"
-            modifiers={{
-              eventDay: eventDates,
-            }}
+            modifiers={{ eventDay: eventDates }}
             modifiersClassNames={{
               eventDay:
                 "bg-zinc-200 text-zinc-500rounded-full dark:bg-accent dark:text-zinc-650",
             }}
           />
+        </div>
+
+        {/* Liste ou card individuelle */}
+        <div className="md:w-3/4 lg:w-full flex flex-col gap-8">
+          {selectedEvent ? (
+            /* Card individuelle */
+            <div className="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 rounded-2xl shadow-lg overflow-hidden max-w-4xl mx-auto p-6 flex flex-col md:flex-row gap-6">
+              <div className="flex-1 flex flex-col justify-between">
+                <div>
+                  <button
+                    className="text-sm text-gray-600 underline mb-2 dark:text-gray-400"
+                    onClick={() => {
+                      setSelectedEvent(null);
+                      setDate(null);
+                    }}
+                  >
+                    ← Retour à la liste
+                  </button>
+                  <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">
+                    {selectedEvent.title_event}
+                  </h2>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    <span className="text-sm bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 px-3 py-1 rounded-full">
+                      📅{" "}
+                      {new Date(selectedEvent.date_start).toLocaleDateString(
+                        "fr-FR"
+                      )}
+                      {selectedEvent.date_end &&
+                        selectedEvent.date_end !== selectedEvent.date_start && (
+                          <>
+                            {" "}
+                            →{" "}
+                            {new Date(
+                              selectedEvent.date_end
+                            ).toLocaleDateString("fr-FR")}
+                          </>
+                        )}
+                    </span>
+                    {selectedEvent.location_address && (
+                      <span className="text-sm bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 px-3 py-1 rounded-full">
+                        📍 {selectedEvent.location_address}
+                      </span>
+                    )}
+                  </div>
+                  {selectedEvent.subject && (
+                    <p className="italic text-gray-500 dark:text-gray-400 mb-3">
+                      {selectedEvent.subject}
+                    </p>
+                  )}
+                  {selectedEvent.description && (
+                    <p className="text-gray-700 dark:text-gray-300 max-h-64 overflow-auto">
+                      {selectedEvent.description}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* Liste des cards regroupées par mois */
+            <div className="flex flex-col gap-8">
+              {Object.keys(eventsByMonth).map((month) => (
+                <div key={month}>
+                  <h2 className="text-2xl font-bold mb-4 dark:text-white">
+                    {month}
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {eventsByMonth[month].map((event, index) => (
+                      <div
+                        key={index}
+                        onClick={() => setSelectedEvent(event)}
+                        className="cursor-pointer transform transition duration-300 hover:-translate-y-1 hover:shadow-xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 rounded-xl overflow-hidden flex flex-col md:flex-row"
+                      >
+                        <div className="p-4 flex flex-col justify-between">
+                          <div>
+                            <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-1">
+                              {event.title_event}
+                            </h3>
+                            <div className="flex flex-wrap gap-2 mb-2">
+                              <span className="text-sm bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 px-2 py-1 rounded-full">
+                                📅{" "}
+                                {new Date(event.date_start).toLocaleDateString(
+                                  "fr-FR"
+                                )}
+                              </span>
+                              {event.location_address && (
+                                <span className="text-sm bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 px-2 py-1 rounded-full">
+                                  📍 {event.location_address}
+                                </span>
+                              )}
+                            </div>
+                            {event.subject && (
+                              <p className="text-sm italic text-gray-500 dark:text-gray-400 mb-2">
+                                {event.subject}
+                              </p>
+                            )}
+                            {event.description && (
+                              <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
+                                {event.description}
+                              </p>
+                            )}
+                          </div>
+                          <button className="mt-2 text-sm text-blue-600 dark:text-blue-400 underline self-start">
+                            Voir détails →
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

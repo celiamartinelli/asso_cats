@@ -6,7 +6,7 @@ import {
   fetchAllEvents,
   fetchAllEventDates,
 } from "@/utils/actions";
-import Image from "next/image";
+
 import PageHeader from "@/components/MadeInHand/PageHeader";
 
 interface Event {
@@ -18,6 +18,8 @@ interface Event {
   event_url_img: string;
   location_address?: string;
   description?: string;
+  is_reccuring?: boolean;
+  reccuring_type?: "yearly" | "monthly" | "weekly";
 }
 
 export default function CalendarPage() {
@@ -28,11 +30,69 @@ export default function CalendarPage() {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
   // Charger tous les événements
+  // useEffect(() => {
+  //   async function loadEvents() {
+  //     const events = await fetchAllEvents();
+  //     if (Array.isArray(events)) setAllEvents(events);
+  //   }
+  //   loadEvents();
+  // }, []);
   useEffect(() => {
     async function loadEvents() {
       const events = await fetchAllEvents();
-      if (Array.isArray(events)) setAllEvents(events);
+      if (!Array.isArray(events)) return;
+
+      const today = new Date();
+      // const oneYearLater = new Date(today);
+      // oneYearLater.setFullYear(today.getFullYear() + 1);
+      const threeYearsLater = new Date(today);
+      threeYearsLater.setFullYear(today.getFullYear() + 3);
+
+      const expandedEvents: Event[] = [];
+
+      for (const ev of events) {
+        expandedEvents.push(ev);
+
+        if (ev.is_reccuring && ev.reccuring_type) {
+          const startDate = new Date(ev.date_start);
+          const endDate = ev.date_end ? new Date(ev.date_end) : null;
+
+          let nextStart = new Date(startDate);
+
+          while (nextStart <= threeYearsLater) {
+            if (ev.reccuring_type === "yearly") {
+              nextStart = new Date(nextStart);
+              nextStart.setFullYear(nextStart.getFullYear() + 1);
+            } else if (ev.reccuring_type === "monthly") {
+              nextStart = new Date(nextStart);
+              nextStart.setMonth(nextStart.getMonth() + 1);
+            } else if (ev.reccuring_type === "weekly") {
+              nextStart = new Date(nextStart);
+              nextStart.setDate(nextStart.getDate() + 7);
+            }
+
+            // Si on dépasse la borne de 3 ans, on arrête
+            if (nextStart > threeYearsLater) break;
+
+            const nextEnd = endDate
+              ? new Date(
+                  endDate.getTime() +
+                    (nextStart.getTime() - startDate.getTime()) // décalage équivalent
+                )
+              : null;
+
+            expandedEvents.push({
+              ...ev,
+              date_start: nextStart.toISOString(),
+              date_end: nextEnd ? nextEnd.toISOString() : undefined,
+            });
+          }
+        }
+      }
+
+      setAllEvents(expandedEvents);
     }
+
     loadEvents();
   }, []);
 
@@ -75,9 +135,27 @@ export default function CalendarPage() {
     return date.toLocaleString("fr-FR", { month: "long", year: "numeric" });
   };
 
-  // Regrouper événements par mois
-  const eventsToDisplay =
-    date && filteredEvents.length ? filteredEvents : allEvents;
+  // Déterminer la date du jour (à minuit)
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // Déterminer les événements à afficher
+  let eventsToDisplay: Event[] = [];
+
+  // Si une date est sélectionnée → on affiche les événements de cette date (même passée)
+  if (date && filteredEvents.length) {
+    eventsToDisplay = filteredEvents;
+  } else {
+    // Sinon (pas de date sélectionnée) → on affiche seulement les événements futurs
+    eventsToDisplay = allEvents.filter(
+      (event) =>
+        new Date(event.date_start) >= today &&
+        new Date(event.date_start) <=
+          new Date(today.getFullYear() + 3, today.getMonth(), today.getDate())
+    );
+  }
+
+  // Regrouper les événements (futurs ou filtrés) par mois
   const eventsByMonth: { [month: string]: Event[] } = {};
   eventsToDisplay.forEach((event) => {
     const month = getMonthName(event.date_start);

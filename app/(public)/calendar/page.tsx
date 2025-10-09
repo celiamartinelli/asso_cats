@@ -29,74 +29,37 @@ export default function CalendarPage() {
   const [eventDates, setEventDates] = useState<Date[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
-  // Charger tous les événements
-  // useEffect(() => {
-  //   async function loadEvents() {
-  //     const events = await fetchAllEvents();
-  //     if (Array.isArray(events)) setAllEvents(events);
-  //   }
-  //   loadEvents();
-  // }, []);
+  // 🔹 Charger tous les événements sur 1 an à partir d’aujourd’hui
   useEffect(() => {
     async function loadEvents() {
       const events = await fetchAllEvents();
       if (!Array.isArray(events)) return;
 
       const today = new Date();
-      // const oneYearLater = new Date(today);
-      // oneYearLater.setFullYear(today.getFullYear() + 1);
-      const threeYearsLater = new Date(today);
-      threeYearsLater.setFullYear(today.getFullYear() + 3);
+      today.setHours(0, 0, 0, 0);
 
-      const expandedEvents: Event[] = [];
+      const oneYearLater = new Date(today);
+      oneYearLater.setFullYear(today.getFullYear() + 1);
 
-      for (const ev of events) {
-        expandedEvents.push(ev);
+      // ➜ On garde seulement les événements entre aujourd’hui et dans 1 an
+      const upcomingEvents = events.filter((ev) => {
+        const eventDate = new Date(ev.date_start);
+        return eventDate >= today && eventDate <= oneYearLater;
+      });
 
-        if (ev.is_reccuring && ev.reccuring_type) {
-          const startDate = new Date(ev.date_start);
-          const endDate = ev.date_end ? new Date(ev.date_end) : null;
+      // Trier par date pour l’affichage
+      upcomingEvents.sort(
+        (a, b) =>
+          new Date(a.date_start).getTime() - new Date(b.date_start).getTime()
+      );
 
-          let nextStart = new Date(startDate);
-
-          while (nextStart <= threeYearsLater) {
-            if (ev.reccuring_type === "yearly") {
-              nextStart = new Date(nextStart);
-              nextStart.setFullYear(nextStart.getFullYear() + 1);
-            } else if (ev.reccuring_type === "monthly") {
-              nextStart = new Date(nextStart);
-              nextStart.setMonth(nextStart.getMonth() + 1);
-            } else if (ev.reccuring_type === "weekly") {
-              nextStart = new Date(nextStart);
-              nextStart.setDate(nextStart.getDate() + 7);
-            }
-
-            // Si on dépasse la borne de 3 ans, on arrête
-            if (nextStart > threeYearsLater) break;
-
-            const nextEnd = endDate
-              ? new Date(
-                  endDate.getTime() +
-                    (nextStart.getTime() - startDate.getTime()) // décalage équivalent
-                )
-              : null;
-
-            expandedEvents.push({
-              ...ev,
-              date_start: nextStart.toISOString(),
-              date_end: nextEnd ? nextEnd.toISOString() : undefined,
-            });
-          }
-        }
-      }
-
-      setAllEvents(expandedEvents);
+      setAllEvents(upcomingEvents);
     }
 
     loadEvents();
   }, []);
 
-  // Charger toutes les dates des événements
+  // 🔹 Charger toutes les dates d’événements (pour le calendrier)
   useEffect(() => {
     async function loadEventDates() {
       const dates = await fetchAllEventDates();
@@ -106,7 +69,7 @@ export default function CalendarPage() {
     loadEventDates();
   }, []);
 
-  // Charger événements de la date sélectionnée
+  // 🔹 Charger les événements d’une date sélectionnée
   useEffect(() => {
     if (date) {
       const formattedDate = new Date(
@@ -129,33 +92,17 @@ export default function CalendarPage() {
     }
   }, [date]);
 
-  // Fonction utilitaire pour obtenir le mois en français
+  // 🔹 Obtenir le mois en français
   const getMonthName = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString("fr-FR", { month: "long", year: "numeric" });
   };
 
-  // Déterminer la date du jour (à minuit)
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  // 🔹 Événements à afficher
+  const eventsToDisplay =
+    date && filteredEvents.length ? filteredEvents : allEvents;
 
-  // Déterminer les événements à afficher
-  let eventsToDisplay: Event[] = [];
-
-  // Si une date est sélectionnée → on affiche les événements de cette date (même passée)
-  if (date && filteredEvents.length) {
-    eventsToDisplay = filteredEvents;
-  } else {
-    // Sinon (pas de date sélectionnée) → on affiche seulement les événements futurs
-    eventsToDisplay = allEvents.filter(
-      (event) =>
-        new Date(event.date_start) >= today &&
-        new Date(event.date_start) <=
-          new Date(today.getFullYear() + 3, today.getMonth(), today.getDate())
-    );
-  }
-
-  // Regrouper les événements (futurs ou filtrés) par mois
+  // 🔹 Regrouper par mois
   const eventsByMonth: { [month: string]: Event[] } = {};
   eventsToDisplay.forEach((event) => {
     const month = getMonthName(event.date_start);
@@ -169,7 +116,7 @@ export default function CalendarPage() {
 
       <div className="flex flex-col lg:flex-row gap-6 m-12 w-full">
         {/* Calendrier */}
-        <div className="w-full rounded-lg dark:bg-zinc-900 shadow-sm lg:mr-6 md:w-1/3 lg:w-1/3">
+        <div className="w-full rounded-lg dark:bg-zinc-900 shadow-sm lg:ml-6 md:w-1/3 lg:w-1/3 m-10 sm:mx-auto sm:w-1/2">
           <h2 className="text-2xl font-semibold mb-4 text-center dark:text-white">
             Sélectionner une date
           </h2>
@@ -187,11 +134,11 @@ export default function CalendarPage() {
         </div>
 
         {/* Liste ou card individuelle */}
-        <div className="md:w-3/4 lg:w-full flex flex-col gap-8">
+        <div className="md:w-3/4 lg:w-full flex flex-col gap-8 m-10 ">
           {selectedEvent ? (
             /* Card individuelle */
-            <div className="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 rounded-2xl shadow-lg overflow-hidden max-w-4xl mx-auto p-6 flex flex-col md:flex-row gap-6">
-              <div className="flex-1 flex flex-col justify-between">
+            <div className="bg-white w-full dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 rounded-2xl shadow-lg overflow-hidden max-w-4xl mx-auto p-6  gap-6">
+              <div className="flex-1 flex flex-col justify-between ">
                 <div>
                   <button
                     className="text-sm text-gray-600 underline mb-2 dark:text-gray-400"

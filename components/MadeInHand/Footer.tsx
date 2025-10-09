@@ -11,10 +11,10 @@ const sections = [
         href: "/dataprotectionprocessing",
         label: "Traitement & protections des données",
       },
-      {
-        href: "/accessyourpersonaldata",
-        label: "Accéder à vos données personnelles",
-      },
+      // {
+      //   href: "/accessyourpersonaldata",
+      //   label: "Accéder à vos données personnelles",
+      // },
       {
         href: "/cookiespolicies",
         label: "Politiques de cookies",

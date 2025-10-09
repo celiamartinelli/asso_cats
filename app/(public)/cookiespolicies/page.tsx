@@ -1,4 +1,5 @@
 import PageHeader from "@/components/MadeInHand/PageHeader";
+import { Link } from "lucide-react";
 
 export default function page() {
   return (
@@ -59,8 +60,14 @@ export default function page() {
           <h2 className="text-2xl font-semibold mb-2">Contact</h2>
           <p>
             Pour toute question concernant notre politique de cookies,
-            contactez-nous à [Email].
+            contactez-nous à{" "}
           </p>
+          <a
+            href="mailto:ecoledeschatsdupayshoudanais@gmail.com"
+            className="font-bold text-black hover:underline"
+          >
+            ecoledeschatsdupayshoudanais@gmail.com
+          </a>
         </section>
       </div>
     </div>

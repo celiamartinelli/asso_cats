@@ -28,7 +28,7 @@ export default function LegalNotice() {
             <strong>E-mail :</strong>{" "}
             <a
               href="mailto:ecoledeschatsdupayshoudanais@gmail.com"
-              className="text-blue-600 hover:underline"
+              className="font-bold text-black hover:underline"
             >
               ecoledeschatsdupayshoudanais@gmail.com
             </a>
@@ -39,53 +39,6 @@ export default function LegalNotice() {
           <p>
             <strong>Conception et réalisation du site :</strong> L’École des
             Chats du Pays Houdanais
-          </p>
-        </section>
-
-        {/* === HÉBERGEUR === */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
-            Hébergeur
-          </h2>
-
-          <p>
-            <strong>Raison sociale :</strong> Netlify, Inc.
-          </p>
-          <p>
-            <strong>Siège social :</strong>
-            <br />
-            101 2nd Street, Suite 575,
-            <br />
-            San Francisco, CA 94105, United States.
-          </p>
-          <p>
-            <strong>Adresse postale (correspondance juridique) :</strong>
-            <br />
-            PO Box / PMB 87587,
-            <br />
-            San Francisco, CA 94120-7775,
-            <br />
-            Attn: Netlify Legal Dept.
-          </p>
-          <p>
-            <strong>E-mails utiles :</strong>
-            <br />
-            <a href="mailto:support@netlify.com">support@netlify.com</a>{" "}
-            (support général)
-            <br />
-            <a href="mailto:fraud@netlify.com">fraud@netlify.com</a>{" "}
-            (signalement d’abus/fraude)
-          </p>
-          <p>
-            <strong>Site web :</strong>{" "}
-            <a
-              href="https://www.netlify.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              https://www.netlify.com
-            </a>
           </p>
         </section>
 
@@ -160,6 +113,62 @@ export default function LegalNotice() {
             Les présentes mentions légales et CGU sont régies par le droit
             français. En cas de litige, et à défaut d’accord amiable, les
             tribunaux compétents seront ceux du ressort de Versailles.
+          </p>
+        </section>
+        {/* === HÉBERGEUR === */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
+            Hébergeur
+          </h2>
+
+          <p>
+            <strong>Raison sociale :</strong> Netlify, Inc.
+          </p>
+          <p>
+            <strong>Siège social :</strong>
+            <br />
+            101 2nd Street, Suite 575,
+            <br />
+            San Francisco, CA 94105, United States.
+          </p>
+          <p>
+            <strong>Adresse postale (correspondance juridique) :</strong>
+            <br />
+            PO Box / PMB 87587,
+            <br />
+            San Francisco, CA 94120-7775,
+            <br />
+            Attn: Netlify Legal Dept.
+          </p>
+          <p>
+            <strong>E-mails utiles :</strong>
+            <br />
+            <a
+              className="font-bold text-black hover:underline"
+              href="mailto:support@netlify.com"
+            >
+              support@netlify.com
+            </a>{" "}
+            (support général)
+            <br />
+            <a
+              className="font-bold text-black hover:underline"
+              href="mailto:fraud@netlify.com"
+            >
+              fraud@netlify.com
+            </a>{" "}
+            (signalement d’abus/fraude)
+          </p>
+          <p>
+            <strong>Site web :</strong>{" "}
+            <a
+              href="https://www.netlify.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-black hover:underline"
+            >
+              https://www.netlify.com
+            </a>
           </p>
         </section>
 

@@ -1,14 +1,14 @@
 import PageHeader from "@/components/MadeInHand/PageHeader";
-import { Link } from "lucide-react";
 
-export default function page() {
+export default function CookiesPolicies() {
   return (
-    <div className="p-6 min-h-screen  bg-gray-100 dark:bg-black">
+    <div className="p-6 min-h-screen bg-gray-100 dark:bg-black">
       <PageHeader pageKey="cookiespolicies" />
       <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 dark:bg-zinc-900">
-        <section className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">
-            Qu'est-ce qu'un cookie ?
+        {/* === Qu'est-ce qu'un cookie ? === */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
+            🍪 Qu'est-ce qu'un cookie ?
           </h2>
           <p>
             Un cookie est un petit fichier texte déposé sur votre appareil lors
@@ -17,9 +17,10 @@ export default function page() {
           </p>
         </section>
 
-        <section className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">
-            Pourquoi utilisons-nous des cookies ?
+        {/* === Pourquoi utilisons-nous des cookies ? === */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
+            🎯 Pourquoi utilisons-nous des cookies ?
           </h2>
           <p>
             Nous utilisons des cookies pour améliorer votre expérience
@@ -28,27 +29,32 @@ export default function page() {
           </p>
         </section>
 
-        <section className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">
-            Types de cookies utilisés
+        {/* === Types de cookies utilisés === */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
+            🧩 Types de cookies utilisés
           </h2>
-          <ul className="list-disc pl-6">
+          <ul className="list-disc pl-6 space-y-2">
             <li>
-              Cookies nécessaires : indispensables au bon fonctionnement du
-              site.
+              <strong>Cookies nécessaires :</strong> indispensables au bon
+              fonctionnement du site.
             </li>
             <li>
-              Cookies analytiques : permettent de suivre les performances du
-              site.
+              <strong>Cookies analytiques :</strong> permettent de suivre les
+              performances du site.
             </li>
             <li>
-              Cookies publicitaires : utilisés pour personnaliser les annonces.
+              <strong>Cookies publicitaires :</strong> utilisés pour
+              personnaliser les annonces.
             </li>
           </ul>
         </section>
 
-        <section className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">Gérer vos préférences</h2>
+        {/* === Gérer vos préférences === */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
+            ⚙️ Gérer vos préférences
+          </h2>
           <p>
             Vous pouvez configurer votre navigateur pour accepter ou refuser les
             cookies. Vous pouvez également supprimer les cookies stockés sur
@@ -56,11 +62,14 @@ export default function page() {
           </p>
         </section>
 
-        <section className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">Contact</h2>
-          <p>
+        {/* === Contact === */}
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
+            📬 Contact
+          </h2>
+          <p className="mb-2">
             Pour toute question concernant notre politique de cookies,
-            contactez-nous à{" "}
+            contactez-nous à :
           </p>
           <a
             href="mailto:ecoledeschatsdupayshoudanais@gmail.com"

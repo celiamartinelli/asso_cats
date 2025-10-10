@@ -145,7 +145,7 @@ export default function Index() {
                           />
                         ))
                       ) : (
-                        <li>Aucun événement à venir.</li>
+                        <p>Aucun événement à venir.</p>
                       )}
                     </motion.ul>
                   )}
@@ -213,16 +213,16 @@ export default function Index() {
             </Button>
           </div> */}
           <div className="relative py-36 px-6 md:px-16 w-full lg:col-span-2 mb-4 overflow-hidden">
-            {/* Background image responsive */}
+            {/* Background image responsive avec effet fixe seulement sur desktop */}
             <div className="absolute inset-0">
-              <div className="h-full w-full bg-center bg-no-repeat bg-cover bg-[url('/bg2.png')]" />
-              {/* Overlay pour lisibilité du texte */}
-              <div className="absolute inset-0 bg-black/40 " />
+              <div className="h-full w-full bg-center bg-no-repeat bg-cover md:bg-fixed bg-[url('/bg2.png')]" />
+              {/* Overlay pour lisibilité */}
+              <div className="absolute inset-0 bg-black/40" />
             </div>
 
             {/* Contenu */}
-            <div className="relative z-10 ">
-              <h3 className="text-3xl md:text-6xl rounded-lg mb-12 font-thasadith  text-white dark:text-black p-4 dark:bg-white/60  flex flex-col items-center">
+            <div className="relative z-10">
+              <h3 className="text-3xl md:text-6xl rounded-lg mb-12 font-thasadith text-white dark:text-black p-4 dark:bg-white/60 flex flex-col items-center">
                 Sur Quel secteur agit-on? et quel commune
               </h3>
 
@@ -231,6 +231,7 @@ export default function Index() {
               </Button>
             </div>
           </div>
+
           <div className="py-14 p-4 w-full lg:col-span-2 mb-4 ">
             <h3 className="text-3xl md:text-6xl mb-12 md:mb-24 font-thasadith tracking-wide">
               Comment se déroule une adoption

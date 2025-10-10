@@ -39,6 +39,11 @@
     "title": "Mentions Légales & CGU",
     "subtitle": "Les règles qui encadrent l’utilisation de notre site."
   },
+  "legaltext": {
+    "emoji": "📜",
+    "title": "Textes essentiels — protection & bien-être animal",
+    "subtitle": "Synthèse des principaux textes et articles utiles pour les associations de protection animale. Pour aller plus loin, les liens officiels sont fournis sous chaque fiche. 📄"
+  },
   "dataprotectionprocessing": {
     "emoji": "🔐",
     "title": "Traitement & Protection des Données",

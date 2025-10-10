@@ -1,65 +1,96 @@
 import PageHeader from "@/components/MadeInHand/PageHeader";
 
-export default function page() {
+export default function DataProtectionProcessing() {
   return (
-    <div className="p-6 min-h-screen  bg-gray-100 dark:bg-black">
+    <div className="p-6 min-h-screen bg-gray-100 dark:bg-black">
       <PageHeader pageKey="dataprotectionprocessing" />
       <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 dark:bg-zinc-900">
-        <section className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">
-            Collecte des données personnelles
+        {/* === Collecte des données personnelles === */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
+            🧾 Collecte des données personnelles
           </h2>
           <p>
-            Nous collectons certaines informations personnelles pour le bon
-            fonctionnement du site et des services proposés.
+            Nous collectons certaines informations personnelles afin d’assurer
+            le bon fonctionnement du site et des services proposés, notamment
+            dans le cadre des adoptions et de la gestion des adhésions.
           </p>
         </section>
 
-        <section className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">
-            Utilisation des données
+        {/* === Utilisation des données === */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
+            🎯 Utilisation des données
           </h2>
           <p>
-            Les données collectées sont utilisées uniquement pour les finalités
-            précisées, notamment pour la gestion des adhésions et des adoptions.
+            Les données collectées sont utilisées exclusivement pour les
+            finalités mentionnées, telles que la gestion administrative, la
+            communication avec les adoptants et bénévoles, et le suivi des
+            activités de l’association.
           </p>
         </section>
 
-        <section className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">
-            Protection des données
+        {/* === Protection des données === */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
+            🔒 Protection des données
           </h2>
           <p>
-            Nous mettons en œuvre toutes les mesures de sécurité nécessaires
-            pour garantir la protection de vos informations.
+            Nous mettons en œuvre toutes les mesures techniques et
+            organisationnelles nécessaires pour garantir la sécurité, la
+            confidentialité et l’intégrité de vos informations personnelles.
           </p>
         </section>
 
-        <section className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">
-            Droits des utilisateurs
+        {/* === Droits des utilisateurs === */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
+            👤 Droits des utilisateurs
           </h2>
           <p>
-            Conformément à la réglementation, vous avez le droit d'accéder, de
-            rectifier et de supprimer vos données personnelles.
+            Conformément au Règlement Général sur la Protection des Données
+            (RGPD), vous disposez d’un droit d’accès, de rectification, de
+            suppression et d’opposition concernant vos données personnelles.
+            Vous pouvez également demander la limitation ou la portabilité de
+            vos données.
           </p>
         </section>
 
-        <section className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">Cookies</h2>
+        {/* === Cookies === */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
+            🍪 Cookies
+          </h2>
           <p>
-            Nous utilisons des cookies pour améliorer l'expérience utilisateur.
-            Vous pouvez les gérer via les paramètres de votre navigateur.
+            Nous utilisons des cookies pour améliorer votre expérience
+            utilisateur. Vous pouvez à tout moment gérer ou désactiver les
+            cookies dans les paramètres de votre navigateur. Pour en savoir
+            plus, consultez notre{" "}
+            <a
+              href="/cookiespolicies"
+              className="font-semibold text-black hover:underline"
+            >
+              politique de cookies
+            </a>
+            .
           </p>
         </section>
 
-        <section className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">Contact</h2>
+        {/* === Contact === */}
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
+            📬 Contact
+          </h2>
           <p>
             Pour toute demande relative à vos données personnelles, vous pouvez
-            nous contacter à{" "}
-            <strong>ecoledeschatsdupayshoudanais@gmail.com</strong>.
+            nous écrire à l’adresse suivante :
           </p>
+          <a
+            href="mailto:ecoledeschatsdupayshoudanais@gmail.com"
+            className="font-bold text-black hover:underline"
+          >
+            ecoledeschatsdupayshoudanais@gmail.com
+          </a>
         </section>
       </div>
     </div>

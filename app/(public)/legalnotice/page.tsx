@@ -180,8 +180,8 @@ export default function LegalNotice() {
             contributeurs bénévoles.
           </p>
           <p>
-            <strong>Icônes et ressources :</strong> Licences libres (Flaticon,
-            Unsplash…)
+            <strong>Icônes et ressources :</strong> Licences libres
+            (Lucide-react, Lottie)
           </p>
           <p>
             <strong>Dernière mise à jour :</strong> Octobre 2025

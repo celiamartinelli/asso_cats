@@ -60,12 +60,16 @@ const sections = [
         href: "/helpthem?form=don-materiel",
         label: "Faire un don matériel",
       },
+      {
+        href: "/becomeavolunteer",
+        label: "Devenir Bénévole",
+      },
     ],
   },
   {
     title: "Informations supplémentaires",
     links: [
-      { href: "/associations", label: "Associations" },
+      // { href: "/associations", label: "Associations" },
       {
         href: "/municipality",
         label: "Municipalités partenaires",
@@ -80,24 +84,24 @@ const sections = [
       },
     ],
   },
-  {
-    title: "Nous contacter",
-    links: [
-      { href: "/contact", label: "Nous contacter" },
-      // {
-      //   href: "/traitement-protection-des-donnees",
-      //   label: "Demander de l'aide",
-      // },
-      // {
-      //   href: "/traitement-protection-des-donnees",
-      //   label: "Signaler une maltraitance",
-      // },
-      {
-        href: "/becomeavolunteer",
-        label: "Devenir Bénévole",
-      },
-    ],
-  },
+  // {
+  //   title: "Nous contacter",
+  //   links: [
+  //     { href: "/contact", label: "Nous contacter" },
+  // {
+  //   href: "/traitement-protection-des-donnees",
+  //   label: "Demander de l'aide",
+  // },
+  // {
+  //   href: "/traitement-protection-des-donnees",
+  //   label: "Signaler une maltraitance",
+  // },
+  // {
+  //   href: "/becomeavolunteer",
+  //   label: "Devenir Bénévole",
+  // },
+  //   ],
+  // },
 ];
 
 interface FooterSectionProps {
@@ -112,16 +116,16 @@ const FooterSection = ({
   hasBorder = true,
 }: FooterSectionProps) => (
   <div
-    className={`w-full md:w-1/5 px-8 ${
+    className={`w-full md:w-1/4 px-8 ${
       hasBorder
         ? "md:border-r border-b md:border-b-0 py-4 md:py-4-0 border-zinc-700"
-        : ""
+        : " mt-5"
     }`}
   >
     <h4 className="font-bold text-xl mb-5 flex justify-start items-start">
       {title}
     </h4>
-    <ul className="flex flex-col flex-wrap gap-2 items-start text-gray-400 break-words">
+    <ul className="flex flex-col flex-wrap gap-2  items-start text-gray-400 break-words">
       {links.map((link, index) => (
         <li key={index}>
           <Link href={link.href} passHref>
@@ -135,8 +139,8 @@ const FooterSection = ({
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-black text-white flex flex-col items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-      <div className="flex flex-col md:flex-row w-full justify-between pl-8 text-left mt-12">
+    <footer className="w-full bg-black text-white flex flex-col items-center justify-center border-t mx-auto text-center text-xs gap-8 py-4 mb:py-16">
+      <div className="flex flex-col md:flex-row w-full justify-arround text-left mb:mt-8 ">
         {sections.map((section, index) => (
           <FooterSection
             key={index}
@@ -146,6 +150,7 @@ export default function Footer() {
           />
         ))}
       </div>
+
       <div className="flex flex-col md:flex-row items-center justify-center gap-4">
         <div className="flex items-center gap-2">
           <p className="text-gray-400 mr-1">

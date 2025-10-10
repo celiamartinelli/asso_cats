@@ -13,7 +13,7 @@ export default function SocialNetwork() {
           <Facebook size={28} />
         </Link>
         <Link
-          href="https://www.instagram.com/ecoledeschats/"
+          href="https://www.instagram.com/ecoledeschatsdupayshoudanais/"
           target="_blank"
           className="hover:bg-accent hover:rounded-lg p-2 hover:text-black"
         >

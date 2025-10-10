@@ -1,111 +1,127 @@
 import PageHeader from "@/components/MadeInHand/PageHeader";
 
-export default function page() {
+export default function AdoptionFeesPage() {
   return (
     <div className="p-6 min-h-screen bg-gray-100 dark:bg-black">
       <PageHeader pageKey="adoptionfees" />
-      <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
+      <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-2xl mt-10 space-y-10">
         {/* Pourquoi des frais */}
-        <section className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">
-            Pourquoi des frais d’adoption ?
+        <section>
+          <h2 className="text-3xl font-semibold mb-3">
+            💚 Pourquoi des frais d’adoption ?
           </h2>
-          <p>
-            Adopter un chat est un engagement responsable. Nos frais d’adoption
-            permettent de couvrir une partie des frais vétérinaires et de soins
-            engagés pour chaque animal.
+          <p className="leading-relaxed">
+            Adopter un chat est un engagement responsable. Les frais d’adoption
+            permettent de couvrir une partie des coûts vétérinaires,
+            alimentaires et de soins engagés pour chaque animal recueilli par
+            notre association.
           </p>
         </section>
 
+        <hr className="border-gray-300" />
+
         {/* Que couvrent ces frais */}
-        <section className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">
-            Que couvrent ces frais ?
+        <section>
+          <h2 className="text-2xl font-semibold mb-3">
+            🩺 Que couvrent ces frais ?
           </h2>
-          <ul className="list-disc pl-6 mt-2">
+          <ul className="list-disc pl-6 space-y-1 text-gray-700">
             <li>Identification par puce électronique</li>
             <li>Vermifuge et traitement antiparasitaire</li>
             <li>Stérilisation / castration</li>
           </ul>
-          <p className="mt-4">
-            Ces soins assurent que nos chats sont en bonne santé et prêts à
-            rejoindre leur nouvelle famille.
+          <p className="mt-4 leading-relaxed">
+            Ces soins garantissent que chaque chat est en bonne santé et prêt à
+            rejoindre sa nouvelle famille dans les meilleures conditions.
           </p>
         </section>
 
+        <hr className="border-gray-300" />
+
         {/* Frais spécifiques pour les chatons */}
-        <section className="mb-6 bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
-          <h2 className="text-2xl font-semibold mb-2">Adoption d’un chaton</h2>
-          <p>
+        <section className="bg-yellow-50 border border-yellow-200 p-5 rounded-xl">
+          <h2 className="text-2xl font-semibold mb-2">
+            🐾 Adoption d’un chaton
+          </h2>
+          <p className="leading-relaxed">
             Lorsqu’il s’agit d’un chaton non encore stérilisé, une{" "}
-            <strong>caution de 300 €</strong> par chèque est demandée. Cette
-            caution est restituée dès présentation de l’attestation de
-            stérilisation effectuée par un vétérinaire, et ce{" "}
+            <strong>caution de 300 €</strong> (par chèque) est demandée. Cette
+            caution est restituée dès présentation d’une attestation de
+            stérilisation délivrée par votre vétérinaire, et ce{" "}
             <strong>avant les 7 mois du chaton</strong>.
           </p>
         </section>
 
+        <hr className="border-gray-300" />
+
         {/* Cartes des frais */}
-        <section className="mb-6">
-          <h2 className="text-2xl font-semibold mb-4">Frais d’adoption</h2>
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">💰 Frais d’adoption</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {/* Carte 1 chat */}
-            <div className="p-6 bg-gray-50 border border-gray-200 rounded-2xl shadow hover:shadow-lg transition">
-              <h3 className="text-lg font-semibold mb-2">🐈 1 chat</h3>
-              <p className="text-2xl font-bold text-green-600">150 €</p>
+            <div className="p-6 bg-gray-50 border border-gray-200 rounded-2xl shadow hover:shadow-xl transition">
+              <h3 className="text-lg font-semibold mb-1">🐈 1 chat</h3>
+              <p className="text-3xl font-bold text-green-600">150 €</p>
               <p className="text-sm text-gray-500 mt-2">Chaton ou adulte</p>
             </div>
 
             {/* Carte 2 chats */}
-            <div className="p-6 bg-gray-50 border border-gray-200 rounded-2xl shadow hover:shadow-lg transition">
-              <h3 className="text-lg font-semibold mb-2">
+            <div className="p-6 bg-gray-50 border border-gray-200 rounded-2xl shadow hover:shadow-xl transition">
+              <h3 className="text-lg font-semibold mb-1">
                 🐈‍⬛ Double adoption 🐈
               </h3>
-              <p className="text-2xl font-bold text-green-600">250 €</p>
+              <p className="text-3xl font-bold text-green-600">250 €</p>
               <p className="text-sm text-gray-500 mt-2">
-                (si 2 chats adoptés ensemble)
+                (pour deux chats adoptés ensemble)
               </p>
             </div>
 
             {/* Carte Chat SOS */}
-            <div className="p-6 bg-gray-50 border border-gray-200 rounded-2xl shadow hover:shadow-lg transition">
-              <h3 className="text-lg font-semibold mb-2"> 🐾 Chats SOS</h3>
-              <p className="text-2xl font-bold text-green-600">90 €</p>
+            <div className="p-6 bg-gray-50 border border-gray-200 rounded-2xl shadow hover:shadow-xl transition">
+              <h3 className="text-lg font-semibold mb-1">💔 Chats SOS</h3>
+              <p className="text-3xl font-bold text-green-600">90 €</p>
               <p className="text-sm text-gray-500 mt-2">
-                (si pas de gros frais vétérinaires) en général de vieux chats
-                abandonnée ... ou issue de maltraitance
+                Chats âgés, abandonnés ou issus de maltraitance.
               </p>
             </div>
           </div>
         </section>
 
+        <hr className="border-gray-300" />
+
         {/* Pourquoi payer */}
-        <section className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">
-            Pourquoi payer ces frais ?
+        <section>
+          <h2 className="text-2xl font-semibold mb-3">
+            🎯 Pourquoi payer ces frais ?
           </h2>
-          <p>
-            Ces frais nous permettent de continuer notre mission : recueillir,
-            soigner et placer nos chats dans des foyers responsables. Ils
-            contribuent également à assurer la pérennité de notre association.
+          <p className="leading-relaxed">
+            Ces frais nous permettent de poursuivre notre mission : recueillir,
+            soigner et replacer nos chats dans des foyers aimants et
+            responsables. Ils contribuent également à la pérennité de
+            l’association et au bien-être futur d’autres animaux dans le besoin.
           </p>
         </section>
 
+        <hr className="border-gray-300" />
+
         {/* Modalités de paiement */}
         <section>
-          <h2 className="text-2xl font-semibold mb-2">
-            Comment régler les frais d’adoption ?
+          <h2 className="text-2xl font-semibold mb-3">
+            💳 Comment régler les frais d’adoption ?
           </h2>
           <p>
-            Les frais d’adoption sont à régler lors de la finalisation de
-            l’adoption. Nous acceptons :
+            Le paiement des frais se fait lors de la finalisation de l’adoption.
+            Nous acceptons :
           </p>
-          <ul className="list-disc pl-6 mt-2">
+          <ul className="list-disc pl-6 mt-2 space-y-1">
             <li>Espèces</li>
             <li>Chèques</li>
             <li>Virement bancaire</li>
           </ul>
-          <p className="mt-4">Pour plus d’informations, contactez-nous.</p>
+          <p className="mt-4 leading-relaxed">
+            Pour toute question ou demande particulière, n’hésitez pas à{" "}
+            <strong>nous contacter</strong>.
+          </p>
         </section>
       </div>
     </div>

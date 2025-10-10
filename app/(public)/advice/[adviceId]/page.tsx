@@ -32,11 +32,11 @@ interface AdviceData {
   age_of_cat: string;
 }
 
-interface AdviceIdPageProps {
-  params: { adviceId: string };
-}
+// interface AdviceIdPageProps {
+//   params: { adviceId: string };
+// }
 
-export default async function AdvicePage({
+export default function AdvicePage({
   params,
 }: {
   params: { adviceId: string };

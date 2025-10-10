@@ -36,7 +36,11 @@ interface AdviceIdPageProps {
   params: { adviceId: string };
 }
 
-export default function CatIdPage({ params }: AdviceIdPageProps) {
+export default async function AdvicePage({
+  params,
+}: {
+  params: { adviceId: string };
+}) {
   const { adviceId } = params;
   const [adviceData, setAdviceData] = useState<AdviceData | null>(null);
   const [loading, setLoading] = useState(true);

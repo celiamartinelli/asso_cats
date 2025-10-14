@@ -135,14 +135,24 @@ export default function FormToAddCat() {
       let videoUrls: string[] = [];
 
       if (formData.cat_url_image.length > 0) {
-        imageUrls = await Promise.all(
+        const urls = await Promise.all(
           formData.cat_url_image.map((file) => uploadImage(file))
+        );
+
+        // Filtrer les valeurs nulles ou undefined
+        imageUrls = urls.filter(
+          (url): url is string => url !== null && url !== undefined
         );
       }
 
-      if (formData.cat_url_video.length > 0) {
-        videoUrls = await Promise.all(
-          formData.cat_url_video.map((file) => uploadImage(file))
+      if (formData.cat_url_image.length > 0) {
+        const urls = await Promise.all(
+          formData.cat_url_image.map((file) => uploadImage(file))
+        );
+
+        // Filtrer les valeurs nulles ou undefined
+        imageUrls = urls.filter(
+          (url): url is string => url !== null && url !== undefined
         );
       }
 

@@ -3,10 +3,32 @@ import { useState } from "react";
 interface FormData {
   date_of_birth: string;
 }
+interface AdoptionFormData {
+  first_name: string;
+  last_name: string;
+  address: string;
+  postal_code: string;
+  city_name: string;
+  email: string;
+  phone_number: string;
+  date_of_birth: string;
+  occupation: string;
+  type_of_housing: string;
+  living_area: string;
+  have_animals: boolean;
+  wich_ones: string;
+  allergies_description: string;
+  sterelization_opinion: string;
+  house_description: string;
+  why_adopt: string;
+  have_you_garden: string[];
+  cat_id: string;
+}
 
 interface DateOfBirthInputProps {
-  formData: FormData;
-  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  formData: AdoptionFormData;
+  setFormData: React.Dispatch<React.SetStateAction<AdoptionFormData>>;
+  className?: string;
 }
 
 const DateOfBirthInput: React.FC<DateOfBirthInputProps> = ({

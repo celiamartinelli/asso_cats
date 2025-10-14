@@ -1047,7 +1047,7 @@ export const getVolunteerForm = async () => {
 
 // Modifie le statut du switch pour marquer la demande de volontaire comme lue ou non lue //
 export const updateVolunteerRequestReadStatus = async (
-  formId: number,
+  formId: string,
   newReadStatus: boolean
 ) => {
   try {
@@ -1088,7 +1088,7 @@ export const getMaterialDonationForm = async () => {
 
 // Modifie le statut du switch pour marquer la demande de don de matériel comme lue ou non lue //
 export const updateMaterielDonationRequestReadStatus = async (
-  formId: number,
+  formId: string,
   newReadStatus: boolean
 ) => {
   try {
@@ -1129,7 +1129,7 @@ export const getFosterFamilyForm = async () => {
 
 // Modifie le statut du switch pour marquer la demande de famille d'accueil comme lue ou non lue //
 export const updateFosterFamilyRequestReadStatus = async (
-  formId: number,
+  formId: string,
   newReadStatus: boolean
 ) => {
   try {
@@ -1170,7 +1170,7 @@ export const getContactForm = async () => {
 
 // Modifie le statut du switch pour marquer la demande de famille d'accueil comme lue ou non lue //
 export const updateContactRequestReadStatus = async (
-  formId: number,
+  formId: string,
   newReadStatus: boolean
 ) => {
   try {

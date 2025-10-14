@@ -10,25 +10,34 @@ import { cn } from "@/lib/utils";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { SlidersHorizontal } from "lucide-react";
 
-// const sexes = ["Femelle", "Mâle"];
-// const ages = ["Chatons", "Jeune chat", "Adulte", "Senior"];
-// const colors = [
-//   "#000000",
-//   "#FFFFFF",
-//   "#E5A823",
-//   "#C4A484",
-//   "#D1B280",
-//   "#FFFFE0",
-//   "#5C4033",
-// ];
-// const motifs = ["Tigrés", "Bi-Color", "Uni", "Tricolor/ Ecaille de tortue"];
+// Typages stricts
+type SexKey = "Femelle" | "Mâle";
+type AgeKey = "Chatons" | "Jeune chat" | "Adulte" | "Senior" | "Tous les âges";
+type ColorKey =
+  | "Noir"
+  | "Blanc"
+  | "Bleu/Gris"
+  | "Cannelle"
+  | "Chocolat"
+  | "Crème"
+  | "Sable"
+  | "Roux";
+type MotifKey =
+  | "Tigrés"
+  | "Bi-Color"
+  | "Uni"
+  | "Ecaille de tortue"
+  | "Tricolor"
+  | "Tigré tacheté"
+  | "Tous les motifs";
 
-const sexMapping = {
+// Mappings typés
+const sexMapping: Record<SexKey, string> = {
   Femelle: "female",
   Mâle: "male",
 };
 
-const ageMapping = {
+const ageMapping: Record<AgeKey, string> = {
   Chatons: "chatons",
   "Jeune chat": "jeune-chat",
   Adulte: "adulte",
@@ -36,7 +45,7 @@ const ageMapping = {
   "Tous les âges": "tous-ages",
 };
 
-const colorMapping = {
+const colorMapping: Record<ColorKey, string> = {
   Noir: "#000000",
   Blanc: "#FFFFFF",
   "Bleu/Gris": "#666670",
@@ -46,7 +55,8 @@ const colorMapping = {
   Sable: "#D0B280",
   Roux: "#e29024",
 };
-const colorHexToEnum = {
+
+const colorHexToEnum: Record<string, string> = {
   "#000000": "black",
   "#FFFFFF": "white",
   "#666670": "blue-grey",
@@ -57,7 +67,7 @@ const colorHexToEnum = {
   "#e29024": "red",
 };
 
-const motifMapping = {
+const motifMapping: Record<MotifKey, string> = {
   Tigrés: "striped",
   "Bi-Color": "bi-color",
   Uni: "solid",
@@ -67,24 +77,44 @@ const motifMapping = {
   "Tous les motifs": "all-patterns",
 };
 
-export default function FilterModalCat({
-  onApply,
-}: {
-  onApply: (filters: any) => void;
-}) {
-  const [selectedSex, setSelectedSex] = useState<string | null>(null); // Utilise directement les valeurs mappées
-  const [selectedAge, setSelectedAge] = useState<string | null>(null);
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
-  const [selectedMotif, setSelectedMotif] = useState<string | null>(null);
+interface FilterModalCatProps {
+  onApply: (filters: {
+    sex_cat: string | null;
+    age_of_cat: string | null;
+    coat_color: string | null;
+    pattern: string | null;
+  }) => void;
+}
 
+export default function FilterModalCat({ onApply }: FilterModalCatProps) {
+  const [selectedSex, setSelectedSex] = useState<SexKey | null>(null);
+  const [selectedAge, setSelectedAge] = useState<AgeKey | null>(null);
+  const [selectedColor, setSelectedColor] = useState<ColorKey | null>(null);
+  const [selectedMotif, setSelectedMotif] = useState<MotifKey | null>(null);
   const [open, setOpen] = useState(false);
 
   const handleApply = () => {
     onApply({
-      sex_cat: selectedSex,
+      sex_cat: selectedSex ? sexMapping[selectedSex] : null,
       age_of_cat: selectedAge ? ageMapping[selectedAge] : null,
-      coat_color: selectedColor ? colorHexToEnum[selectedColor] : null,
+      coat_color: selectedColor
+        ? colorHexToEnum[colorMapping[selectedColor]]
+        : null,
       pattern: selectedMotif ? motifMapping[selectedMotif] : null,
+    });
+    setOpen(false);
+  };
+
+  const handleReset = () => {
+    setSelectedSex(null);
+    setSelectedAge(null);
+    setSelectedColor(null);
+    setSelectedMotif(null);
+    onApply({
+      sex_cat: null,
+      age_of_cat: null,
+      coat_color: null,
+      pattern: null,
     });
     setOpen(false);
   };
@@ -93,7 +123,6 @@ export default function FilterModalCat({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="ml-4">
-          {" "}
           <SlidersHorizontal />
         </Button>
       </DialogTrigger>
@@ -101,7 +130,7 @@ export default function FilterModalCat({
         <DialogHeader>
           <DialogTitle>Filtres</DialogTitle>
           <DialogDescription>
-            Selectionner les critères qui vous correspondent
+            Sélectionner les critères qui vous correspondent
           </DialogDescription>
         </DialogHeader>
 
@@ -109,21 +138,20 @@ export default function FilterModalCat({
         <div className="mb-4">
           <p className="font-semibold mb-2">Sexe:</p>
           <div className="flex gap-2">
-            {Object.keys(sexMapping).map((sex) => (
-              <Button
-                key={sex}
-                variant={
-                  selectedSex === sexMapping[sex] ? "default" : "outline"
-                }
-                onClick={() =>
-                  setSelectedSex(
-                    selectedSex === sexMapping[sex] ? null : sexMapping[sex]
-                  )
-                }
-              >
-                {sex}
-              </Button>
-            ))}
+            {Object.keys(sexMapping).map((sex) => {
+              const key = sex as SexKey;
+              return (
+                <Button
+                  key={key}
+                  variant={selectedSex === key ? "default" : "outline"}
+                  onClick={() =>
+                    setSelectedSex(selectedSex === key ? null : key)
+                  }
+                >
+                  {key}
+                </Button>
+              );
+            })}
           </div>
         </div>
 
@@ -131,15 +159,20 @@ export default function FilterModalCat({
         <div className="mb-4">
           <p className="font-semibold mb-2">Âge:</p>
           <div className="flex gap-2 flex-wrap">
-            {Object.keys(ageMapping).map((age) => (
-              <Button
-                key={age}
-                variant={selectedAge === age ? "default" : "outline"}
-                onClick={() => setSelectedAge(age === selectedAge ? null : age)}
-              >
-                {age}
-              </Button>
-            ))}
+            {Object.keys(ageMapping).map((age) => {
+              const key = age as AgeKey;
+              return (
+                <Button
+                  key={key}
+                  variant={selectedAge === key ? "default" : "outline"}
+                  onClick={() =>
+                    setSelectedAge(selectedAge === key ? null : key)
+                  }
+                >
+                  {key}
+                </Button>
+              );
+            })}
           </div>
         </div>
 
@@ -147,21 +180,24 @@ export default function FilterModalCat({
         <div className="mb-4">
           <p className="font-semibold mb-2">Robe:</p>
           <div className="flex gap-2">
-            {Object.entries(colorMapping).map(([label, color]) => (
-              <button
-                type="button"
-                key={color}
-                className={cn(
-                  "w-6 h-6 rounded-full border-2",
-                  selectedColor === color ? "border-black" : "border-gray-300"
-                )}
-                style={{ backgroundColor: color }}
-                onClick={() =>
-                  setSelectedColor(selectedColor === color ? null : color)
-                }
-                title={label}
-              ></button>
-            ))}
+            {Object.entries(colorMapping).map(([label, color]) => {
+              const key = label as ColorKey;
+              return (
+                <button
+                  type="button"
+                  key={color}
+                  className={cn(
+                    "w-6 h-6 rounded-full border-2",
+                    selectedColor === key ? "border-black" : "border-gray-300"
+                  )}
+                  style={{ backgroundColor: color }}
+                  onClick={() =>
+                    setSelectedColor(selectedColor === key ? null : key)
+                  }
+                  title={label}
+                ></button>
+              );
+            })}
           </div>
         </div>
 
@@ -169,34 +205,30 @@ export default function FilterModalCat({
         <div className="mb-4">
           <p className="font-semibold mb-2">Motifs:</p>
           <div className="flex gap-2 flex-wrap">
-            {Object.keys(motifMapping).map((motif) => (
-              <Button
-                key={motif}
-                variant={selectedMotif === motif ? "default" : "outline"}
-                onClick={() =>
-                  setSelectedMotif(motif === selectedMotif ? null : motif)
-                }
-              >
-                {motif}
-              </Button>
-            ))}
+            {Object.keys(motifMapping).map((motif) => {
+              const key = motif as MotifKey;
+              return (
+                <Button
+                  key={key}
+                  variant={selectedMotif === key ? "default" : "outline"}
+                  onClick={() =>
+                    setSelectedMotif(selectedMotif === key ? null : key)
+                  }
+                >
+                  {key}
+                </Button>
+              );
+            })}
           </div>
         </div>
+
         <Button
           variant="ghost"
           className="w-full mt-2 text-sm text-muted-foreground"
-          onClick={() => {
-            setSelectedSex(null);
-            setSelectedAge(null);
-            setSelectedColor(null);
-            setSelectedMotif(null);
-            onApply({});
-            setOpen(false);
-          }}
+          onClick={handleReset}
         >
           Réinitialiser les filtres
         </Button>
-
         <Button onClick={handleApply} className="w-full mt-4">
           Enregistrer
         </Button>

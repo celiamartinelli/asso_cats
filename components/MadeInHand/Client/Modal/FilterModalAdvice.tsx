@@ -6,11 +6,29 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { SlidersHorizontal } from "lucide-react";
 
-const subjectMapping = {
+// Typages stricts des clés
+type SubjectKey =
+  | "Maltraitance"
+  | "Adoption"
+  | "Chats errants"
+  | "Collecte de dons"
+  | "Informations"
+  | "Autres demandes";
+
+type AgeKey = "Chatons" | "Jeune chat" | "Adulte" | "Senior" | "Tous les âges";
+
+type CategoryKey =
+  | "Santé et Sécurité"
+  | "Bien-être et comportement"
+  | "Activites et enrichissement"
+  | "Education et Sensibilisation"
+  | "Guide Pratique";
+
+// Objets de mapping typés
+const subjectMapping: Record<SubjectKey, string> = {
   Maltraitance: "maltraitance",
   Adoption: "adoption",
   "Chats errants": "chats-errants",
@@ -19,7 +37,7 @@ const subjectMapping = {
   "Autres demandes": "autres-demande",
 };
 
-const ageMapping = {
+const ageMapping: Record<AgeKey, string> = {
   Chatons: "chatons",
   "Jeune chat": "jeune-chat",
   Adulte: "adulte",
@@ -27,7 +45,7 @@ const ageMapping = {
   "Tous les âges": "tous-ages",
 };
 
-const categoryAdviceMapping = {
+const categoryAdviceMapping: Record<CategoryKey, string> = {
   "Santé et Sécurité": "sante_et_securite",
   "Bien-être et comportement": "bien-etre_et_comportement",
   "Activites et enrichissement": "activites_et_enrichissement",
@@ -35,20 +53,29 @@ const categoryAdviceMapping = {
   "Guide Pratique": "guide_pratique",
 };
 
-export default function FilterModalAdvice({
-  onApply,
-}: {
-  onApply: (filters: any) => void;
-}) {
-  const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
-  const [selectedAge, setSelectedAge] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+// Props du composant
+interface FilterModalAdviceProps {
+  onApply: (filters: {
+    subject: string | null;
+    age_of_cat: string | null;
+    category_advice: string | null;
+  }) => void;
+}
+
+export default function FilterModalAdvice({ onApply }: FilterModalAdviceProps) {
+  const [selectedSubject, setSelectedSubject] = useState<SubjectKey | null>(
+    null
+  );
+  const [selectedAge, setSelectedAge] = useState<AgeKey | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<CategoryKey | null>(
+    null
+  );
 
   const [open, setOpen] = useState(false);
 
   const handleApply = () => {
     onApply({
-      subject: selectedSubject || null,
+      subject: selectedSubject ? subjectMapping[selectedSubject] : null,
       age_of_cat: selectedAge ? ageMapping[selectedAge] : null,
       category_advice: selectedCategory
         ? categoryAdviceMapping[selectedCategory]
@@ -57,95 +84,97 @@ export default function FilterModalAdvice({
     setOpen(false);
   };
 
+  const handleReset = () => {
+    setSelectedSubject(null);
+    setSelectedAge(null);
+    setSelectedCategory(null);
+    onApply({ subject: null, age_of_cat: null, category_advice: null });
+    setOpen(false);
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="ml-4">
-          {" "}
-          <SlidersHorizontal />{" "}
+          <SlidersHorizontal />
         </Button>
       </DialogTrigger>
+
       <DialogContent className="max-w-md p-6">
         <DialogHeader>
           <DialogTitle>Filtres</DialogTitle>
           <DialogDescription>
-            Selectionner les critères qui vous correspondent
+            Sélectionnez les critères qui vous correspondent
           </DialogDescription>
         </DialogHeader>
 
-        {/* Subject */}
+        {/* Sujet */}
         <div className="mb-4">
-          <p className="font-semibold mb-2">Sujet:</p>
+          <p className="font-semibold mb-2">Sujet :</p>
           <div className="flex gap-2 flex-wrap">
-            {Object.keys(subjectMapping).map((subject) => (
-              <Button
-                key={subject}
-                variant={
-                  selectedSubject === subjectMapping[subject]
-                    ? "default"
-                    : "outline"
-                }
-                onClick={() =>
-                  setSelectedSubject(
-                    selectedSubject === subjectMapping[subject]
-                      ? null
-                      : subjectMapping[subject]
-                  )
-                }
-              >
-                {subject}
-              </Button>
-            ))}
+            {Object.keys(subjectMapping).map((subject) => {
+              const key = subject as SubjectKey;
+              return (
+                <Button
+                  key={key}
+                  variant={selectedSubject === key ? "default" : "outline"}
+                  onClick={() =>
+                    setSelectedSubject(selectedSubject === key ? null : key)
+                  }
+                >
+                  {key}
+                </Button>
+              );
+            })}
           </div>
         </div>
 
         {/* Âge */}
         <div className="mb-4">
-          <p className="font-semibold mb-2">Âge:</p>
+          <p className="font-semibold mb-2">Âge :</p>
           <div className="flex gap-2 flex-wrap">
-            {Object.keys(ageMapping).map((age) => (
-              <Button
-                key={age}
-                variant={selectedAge === age ? "default" : "outline"}
-                onClick={() => setSelectedAge(age === selectedAge ? null : age)}
-              >
-                {age}
-              </Button>
-            ))}
+            {Object.keys(ageMapping).map((age) => {
+              const key = age as AgeKey;
+              return (
+                <Button
+                  key={key}
+                  variant={selectedAge === key ? "default" : "outline"}
+                  onClick={() =>
+                    setSelectedAge(selectedAge === key ? null : key)
+                  }
+                >
+                  {key}
+                </Button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Category */}
+        {/* Catégorie */}
         <div className="mb-4">
           <p className="font-semibold mb-2">Catégorie :</p>
           <div className="flex gap-2 flex-wrap">
-            {Object.keys(categoryAdviceMapping).map((catagory) => (
-              <Button
-                key={catagory}
-                variant={selectedCategory === catagory ? "default" : "outline"}
-                onClick={() =>
-                  setSelectedCategory(
-                    catagory === selectedCategory ? null : catagory
-                  )
-                }
-              >
-                {catagory}
-              </Button>
-            ))}
+            {Object.keys(categoryAdviceMapping).map((cat) => {
+              const key = cat as CategoryKey;
+              return (
+                <Button
+                  key={key}
+                  variant={selectedCategory === key ? "default" : "outline"}
+                  onClick={() =>
+                    setSelectedCategory(selectedCategory === key ? null : key)
+                  }
+                >
+                  {key}
+                </Button>
+              );
+            })}
           </div>
         </div>
 
         <Button
           variant="ghost"
           className="w-full mt-2 text-sm text-muted-foreground"
-          onClick={() => {
-            setSelectedSubject(null);
-            setSelectedAge(null);
-            setSelectedCategory(null);
-
-            onApply({});
-            setOpen(false);
-          }}
+          onClick={handleReset}
         >
           Réinitialiser les filtres
         </Button>

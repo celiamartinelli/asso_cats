@@ -58,8 +58,8 @@ const VolunteerContent: React.FC<VolunteerContentProps> = ({ volunteer }) => {
         </h3>
       </div>
       <ul>
-        {volunteer.volunteer_form_types.map((type, index) => (
-          <li key={index}>{type.volunteer_types?.title} </li>
+        {volunteer.volunteer_types.map((type, index) => (
+          <li key={index}>{type.title} </li>
         ))}
       </ul>
     </div>

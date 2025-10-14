@@ -23,6 +23,27 @@ interface FormToAdoptionProps {
   catId: string;
   onFormSubmit: () => void;
 }
+interface AdoptionFormData {
+  first_name: string;
+  last_name: string;
+  address: string;
+  postal_code: string;
+  city_name: string;
+  email: string;
+  phone_number: string;
+  date_of_birth: string;
+  occupation: string;
+  type_of_housing: string;
+  living_area: string;
+  have_animals: boolean;
+  wich_ones: string;
+  allergies_description: string;
+  sterelization_opinion: string;
+  house_description: string;
+  why_adopt: string;
+  have_you_garden: string[];
+  cat_id: string;
+}
 
 const items = [
   {
@@ -72,7 +93,7 @@ const FormToAdoption: React.FC<FormToAdoptionProps> = ({
     },
   });
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<AdoptionFormData>({
     first_name: "",
     last_name: "",
     address: "",
@@ -90,7 +111,7 @@ const FormToAdoption: React.FC<FormToAdoptionProps> = ({
     sterelization_opinion: "",
     house_description: "",
     why_adopt: "",
-    have_you_garden: "",
+    have_you_garden: [],
     cat_id: catId,
   });
 
@@ -130,7 +151,11 @@ const FormToAdoption: React.FC<FormToAdoptionProps> = ({
     }
     try {
       // console.log("Payload envoyé :", formData);
-      const response = await submitAdoptionForm({ ...formData, cat_id: catId });
+      const response = await submitAdoptionForm({
+        ...formData,
+        have_you_garden: formData.have_you_garden.join(","),
+        cat_id: catId,
+      });
       // console.log("Form submitted successfully:", response);
       onFormSubmit();
       setFormData({
@@ -151,7 +176,7 @@ const FormToAdoption: React.FC<FormToAdoptionProps> = ({
         sterelization_opinion: "",
         house_description: "",
         why_adopt: "",
-        have_you_garden: "",
+        have_you_garden: [],
         cat_id: catId,
       });
     } catch (error) {

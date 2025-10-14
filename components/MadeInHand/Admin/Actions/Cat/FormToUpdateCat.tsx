@@ -42,9 +42,11 @@ interface Cat {
 export default function FormToUpdateCat({
   initialData,
   onBack,
+  onUpdate,
 }: {
   initialData: Cat;
   onBack: () => void;
+  onUpdate: (data: Cat) => void;
 }) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);

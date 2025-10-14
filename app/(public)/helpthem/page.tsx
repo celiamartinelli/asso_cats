@@ -116,7 +116,7 @@ export default function HelpThem() {
             <CardFooter>
               <Button
                 onClick={() => {
-                  setSelectedForm(item.id);
+                  setSelectedForm(item.id as HelpFormKey);
                   setTimeout(() => {
                     if (formRef.current) {
                       const yOffset = -30;

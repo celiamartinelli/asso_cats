@@ -1,3 +1,15 @@
+import React from "react";
+
+interface InputProps {
+  htmlFor?: string;
+  textLabel?: string;
+  type?: string;
+  id?: string;
+  name?: string;
+  value?: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
 export default function Input({
   htmlFor = "",
   textLabel = "",
@@ -6,7 +18,7 @@ export default function Input({
   name = "",
   value = "",
   onChange,
-}) {
+}: InputProps) {
   return (
     <div className="flex flex-col my-4">
       <label className="font-medium mb-1" htmlFor={htmlFor}>

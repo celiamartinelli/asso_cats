@@ -1,12 +1,16 @@
-// app/(public)/conseil/[adviceId]/page.tsx
+"use client";
+
 import AdvicePageClient from "./AdvicePageClient";
+import { useParams } from "next/navigation";
 
-interface AdvicePageProps {
-  params: {
-    adviceId: string;
-  };
-}
+export default function AdvicePageWrapper() {
+  const params = useParams();
+  let adviceId = params?.adviceId;
+  if (Array.isArray(adviceId)) {
+    adviceId = adviceId[0];
+  }
 
-export default function AdvicePage({ params }: AdvicePageProps) {
-  return <AdvicePageClient adviceId={params.adviceId} />;
+  if (!adviceId) return <p>Conseil introuvable</p>;
+
+  return <AdvicePageClient adviceId={adviceId} />;
 }

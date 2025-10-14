@@ -74,7 +74,7 @@ export default function AdvicePageClient({ adviceId }: { adviceId: string }) {
         </button>
       </div>
 
-      <div className="flex flex-col w-2/3 md:flex-row">
+      <div className="flex flex-col w-2/3 md:flex-row mb-10">
         <div className="flex flex-col items-center justify-center">
           <Image
             className="rounded-lg mb-10"
@@ -97,6 +97,11 @@ export default function AdvicePageClient({ adviceId }: { adviceId: string }) {
               Âge: {AGE_LABELS[adviceData.age_of_cat] || adviceData.age_of_cat}
             </h3>
           </div>
+          {/* <div className="mb-10">
+            <h3>
+              Utile: {adviceData.useful ? "Oui, ce conseil est utile" : "Non"}
+            </h3>
+          </div> */}
           <div
             dangerouslySetInnerHTML={{ __html: adviceData.body_of_advice }}
           />

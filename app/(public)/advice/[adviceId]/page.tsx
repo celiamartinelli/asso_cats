@@ -1,10 +1,12 @@
 // app/(public)/conseil/[adviceId]/page.tsx
-import AdvicePageClient from "@/components/MadeInHand/Client/Page/AdvicePageClient";
+import AdvicePageClient from "./AdvicePageClient";
 
-export default function AdvicePage({
-  params,
-}: {
-  params: Record<string, string>;
-}) {
+interface AdvicePageProps {
+  params: {
+    adviceId: string;
+  };
+}
+
+export default function AdvicePage({ params }: AdvicePageProps) {
   return <AdvicePageClient adviceId={params.adviceId} />;
 }

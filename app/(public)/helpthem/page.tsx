@@ -18,16 +18,25 @@ import FormToVolunteer from "@/components/MadeInHand/Client/Form/FormToVolunteer
 import Page from "../adoption/page";
 import PageHeader from "@/components/MadeInHand/PageHeader";
 
+type HelpFormKey =
+  | "don-materiel"
+  | "famille-accueil"
+  | "don-financier"
+  | "benevole";
+
 export default function HelpThem() {
   const searchParams = useSearchParams();
-  const formIdFromUrl = searchParams.get("form");
-  const [selectedForm, setSelectedForm] = useState<string | null>(null);
+  const formIdFromUrl = searchParams.get("form") as HelpFormKey | null;
+
+  const [selectedForm, setSelectedForm] = useState<HelpFormKey | null>(
+    formIdFromUrl
+  );
 
   const formRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (formIdFromUrl) {
-      setSelectedForm(formIdFromUrl); // Sélection automatique du formulaire
+      setSelectedForm(formIdFromUrl as HelpFormKey); // Sélection automatique du formulaire
 
       // Attendre que le formulaire soit affiché, puis scroller avec un offset
       setTimeout(() => {
@@ -130,7 +139,7 @@ export default function HelpThem() {
       <div className="mt-36 scroll-mt-36" ref={formRef}>
         {selectedForm ? (
           <div className="flex flex-col items-center">
-            <PageHeader pageKey={selectedForm as keyof typeof headers} />
+            <PageHeader pageKey={selectedForm} />
             {selectedForm === "don-materiel" && <FormMaterielDonnation />}
             {selectedForm === "famille-accueil" && <FormBecomeFosterFamily />}
             {selectedForm === "don-financier" && <FormFinancialDonation />}
@@ -138,7 +147,7 @@ export default function HelpThem() {
           </div>
         ) : (
           <div className="mb-8">
-            <h2>Selectionner un action</h2>
+            <h2>Selectionner une action</h2>
           </div>
         )}
       </div>

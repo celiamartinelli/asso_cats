@@ -4,7 +4,7 @@ import AdvicePageClient from "@/components/MadeInHand/Client/Page/AdvicePageClie
 export default function AdvicePage({
   params,
 }: {
-  params: { adviceId: string };
+  params: Record<string, string>;
 }) {
   return <AdvicePageClient adviceId={params.adviceId} />;
 }

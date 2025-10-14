@@ -440,7 +440,14 @@ export default function CatIdPage() {
                   </DialogContent>
                 </Dialog>
 
-                <FormToAdoption catId={catId} onFormSubmit={handleFormSubmit} />
+                {catId ? (
+                  <FormToAdoption
+                    catId={Array.isArray(catId) ? catId[0] : catId}
+                    onFormSubmit={handleFormSubmit}
+                  />
+                ) : (
+                  <p>Chat introuvable</p>
+                )}
               </div>
             )}
           </div>

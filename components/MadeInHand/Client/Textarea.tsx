@@ -1,3 +1,15 @@
+import React from "react";
+
+type TextareaProps = {
+  htmlFor?: string;
+  textLabel?: string;
+  type?: string;
+  id?: string;
+  name?: string;
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
+};
+
 export default function Textarea({
   htmlFor = "",
   textLabel = "",
@@ -6,7 +18,7 @@ export default function Textarea({
   name = "",
   value = "",
   onChange,
-}) {
+}: TextareaProps) {
   return (
     <div className="flex flex-col my-4">
       <label className="font-medium mb-1" htmlFor={htmlFor}>

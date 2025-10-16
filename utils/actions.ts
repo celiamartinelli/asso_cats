@@ -394,7 +394,7 @@ export const addContactForm = async (formData: any) => {
 
     // console.log("✅ Formulaire de contact enregistré avec succès :", data);
     // return "Formulaire de contact enregistré avec succès";
-    return await submitForm("contact", formattedData);
+    return await submitForm("contact");
   } catch (error) {
     console.error("❌ Erreur d'insertion dans la base de données :", error);
     throw error;

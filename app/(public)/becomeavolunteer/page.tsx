@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import BecomeAVolunteerModal from "@/components/MadeInHand/Client/Modal/BecomeAVolunteerModal";
 import PageHeader from "@/components/MadeInHand/PageHeader";
+import Player from "lottie-react";
+import loader from "../../../public/lottie/loader.json";
 
 // Type TS pour typer proprement les données
 type VolunteerType = {
@@ -71,7 +73,7 @@ export default function Page() {
         </Button>
         <h2 className="text-2xl font-semibold">🌟 Les missions possibles</h2>
 
-        {volunteerTypes.map((type) => (
+        {/* {volunteerTypes.map((type) => (
           <Card key={type.types_id} className="">
             <CardContent className="pt-6 space-y-2 bg-white dark:bg-zinc-900">
               <h3 className="text-xl font-medium">
@@ -82,7 +84,37 @@ export default function Page() {
               <p>{type.description}</p>
             </CardContent>
           </Card>
-        ))}
+        ))} */}
+        <div className="space-y-4">
+          {/* Loader si volunteerTypes n'est pas encore chargé */}
+          {!volunteerTypes ? (
+            <div className="flex justify-center items-center py-10">
+              <Player
+                autoplay
+                loop
+                animationData={loader}
+                style={{ height: "300px", width: "300px" }}
+              />
+            </div>
+          ) : volunteerTypes.length === 0 ? (
+            <p className="text-center text-gray-500">
+              Aucun type de bénévole disponible.
+            </p>
+          ) : (
+            volunteerTypes.map((type) => (
+              <Card key={type.types_id}>
+                <CardContent className="pt-6 space-y-2 bg-white dark:bg-zinc-900">
+                  <h3 className="text-xl font-medium">
+                    {type.icon ? `${type.icon} ` : ""}
+                    {type.title}
+                  </h3>
+                  <h6 className="text-zinc-500">{type.subtitle}</h6>
+                  <p>{type.description}</p>
+                </CardContent>
+              </Card>
+            ))
+          )}
+        </div>
       </div>
 
       <div className="text-center space-y-4">

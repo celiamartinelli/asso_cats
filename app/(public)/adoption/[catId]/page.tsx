@@ -36,6 +36,7 @@ import {
   CATEGORY_CAT_LABELS,
 } from "@/utils/enumLabels";
 import { Syringe } from "lucide-react";
+import ColorLabel from "@/utils/ColorLabel";
 
 interface Params {
   catId: string;
@@ -280,9 +281,37 @@ export default function CatIdPage() {
                 🎨 Apparence & Catégorie
               </h3>
               <ul className="space-y-2 md:ml-4 list-inside list-none text-sm md:text-lg">
+                {/* <li>
+                  🎨 <strong>Couleur :</strong>{" "}
+                  {Array.isArray(catData.coat_color) ? (
+                    catData.coat_color.map((color) => (
+                      <span
+                        key={color}
+                        className="inline-flex items-center mr-2"
+                      >
+                        {/* Vignette */}
+                {/* <span
+                          className="w-4 h-4 rounded-full border border-gray-300 mr-1"
+                          style={{ backgroundColor: color }}
+                        ></span>
+                        {/* Nom de la couleur */}
+                {/* {COAT_COLOR_LABELS[color] || color}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="inline-flex items-center">
+                      <span
+                        className="w-4 h-4 rounded-full border border-gray-300 mr-1"
+                        style={{ backgroundColor: catData.coat_color }}
+                      ></span>
+                      {COAT_COLOR_LABELS[catData.coat_color] ||
+                        catData.coat_color}
+                    </span> */}
+                {/* )} */}
+                {/* </li>  */}
                 <li>
                   🎨 <strong>Couleur :</strong>{" "}
-                  {COAT_COLOR_LABELS[catData.coat_color] || catData.coat_color}
+                  <ColorLabel colors={catData.coat_color} />
                 </li>
                 <li>
                   🐾 <strong>Motif :</strong>{" "}

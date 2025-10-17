@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -94,6 +94,12 @@ export default function FilterModalCat({ onApply }: FilterModalCatProps) {
   const [open, setOpen] = useState(false);
 
   const handleApply = () => {
+    console.log(
+      "🎨 Couleur filtrée envoyée :",
+      selectedColor,
+      "→",
+      selectedColor ? colorHexToEnum[colorMapping[selectedColor]] : null
+    );
     onApply({
       sex_cat: selectedSex ? sexMapping[selectedSex] : null,
       age_of_cat: selectedAge ? ageMapping[selectedAge] : null,
@@ -110,6 +116,7 @@ export default function FilterModalCat({ onApply }: FilterModalCatProps) {
     setSelectedAge(null);
     setSelectedColor(null);
     setSelectedMotif(null);
+
     onApply({
       sex_cat: null,
       age_of_cat: null,
@@ -117,6 +124,16 @@ export default function FilterModalCat({ onApply }: FilterModalCatProps) {
       pattern: null,
     });
     setOpen(false);
+  };
+
+  const handleSelectColor = (key: ColorKey) => {
+    const newColor = selectedColor === key ? null : key;
+    setSelectedColor(newColor);
+    console.log(
+      `🎨 Couleur sélectionnée : ${newColor || "aucune"} (${
+        newColor ? colorMapping[newColor] : "-"
+      })`
+    );
   };
 
   return (

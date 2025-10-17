@@ -33,21 +33,45 @@ export default function Page() {
     getData();
   }, []);
 
-  useEffect(() => {
-    if (cat) {
-      console.log("Filtres appliqués :", filters);
-      const newFiltered = cat.filter((c) => {
-        return (
-          (!filters.sex_cat || c.sex_cat === filters.sex_cat) &&
-          (!filters.age_of_cat || c.age_of_cat === filters.age_of_cat) &&
-          (!filters.coat_color || c.coat_color === filters.coat_color) &&
-          (!filters.pattern || c.pattern === filters.pattern)
-        );
-      });
-      console.log("Résultats filtrés :", newFiltered);
+  // useEffect(() => {
+  //   if (cat) {
+  //     console.log("Filtres appliqués :", filters);
+  //     const newFiltered = cat.filter((c) => {
+  //       return (
+  //         (!filters.sex_cat || c.sex_cat === filters.sex_cat) &&
+  //         (!filters.age_of_cat || c.age_of_cat === filters.age_of_cat) &&
+  //         (!filters.coat_color || c.coat_color === filters.coat_color) &&
+  //         (!filters.pattern || c.pattern === filters.pattern)
+  //       );
+  //     });
+  //     console.log("Résultats filtrés :", newFiltered);
 
-      setFilteredCats(newFiltered);
-    }
+  //     setFilteredCats(newFiltered);
+  //   }
+  // }, [filters, cat]);
+
+  useEffect(() => {
+    if (!cat) return;
+
+    console.log("🎛️ Filtres appliqués :", filters);
+
+    const newFiltered = cat.filter((c) => {
+      const matchesSex = !filters.sex_cat || c.sex_cat === filters.sex_cat;
+      const matchesAge =
+        !filters.age_of_cat || c.age_of_cat === filters.age_of_cat;
+      const matchesPattern = !filters.pattern || c.pattern === filters.pattern;
+
+      // ✅ Vérifie si la couleur sélectionnée est dans le tableau de couleurs du chat
+      const matchesColor =
+        !filters.coat_color ||
+        (Array.isArray(c.coat_color) &&
+          c.coat_color.includes(filters.coat_color));
+
+      return matchesSex && matchesAge && matchesColor && matchesPattern;
+    });
+
+    console.log("Résultats filtrés :", newFiltered);
+    setFilteredCats(newFiltered);
   }, [filters, cat]);
 
   return (

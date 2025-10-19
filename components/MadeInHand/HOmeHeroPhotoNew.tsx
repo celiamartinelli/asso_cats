@@ -14,12 +14,14 @@ export default function HOmeHeroPhotoNew() {
   "
     >
       <div className="bg-black/60 px-4 py-2 rounded-lg dark:bg-white/60 my-5 md:my-0">
-        <h2 className="text-xl md:text-6xl font-thasadith tracking-wide font-bold drop-shadow-xl">
+        <h2 className="text-2xl md:text-6xl font-thasadith tracking-wide font-bold drop-shadow-xl">
           L'École des chats du pays Houdanais
         </h2>
       </div>
       <div className="bg-black/60 px-4 py-2 rounded-lg dark:bg-white/60 my-14">
-        <h3 className="text-3xl  font-dosis">Association à but non lucratif</h3>
+        <h3 className="text-2xl md:text-3xl  font-dosis">
+          Association à but non lucratif
+        </h3>
       </div>
       <div className="bg-black/60 px-4 py-2 rounded-lg dark:bg-white/60">
         <h4 className="font-bold text-4xl md:text-6xl my-4 space-y-2.5 ">

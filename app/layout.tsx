@@ -8,6 +8,7 @@ import Footer from "@/components/MadeInHand/Footer";
 import Header from "@/components/MadeInHand/Header";
 import GoogleAnalytics from "@/components/MadeInHand/GoogleAnalytics";
 import AnalyticsListener from "@/components/MadeInHand/AnalyticsListener";
+import { Suspense } from "react";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -68,7 +69,9 @@ export default function RootLayout({
           </main>
           <Footer />
         </ThemeProvider>
-        <AnalyticsListener />
+        <Suspense fallback={null}>
+          <AnalyticsListener />
+        </Suspense>
         <GoogleAnalytics />
       </body>
     </html>

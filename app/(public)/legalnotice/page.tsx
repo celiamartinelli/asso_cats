@@ -28,7 +28,7 @@ export default function LegalNotice() {
             <strong>E-mail :</strong>{" "}
             <a
               href="mailto:ecoledeschatsdupayshoudanais@gmail.com"
-              className="font-bold text-black hover:underline"
+              className="block sm:inline font-bold text-black hover:underline dark:text-zinc-900 dark:bg-zinc-100 dark:rounded-md dark:p-2 break-words whitespace-normal"
             >
               ecoledeschatsdupayshoudanais@gmail.com
             </a>
@@ -122,52 +122,52 @@ export default function LegalNotice() {
           </h2>
 
           <p>
-            <strong>Raison sociale :</strong> Netlify, Inc.
+            <strong>Raison sociale :</strong> Vercel Inc.
           </p>
           <p>
             <strong>Siège social :</strong>
             <br />
-            101 2nd Street, Suite 575,
+            340 S Lemon Ave #4133,
             <br />
-            San Francisco, CA 94105, United States.
+            Walnut, CA 91789, United States
           </p>
           <p>
             <strong>Adresse postale (correspondance juridique) :</strong>
             <br />
-            PO Box / PMB 87587,
+            Vercel Legal Dept.
             <br />
-            San Francisco, CA 94120-7775,
+            340 S Lemon Ave #4133,
             <br />
-            Attn: Netlify Legal Dept.
+            Walnut, CA 91789, United States
           </p>
           <p>
             <strong>E-mails utiles :</strong>
             <br />
             <a
-              className="font-bold text-black hover:underline"
-              href="mailto:support@netlify.com"
+              className="font-bold text-black hover:underline dark:text-white"
+              href="mailto:support@vercel.com"
             >
-              support@netlify.com
+              support@vercel.com
             </a>{" "}
             (support général)
             <br />
             <a
-              className="font-bold text-black hover:underline"
-              href="mailto:fraud@netlify.com"
+              className="font-bold text-black hover:underline dark:text-white"
+              href="mailto:abuse@vercel.com"
             >
-              fraud@netlify.com
+              abuse@vercel.com
             </a>{" "}
             (signalement d’abus/fraude)
           </p>
           <p>
             <strong>Site web :</strong>{" "}
             <a
-              href="https://www.netlify.com"
+              href="https://vercel.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-bold text-black hover:underline"
+              className="font-bold text-black hover:underline dark:text-white"
             >
-              https://www.netlify.com
+              https://vercel.com
             </a>
           </p>
         </section>

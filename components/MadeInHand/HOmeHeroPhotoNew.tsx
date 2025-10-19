@@ -13,7 +13,7 @@ export default function HOmeHeroPhotoNew() {
     dark:text-black
   "
     >
-      <div className="bg-black/60 px-4 py-2 rounded-lg dark:bg-white/60 mx-8 md:my-0">
+      <div className="bg-black/60 px-4 py-2 rounded-lg dark:bg-white/60 mx-8 ">
         <h2 className="text-4xl md:text-6xl font-thasadith tracking-wide font-bold drop-shadow-xl">
           L'École des chats du pays Houdanais
         </h2>

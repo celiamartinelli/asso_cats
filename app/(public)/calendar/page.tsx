@@ -114,10 +114,10 @@ export default function CalendarPage() {
     <div className="w-full min-h-screen flex flex-col items-center dark:bg-black">
       <PageHeader pageKey="calendar" />
 
-      <div className="flex flex-col lg:flex-row gap-6 m-12 w-full">
+      <div className="flex flex-col  lg:flex-row gap-6 m-12 w-full">
         {/* Calendrier */}
-        <div className="w-full rounded-lg dark:bg-zinc-900 shadow-sm lg:ml-6 md:w-1/3 lg:w-1/3 m-10 sm:mx-auto sm:w-1/2">
-          <h2 className="text-2xl font-semibold mb-4 text-center dark:text-white">
+        <div className=" rounded-lg dark:bg-zinc-900 shadow-sm lg:ml-6 md:w-1/3 lg:w-1/3 m-10 sm:mx-auto sm:w-1/2">
+          <h2 className="text-2xl font-semibold my-4 text-center dark:text-white">
             Sélectionner une date
           </h2>
           <Calendar

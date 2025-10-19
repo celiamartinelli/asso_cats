@@ -1,6 +1,6 @@
 export default function ConditionToAdoption() {
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 dark:bg-zinc-900">
       <section>
         <h2 className="text-3xl font-semibold mb-4">
           Adopter, un acte d’amour et de responsabilité
@@ -25,7 +25,7 @@ export default function ConditionToAdoption() {
 
       <section>
         <h3 className="text-2xl font-semibold mb-3">Conditions d’adoption</h3>
-        <ul className="list-disc list-inside space-y-2 text-gray-800">
+        <ul className="list-disc list-inside space-y-2 text-gray-800 dark:text-gray-200">
           <li>Être majeur(e).</li>
           <li>Disposer d’un foyer stable et sécurisé.</li>
           <li>Remplir correctement et honnêtement le formulaire d’adoption.</li>

@@ -258,7 +258,7 @@ export default function LegalText() {
           </ul>
         </section>
 
-        <footer className="mt-8 text-sm text-gray-600 border-t pt-4">
+        <footer className="mt-8 text-sm text-gray-600 border-t pt-4 dark:text-gray-400">
           <p>
             ⚠️ Synthèse à titre informatif — pour un conseil juridique précis,
             consultez un avocat ou les services officiels. Textes officiels

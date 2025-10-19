@@ -68,7 +68,7 @@ export default function DataProtectionProcessing() {
             plus, consultez notre{" "}
             <a
               href="/cookiespolicies"
-              className="font-semibold text-black hover:underline"
+              className="block sm:inline font-bold text-black hover:underline dark:text-zinc-900 dark:bg-zinc-100 dark:rounded-md dark:p-2 break-words whitespace-normal"
             >
               politique de cookies
             </a>
@@ -87,7 +87,7 @@ export default function DataProtectionProcessing() {
           </p>
           <a
             href="mailto:ecoledeschatsdupayshoudanais@gmail.com"
-            className="font-bold text-black hover:underline"
+            className="block sm:inline font-bold text-black hover:underline dark:text-zinc-900 dark:bg-zinc-100 dark:rounded-md dark:p-2 break-words whitespace-normal"
           >
             ecoledeschatsdupayshoudanais@gmail.com
           </a>

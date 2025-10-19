@@ -25,7 +25,7 @@ export default function Textarea({
         {textLabel}
       </label>
       <textarea
-        className="mb-2 rounded-sm border p-4 border-gray-300 h-40"
+        className="mb-2 rounded-sm border p-4 border-gray-300 h-40 dark:bg-zinc-900"
         id={id}
         name={name}
         value={value}

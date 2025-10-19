@@ -1,16 +1,13 @@
-import DeployButton from "@/components/deploy-button";
-import { EnvVarWarning } from "@/components/env-var-warning";
-import HeaderAuth from "@/components/header-auth";
-import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { GeistSans } from "geist/font/sans";
 import { Dosis } from "next/font/google";
 import { Thasadith } from "next/font/google";
 
 import { ThemeProvider } from "next-themes";
-import Link from "next/link";
 import "./globals.css";
 import Footer from "@/components/MadeInHand/Footer";
 import Header from "@/components/MadeInHand/Header";
+import GoogleAnalytics from "@/components/MadeInHand/GoogleAnalytics";
+import AnalyticsListener from "@/components/MadeInHand/AnalyticsListener";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -71,6 +68,8 @@ export default function RootLayout({
           </main>
           <Footer />
         </ThemeProvider>
+        <AnalyticsListener />
+        <GoogleAnalytics />
       </body>
     </html>
   );

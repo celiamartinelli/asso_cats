@@ -4,7 +4,7 @@ export default async function Index() {
   return (
     <>
       <main className="flex-1 flex flex-col gap-6 px-4">
-        <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
+        <div className="flex justify-center items-center">
           <div>
             <Link
               href="https://www.facebook.com/profile.php?id=61561436403399&locale=fr_FR"

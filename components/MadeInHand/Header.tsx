@@ -11,24 +11,24 @@ export default function Header() {
       <div>
         <a href="/" title="Back to Home">
           <Image
-            className="w-20 h-20 mr-2"
+            className=""
             src="/logo.png"
             alt="Logo Association de l'école des chats du pays houdanais"
             width={180}
-            height={37}
+            height={180}
             priority
           />
         </a>
       </div>
-      <NavBar />
-      <div className="flex flex-col">
+      {/* <NavBar /> */}
+      {/* <div className="flex flex-col">
         <Button asChild className="mb-2">
           <Link href="/donation">Make a Donation</Link>
         </Button>
         <Button asChild variant="outline">
           <Link href="/contact">Contact Us</Link>
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }

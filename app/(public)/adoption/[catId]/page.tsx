@@ -215,11 +215,13 @@ export default function CatIdPage() {
             </Carousel>
           </div>
 
-          <ul className="text-lg px-6 py-4 bg-zinc-100 text-black rounded-lg border border-gray-300 shadow-sm flex flex-col lg:flex-row lg:flex-wrap gap-y-4 gap-x-[4%] lg:w-2/3">
+          <ul className="text-lg px-6 py-4 bg-zinc-100 text-black rounded-lg border border-gray-300 shadow-sm flex flex-col lg:flex-row lg:flex-wrap gap-y-4 gap-x-[4%] lg:w-2/3 dark:bg-zinc-900 dark:border-zinc-700 ">
             {/* Identité */}
-            <li className="rounded-lg border border-gray-300 shadow-sm p-4 bg-white lg:w-[48%] ">
-              <h3 className="text-lg font-semibold mb-2">🧩 Identité</h3>
-              <ul className="space-y-2 ml-4 list-inside list-non text-sm md:text-lg">
+            <li className="rounded-lg border border-gray-300 shadow-sm p-4 bg-white lg:w-[48%] dark:bg-zinc-950 dark:border-zinc-700 dark:text-zinc-400">
+              <h3 className="text-lg font-semibold mb-2 dark:text-zinc-200">
+                🧩 Identité
+              </h3>
+              <ul className="space-y-2 ml-4 list-inside list-non text-sm md:text-lg dark:text-zinc-300">
                 <li>
                   🎂 <strong>Date de naissance :</strong>
                   <br />
@@ -237,9 +239,11 @@ export default function CatIdPage() {
             </li>
 
             {/* Santé */}
-            <li className="rounded-lg border border-gray-300 shadow-sm p-4 bg-white lg:w-[48%] flex flex-col justify-between">
-              <h3 className="text-lg font-semibold mb-2">🧬 Santé</h3>
-              <ul className="space-y-2 md:ml-4 list-inside list-none text-sm md:text-lg">
+            <li className="rounded-lg border border-gray-300 shadow-sm p-4 bg-white lg:w-[48%] flex flex-col justify-between dark:bg-zinc-950 dark:border-zinc-700 dark:text-zinc-400">
+              <h3 className="text-lg font-semibold mb-2 dark:text-zinc-200">
+                🧬 Santé
+              </h3>
+              <ul className="space-y-2 md:ml-4 list-inside list-none text-sm md:text-lg dark:text-zinc-300">
                 <li>
                   💉 <strong>Stérilisé :</strong>{" "}
                   {catData.sterelized ? "Oui" : "Non"}
@@ -276,11 +280,11 @@ export default function CatIdPage() {
             </li>
 
             {/* Apparence & Catégorie */}
-            <li className="rounded-lg border border-gray-300 shadow-sm p-4 bg-white lg:w-[48%] ">
-              <h3 className="text-lg font-semibold mb-2">
+            <li className="rounded-lg border border-gray-300 shadow-sm p-4 bg-white lg:w-[48%] dark:bg-zinc-950 dark:border-zinc-700 dark:text-zinc-400">
+              <h3 className="text-lg font-semibold mb-2 dark:text-zinc-200">
                 🎨 Apparence & Catégorie
               </h3>
-              <ul className="space-y-2 md:ml-4 list-inside list-none text-sm md:text-lg">
+              <ul className="space-y-2 md:ml-4 list-inside list-none text-sm md:text-lg dark:text-zinc-300">
                 {/* <li>
                   🎨 <strong>Couleur :</strong>{" "}
                   {Array.isArray(catData.coat_color) ? (
@@ -327,8 +331,10 @@ export default function CatIdPage() {
 
             {/* Description */}
             {catData.description && (
-              <li className="rounded-lg border border-gray-300 shadow-sm p-4   bg-white md:text-lg lg:w-[48%] ">
-                <h3 className="text-lg font-semibold mb-2">📝 Description</h3>
+              <li className="rounded-lg border border-gray-300 shadow-sm p-4   bg-white md:text-lg lg:w-[48%] dark:bg-zinc-950 dark:border-zinc-700 dark:text-zinc-400">
+                <h3 className="text-lg font-semibold mb-2 dark:text-zinc-200">
+                  📝 Description
+                </h3>
                 <p className="md:ml-4  text-base text-zinc-700 dark:text-zinc-300">
                   {catData.description}
                 </p>

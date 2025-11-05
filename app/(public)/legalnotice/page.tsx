@@ -3,6 +3,13 @@ import PageHeader from "@/components/MadeInHand/PageHeader";
 export default function LegalNotice() {
   return (
     <div className="p-6 min-h-screen bg-gray-100 dark:bg-black">
+      <title>
+        Mentions Légales & CGU | L'école des chats du Pays Houdanais
+      </title>
+      <meta
+        name="description"
+        content="Découvrez nos mentions légales et nos conditions générales d'utilisation pour l'Ecole des Chats du Pays Houdanais."
+      />
       <PageHeader pageKey="legalnotice" />
       <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 dark:bg-zinc-900">
         {/* === INFORMATIONS LÉGALES === */}

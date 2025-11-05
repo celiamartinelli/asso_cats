@@ -112,6 +112,13 @@ export default function CalendarPage() {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center dark:bg-black">
+      <title>
+        Agenda / Dates Importantes | L'école des chats du Pays Houdanais
+      </title>
+      <meta
+        name="description"
+        content="Consultez l'agenda des événements et dates importantes de l'Ecole des Chats du Pays Houdanais. Restez informé des activités et initiatives pour le bien-être des chats."
+      />
       <PageHeader pageKey="calendar" />
 
       <div className="flex flex-col  lg:flex-row gap-6 m-12 w-full">

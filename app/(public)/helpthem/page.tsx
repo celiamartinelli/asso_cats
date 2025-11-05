@@ -87,6 +87,11 @@ export default function HelpThem() {
   ];
   return (
     <div className="p-6 min-h-screen bg-gray-100 dark:bg-black">
+      <title>Aidez-les | L'école des chats du Pays Houdanais</title>
+      <meta
+        name="description"
+        content="Découvrez comment vous pouvez aider les Chats de l'Ecole des Chats du Pays Houdanais et à protéger et prendre soin des chats errants, que ce soit par des dons, du bénévolat ou en devenant famille d'accueil."
+      />
       <PageHeader pageKey="helpthem" />
       <p className="text-lg text-center mb-8">
         Vous souhaitez nous aider autrement qu'en adoptant ? Vous êtes au bon

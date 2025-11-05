@@ -3,6 +3,11 @@ import PageHeader from "@/components/MadeInHand/PageHeader";
 export default function CookiesPolicies() {
   return (
     <div className="p-6 min-h-screen bg-gray-100 dark:bg-black">
+      <title>Cookies | L'école des chats du Pays Houdanais</title>
+      <meta
+        name="description"
+        content="Découvrez notre politique en matière de cookies à l'Ecole des Chats du Pays Houdanais. Apprenez à mieux comprendre et gérer vos préférences en matière de cookies."
+      />
       <PageHeader pageKey="cookiespolicies" />
       <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 dark:bg-zinc-900">
         {/* === Qu'est-ce qu'un cookie ? === */}

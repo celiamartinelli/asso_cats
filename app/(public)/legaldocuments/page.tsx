@@ -6,6 +6,14 @@ import { FileText, Download } from "lucide-react";
 export default function LegalDocumentsPage() {
   return (
     <div className="p-6 min-h-screen bg-gray-100 dark:bg-black">
+      <title>
+        Documents Légaux & Réduction Fiscale | L'école des chats du Pays
+        Houdanais
+      </title>
+      <meta
+        name="description"
+        content="Découvrez nos documents légaux et les informations sur la réduction fiscale pour vos dons à l'Ecole des Chats du Pays Houdanais."
+      />
       <PageHeader pageKey="legaldocuments" />
       <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 dark:bg-zinc-900">
         {/* === DOCUMENTS LÉGAUX === */}

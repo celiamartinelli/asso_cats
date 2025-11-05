@@ -93,10 +93,15 @@ export default function Page() {
           Offrez une seconde chance à un chat qui n’attend que votre amour 💕🐾
         </p>
       </section> */}
+      <title>Adoption de Chats | L'école des chats du Pays Houdanais</title>
+      <meta
+        name="description"
+        content="Découvrez nos adorables chats à adopter à l'Ecole des Chats du Pays Houdanais. Offrez-leur un foyer aimant et une seconde chance."
+      />
       <PageHeader pageKey="adoption" />
       <div className="w-full flex justify-end items-center mt-4 mr-12">
         <p className="flex justify-center items-center gap-2 text-xs text-zinc-500">
-          ici choisissez le compagnon qui vous correpsond <ArrowRight />
+          ici choisissez le compagnon qui vous correspond <ArrowRight />
         </p>
         <FilterModalCat onApply={setFilters} />
       </div>

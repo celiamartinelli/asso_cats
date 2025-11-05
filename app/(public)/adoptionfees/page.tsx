@@ -3,6 +3,11 @@ import PageHeader from "@/components/MadeInHand/PageHeader";
 export default function AdoptionFeesPage() {
   return (
     <div className="p-6 min-h-screen bg-gray-100 dark:bg-black">
+      <title>Frais D'adoption | L'école des chats du Pays Houdanais</title>
+      <meta
+        name="description"
+        content="Découvrez les frais d'adoption à l'Ecole des Chats du Pays Houdanais et comprenez comment ils contribuent au bien-être de nos chats recueillis."
+      />
       <PageHeader pageKey="adoptionfees" />
       <div className="max-w-4xl mx-auto p-6 bg-white  dark:bg-zinc-900 shadow-lg rounded-2xl mt-10 space-y-10">
         {/* Pourquoi des frais */}

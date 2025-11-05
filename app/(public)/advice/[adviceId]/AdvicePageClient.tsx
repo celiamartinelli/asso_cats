@@ -59,6 +59,14 @@ export default function AdvicePageClient({ adviceId }: { adviceId: string }) {
 
   return (
     <div className="flex flex-col items-center max-w-screen min-h-screen">
+      <title>
+        Fiche Article / Conseil {adviceData.title} | L'école des chats du Pays
+        Houdanais
+      </title>
+      <meta
+        name="description"
+        content="Découvrez nos conseils et articles sur les chats à l'Ecole des Chats du Pays Houdanais. Apprenez à mieux comprendre et prendre soin de votre compagnon félin."
+      />
       <h2 className="text-3xl font-bold mt-10 dark:text-zinc-100">
         {adviceData.title}
       </h2>

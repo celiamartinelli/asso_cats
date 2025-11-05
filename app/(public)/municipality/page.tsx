@@ -7,6 +7,13 @@ import { Separator } from "@/components/ui/separator";
 export default function Municipality() {
   return (
     <div className="p-6  flex justify-center bg-gray-100 dark:bg-black">
+      <title>
+        Municipalité partenaires | L'école des chats du Pays Houdanais
+      </title>
+      <meta
+        name="description"
+        content="Découvrez les municipalités partenaires de l'Ecole des Chats du Pays Houdanais et comment elles collaborent avec nous pour la protection et le bien-être des chats errants."
+      />
       <div className="max-w-2xl text-center bg-white dark:bg-zinc-900 shadow-lg rounded-2xl p-8">
         <h1 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800 dark:text-white">
           🌍 Nos actions sur les communes

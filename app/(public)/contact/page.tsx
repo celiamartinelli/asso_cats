@@ -8,6 +8,13 @@ export default function Contact() {
   return (
     <div className=" flex  min-h-screen bg-black gap-6 p-2">
       {/* <h1 className="text-3xl font-bold mb-4">Contact</h1> */}
+      <title>
+        Contactez L'association | L'école des chats du Pays Houdanais
+      </title>
+      <meta
+        name="description"
+        content="Contactez l'association de l'Ecole des Chats du Pays Houdanais pour toute question ou demande d'information."
+      />
 
       <section className="w-1/2 mt-10 ">
         {/* <h1 className="text-3xl text-center text-muted-foreground  mb-4 text-white">

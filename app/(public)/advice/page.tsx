@@ -51,6 +51,13 @@ export default function Advice() {
 
   return (
     <div className="p-6 min-h-screen  bg-gray-100 dark:bg-black mx-auto ">
+      <title>
+        Conseil / Article sur les chats | L'école des chats du Pays Houdanais
+      </title>
+      <meta
+        name="description"
+        content="Découvrez nos conseils et articles sur les chats à l'Ecole des Chats du Pays Houdanais. Apprenez à mieux comprendre et prendre soin de votre compagnon félin."
+      />
       <PageHeader pageKey="advice" />
       <p className="mb-4 text-center">
         Bienvenue dans notre section de conseils ! Ici, vous trouverez des

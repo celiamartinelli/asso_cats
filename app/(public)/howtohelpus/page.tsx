@@ -3,6 +3,11 @@ import PageHeader from "@/components/MadeInHand/PageHeader";
 export default function About() {
   return (
     <div className="p-6 min-h-screen  bg-gray-100 dark:bg-black">
+      <title>Comment nous aider | L'école des chats du Pays Houdanais</title>
+      <meta
+        name="description"
+        content="Découvrez comment vous pouvez aider l'Ecole des Chats du Pays Houdanais à protéger et prendre soin des chats errants, que ce soit par des dons, du bénévolat ou en devenant famille d'accueil."
+      />
       <PageHeader pageKey="howtohelpus" />
       <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 dark:bg-zinc-900">
         <section className="mb-6">

@@ -42,6 +42,11 @@ export default function Page() {
           n’ont pas eu la première.
         </p>
       </div> */}
+      <title>Devenez Volontaires | L'école des chats du Pays Houdanais</title>
+      <meta
+        name="description"
+        content="Découvrez comment devenir bénévole à l'Ecole des Chats du Pays Houdanais et contribuer à la protection et au bien-être des chats errants."
+      />
       <PageHeader pageKey="becomeavolunteer" />
       <Card className="max-w-4xl mx-auto dark:bg-zinc-900">
         <CardContent className="space-y-4 pt-6  ">

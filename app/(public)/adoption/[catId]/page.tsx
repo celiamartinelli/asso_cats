@@ -151,6 +151,14 @@ export default function CatIdPage() {
 
   return (
     <div className="flex flex-col items-center max-w-screen min-h-screen mt-10 ">
+      <title>
+        Fiche identité de {catData.name_cat}| L'école des chats du Pays
+        Houdanais
+      </title>
+      <meta
+        name="description"
+        content="Découvrez la fiche d'identité complète de nos chats à adopter à l'Ecole des Chats du Pays Houdanais, incluant santé, apparence et histoire."
+      />
       <h2 className="uppercase font-bold text-5xl mb-10">{catData.name_cat}</h2>
 
       {catData ? (

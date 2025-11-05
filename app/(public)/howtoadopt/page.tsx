@@ -3,6 +3,13 @@ import PageHeader from "@/components/MadeInHand/PageHeader";
 export default function Page() {
   return (
     <div className="p-6 min-h-screen bg-gray-100 dark:bg-black">
+      <title>
+        Comment adopter un chat | L'école des chats du Pays Houdanais
+      </title>
+      <meta
+        name="description"
+        content="Découvrez la procédure complète pour adopter un chat à l'Ecole des Chats du Pays Houdanais. Apprenez les étapes à suivre pour offrir un foyer aimant à nos compagnons félins."
+      />
       <PageHeader pageKey="howtoadopt" />
       <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-zinc-900 shadow-lg rounded-lg mt-10">
         <div className="prose prose-lg lg:prose-xl mx-auto text-zinc-800 dark:text-zinc-200">

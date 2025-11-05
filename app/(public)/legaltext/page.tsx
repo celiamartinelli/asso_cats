@@ -4,6 +4,14 @@ import React from "react";
 export default function LegalText() {
   return (
     <div className="p-6 min-h-screen bg-gray-100 dark:bg-black">
+      <title>
+        Textes essentiels — protection & bien-être animal | L'école des chats du
+        Pays Houdanais
+      </title>
+      <meta
+        name="description"
+        content="Découvrez nos textes essentiels sur la protection et le bien-être animal pour l'Ecole des Chats du Pays Houdanais."
+      />
       <PageHeader pageKey="legaltext" />
       <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 dark:bg-zinc-900">
         {/* Loi 2021-1539 */}

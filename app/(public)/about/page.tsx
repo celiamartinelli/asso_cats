@@ -10,6 +10,13 @@ export default function AboutPage() {
   return (
     <div className=" p-6 min-h-screen  mx-auto bg-gray-100 dark:bg-black px-4 py-12 space-y-10">
       {/* Titre principal */}
+      <title>
+        A propos de l'Association | L'école des chats du Pays Houdanais
+      </title>
+      <meta
+        name="description"
+        content="Découvrez l'histoire, la mission et l'équipe dévouée de l'Ecole des Chats du Pays Houdanais, une association dédiée à la protection des chats errants."
+      />
 
       <PageHeader pageKey="about" />
       <HeroAboutPage />

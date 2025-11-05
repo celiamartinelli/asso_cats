@@ -99,6 +99,15 @@ export default function Index() {
   return (
     <>
       <main className="flex min-h-screen flex-col justify-between">
+        <title>
+          Aider les Chats errants, maltraités, abandonnés | L'école des chats du
+          Pays Houdanais
+        </title>
+        <meta
+          name="description"
+          content="Association dédiée à la protection et à l’adoption des chats à Houdan. Découvrez nos pensionnaires et devenez famille d’accueil !"
+        />
+
         <div className="flex-col text-center  ">
           <ButtonCookiesSession />
           <HOmeHeroPhotoNew />

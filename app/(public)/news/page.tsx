@@ -38,6 +38,13 @@ export default function Actualites() {
   return (
     <div className="p-6 min-h-screen bg-gray-100 dark:bg-black">
       {/* <h1 className="text-3xl font-bold mb-4">Actualités de l'association</h1> */}
+      <title>
+        Actualités de l'association | L'école des chats du Pays Houdanais
+      </title>
+      <meta
+        name="description"
+        content="Découvrez nos actualités de l'Ecole des Chats du Pays Houdanais."
+      />
       <PageHeader pageKey="actualites" />
       {loading ? (
         <Player

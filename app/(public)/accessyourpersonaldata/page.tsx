@@ -3,6 +3,13 @@ import PageHeader from "@/components/MadeInHand/PageHeader";
 export default function page() {
   return (
     <div className="p-6 min-h-screen bg-gray-100 dark:bg-black">
+      <title>
+        Accéder à vos données personnelles | L'école des chats du Pays Houdanais
+      </title>
+      <meta
+        name="description"
+        content="Apprenez comment accéder, modifier ou supprimer vos données personnelles détenues par l'Ecole des Chats du Pays Houdanais, conformément à la réglementation sur la protection des données."
+      />
       <PageHeader pageKey="accessyourpersonaldata" />
       <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
         <section className="mb-6">

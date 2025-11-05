@@ -16,8 +16,9 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "École des Chats du Pays Houdanais",
-  description: "Website of the Houdanais Country Cat School association",
+  title: "Ecole des Chats du Pays Houdanais",
+  description:
+    "Site Web de l'Association de l'Ecole des Chats du Pays Houdanais",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
@@ -54,6 +55,24 @@ export default function RootLayout({
         <link
           href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap"
           rel="stylesheet"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "AnimalShelter",
+              name: "Ecole des chats du Pays Houdanais",
+              url: "https://ecole-des-chats.vercel.app",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Houdan",
+                addressCountry: "FR",
+              },
+              telephone: "+33 6 08 87 28 94",
+              openingHours: "Mo-Fr 09:00-18:00",
+            }),
+          }}
         />
       </head>
       <body className="bg-background text-foreground ">

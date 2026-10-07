@@ -742,6 +742,7 @@ export const uploadImage = async (imageFile: File) => {
 //   }
 // };
 export const addCat = async (formData: any) => {
+  console.log("🔥🔥🔥 ADD CAT APPELÉE 🔥🔥🔥");
   try {
     console.log("➡️ Données reçues :", formData);
 

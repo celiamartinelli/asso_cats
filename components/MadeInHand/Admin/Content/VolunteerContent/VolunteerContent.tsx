@@ -22,7 +22,6 @@ const VolunteerContent: React.FC<VolunteerContentProps> = ({ volunteer }) => {
   return (
     <div>
       <p className="text-sm text-zinc-600 mb-4">
-        {" "}
         Demande reçue le:{" "}
         {new Date(volunteer.created_at).toLocaleDateString("fr-FR", {
           day: "2-digit",
@@ -30,41 +29,48 @@ const VolunteerContent: React.FC<VolunteerContentProps> = ({ volunteer }) => {
           year: "numeric",
         })}
       </p>
+
       <div className="flex flex-col border-b border-gray-300 pb-4 mb-4">
         <h2>
           <strong>
             {volunteer.first_name} {volunteer.last_name}
           </strong>
         </h2>
+
         <p>
           <strong>Email:</strong> {volunteer.email}
         </p>
+
         <p>
           <strong>Téléphone:</strong> {volunteer.phone_number}
         </p>
       </div>
+
       <div className="flex flex-col border-b border-gray-300 pb-4 mb-4">
         <p>
           <strong>Motivation:</strong> {volunteer.motivation}
         </p>
+
         <p>
           <strong>Pourquoi être bénévole:</strong> {volunteer.why_volunteer}
         </p>
       </div>
-      {/* <p>
-        <strong>Lu:</strong> {volunteer.read ? "Oui" : "Non"}
-      </p> */}
+
       <div>
         <h3>
           <strong>Types de bénévolat:</strong>
         </h3>
+
+        <ul>
+          {(volunteer.volunteer_form_types ?? []).map((entry, index) => (
+            <li key={index}>
+              {entry.volunteer_types?.title ?? "Type inconnu"}
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul>
-        {(volunteer.volunteer_form_types ?? []).map((entry, index) => (
-          <li key={index}>{entry.volunteer_types?.title ?? "Type inconnu"}</li>
-        ))}
-      </ul>
     </div>
   );
 };
+
 export default VolunteerContent;

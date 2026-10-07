@@ -37,14 +37,14 @@ export default function MaterielDonationContent() {
 
     const { success, error } = await updateMaterielDonationRequestReadStatus(
       formId,
-      newValue
+      newValue,
     );
 
     if (success) {
       setForms((prev) =>
         prev.map((v) =>
-          v.material_donation_form_id === formId ? { ...v, read: newValue } : v
-        )
+          v.material_donation_form_id === formId ? { ...v, read: newValue } : v,
+        ),
       );
     } else {
       console.error("Erreur de mise à jour:", error);
@@ -65,7 +65,7 @@ export default function MaterielDonationContent() {
                     onCheckedChange={(checked) =>
                       handleSwitchChange(
                         form.material_donation_form_id,
-                        checked
+                        checked,
                       )
                     }
                   />

@@ -694,50 +694,88 @@ export const uploadImage = async (imageFile: File) => {
 };
 
 // Fonction pour insérer les données du chat dans Supabase
+// export const addCat = async (formData: any) => {
+//   try {
+//     console.log("➡️ Données reçues en entrée :", formData);
+
+//     let catUrlImage = formData.cat_url_image;
+
+//     // Vérification et conversion de cat_url_image
+//     if (typeof catUrlImage === "string") {
+//       // Supprimer les accolades et diviser en tableau si nécessaire
+//       catUrlImage = catUrlImage.replace(/^{|}$/g, "").split(",");
+//     }
+//     let catUrlVideo = formData.cat_url_video;
+
+//     if (typeof catUrlVideo === "string") {
+//       catUrlVideo = catUrlVideo.replace(/^{|}$/g, "").split(",");
+//     }
+
+//     console.log("📌 Type après correction :", Array.isArray(catUrlImage));
+//     console.log("📌 Valeur après correction :", catUrlImage);
+//     console.log("📌 Images après correction :", catUrlImage);
+//     console.log("📌 Vidéos après correction :", catUrlVideo);
+
+//     // Formatage final
+//     const formattedData = {
+//       ...formData,
+//       cat_url_image: Array.isArray(catUrlImage) ? catUrlImage : [],
+//       cat_url_video: Array.isArray(catUrlVideo) ? catUrlVideo : [],
+//     };
+
+//     console.log("✅ Données formatées pour insertion :", formattedData);
+
+//     // Insertion dans Supabase
+//     const { data, error } = await supabase.from("cat").insert([formattedData]);
+//     console.log("📦 INSERT RESULT:", { data, error });
+
+//     if (error) {
+//       console.error("❌ Erreur d'insertion dans Supabase :", error);
+//       throw error;
+//     }
+
+//     console.log("✅ Chat ajouté avec succès :", data);
+//     return "Chat ajouté avec succès";
+//   } catch (error) {
+//     console.error("❌ Erreur d'insertion dans la base de données :", error);
+//     throw error;
+//   }
+// };
 export const addCat = async (formData: any) => {
   try {
-    console.log("➡️ Données reçues en entrée :", formData);
+    console.log("➡️ Données reçues :", formData);
 
-    let catUrlImage = formData.cat_url_image;
-
-    // Vérification et conversion de cat_url_image
-    if (typeof catUrlImage === "string") {
-      // Supprimer les accolades et diviser en tableau si nécessaire
-      catUrlImage = catUrlImage.replace(/^{|}$/g, "").split(",");
-    }
-    let catUrlVideo = formData.cat_url_video;
-
-    if (typeof catUrlVideo === "string") {
-      catUrlVideo = catUrlVideo.replace(/^{|}$/g, "").split(",");
-    }
-
-    console.log("📌 Type après correction :", Array.isArray(catUrlImage));
-    console.log("📌 Valeur après correction :", catUrlImage);
-    console.log("📌 Images après correction :", catUrlImage);
-    console.log("📌 Vidéos après correction :", catUrlVideo);
-
-    // Formatage final
     const formattedData = {
       ...formData,
-      cat_url_image: Array.isArray(catUrlImage) ? catUrlImage : [],
-      cat_url_video: Array.isArray(catUrlVideo) ? catUrlVideo : [],
+      cat_url_image: Array.isArray(formData.cat_url_image)
+        ? formData.cat_url_image
+        : [],
+      cat_url_video: Array.isArray(formData.cat_url_video)
+        ? formData.cat_url_video
+        : [],
     };
 
-    console.log("✅ Données formatées pour insertion :", formattedData);
+    console.log("➡️ Données envoyées à Supabase :", formattedData);
 
-    // Insertion dans Supabase
-    const { data, error } = await supabase.from("cat").insert([formattedData]);
-    console.log("📦 INSERT RESULT:", { data, error });
+    const { data, error } = await supabase
+      .from("cat")
+      .insert([formattedData])
+      .select();
+
+    console.log("📦 Résultat Supabase :", { data, error });
 
     if (error) {
-      console.error("❌ Erreur d'insertion dans Supabase :", error);
-      throw error;
+      console.error("❌ ERREUR SUPABASE :", error);
+      throw new Error(
+        `Supabase ${error.code}: ${error.message} | ${error.details ?? ""}`,
+      );
     }
 
-    console.log("✅ Chat ajouté avec succès :", data);
-    return "Chat ajouté avec succès";
+    console.log("✅ Chat ajouté :", data);
+
+    return data;
   } catch (error) {
-    console.error("❌ Erreur d'insertion dans la base de données :", error);
+    console.error("❌ ERREUR ADD CAT :", error);
     throw error;
   }
 };

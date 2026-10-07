@@ -231,11 +231,7 @@ export default function FormToAddCat() {
         cat_url_video: videoUrls.length > 0 ? `{${videoUrls.join(",")}}` : null,
       };
 
-      console.log("📤 Envoi du chat :", formDataToSubmit);
-
       await addCat(formDataToSubmit);
-
-      console.log("✅ Chat ajouté, reset du formulaire");
 
       // RESET
       resetForm();

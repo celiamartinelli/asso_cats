@@ -8,7 +8,7 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE;
 
 if (!supabaseUrl || !supabaseKey) {
   throw new Error(
-    "Les variables d'environnement NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY doivent être définies"
+    "Les variables d'environnement NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY doivent être définies",
   );
 }
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -20,56 +20,6 @@ const sanitizeFileName = (fileName: string) => {
     .replace(/[^a-zA-Z0-9._-]/g, "_") // Remplace les caractères spéciaux
     .replace(/\s+/g, "_"); // Remplace les espaces par des underscores
 };
-
-//Sécurity check limitation de 5 formulaire par jour par IP
-// export async function submitForm(formType: string, data: any) {
-//   // 1. Récupérer l’IP
-//   const headersList = await headers();
-//   const ip =
-//     headersList.get("x-forwarded-for")?.split(",")[0].trim() ||
-//     headersList.get("x-real-ip") ||
-//     "unknown";
-
-//   // 2. Essayer d’insérer dans form_submissions
-//   const { error: logError } = await supabase.from("form_submissions").insert([
-//     {
-//       ip_address: ip,
-//       form_type: formType,
-//     },
-//   ]);
-
-//   if (logError) {
-//     throw new Error("Vous avez atteint la limite de 5 formulaires par jour.");
-//   }
-
-//   // 3. Déterminer la table cible
-//   let tableName: string;
-//   switch (formType) {
-//     case "adoption":
-//       tableName = "adoption_form";
-//       break;
-//     case "contact":
-//       tableName = "contact_form";
-//       break;
-//     case "foster_family":
-//       tableName = "foster_family_form";
-//       break;
-//     case "material_donation":
-//       tableName = "material_donation_form";
-//       break;
-//     case "volunteer":
-//       tableName = "volunteer_form";
-//       break;
-//     default:
-//       throw new Error("Type de formulaire inconnu.");
-//   }
-
-//   // 4. Insérer dans la table cible
-//   const { error } = await supabase.from(tableName).insert([data]);
-//   if (error) throw new Error(error.message);
-
-//   return { success: true };
-// }
 
 // Vérifie la limite IP/jour pour un type de formulaire
 export async function submitForm(formType: string) {
@@ -433,7 +383,7 @@ export const addFosterFamilyForm = async (formData: any) => {
 
     console.log(
       "✅ Demande de famille d'accueil enregistrée avec succès :",
-      data
+      data,
     );
     return "Demande de famille d'accueil enregistrée avec succès";
   } catch (error) {
@@ -566,7 +516,7 @@ export const getCatsWithAdoptionCount = async () => {
     .from("cat")
     .select(
       "cat_id, name_cat, sex_cat, age_of_cat, cat_url_image, date_of_birth, adoption, " +
-        "adoption_form(count)"
+        "adoption_form(count)",
     )
     .eq("adoption_form.read", false);
 
@@ -587,7 +537,7 @@ export const getAdoptionRequests = async (cat_id: string) => {
   if (error) {
     console.error(
       "Erreur lors de la récupération des demandes d'adoption :",
-      error
+      error,
     );
     throw new Error(`Erreur Supabase : ${error.message}`);
   }
@@ -600,7 +550,7 @@ export const getAdoptionRequests = async (cat_id: string) => {
 // Modifie le statut du switch pour marquer la demande d'adoption comme lue ou non lue //
 export const updateAdoptionRequestReadStatus = async (
   adoptionFormId: string,
-  newReadStatus: boolean
+  newReadStatus: boolean,
 ) => {
   try {
     const { error } = await supabase
@@ -616,7 +566,7 @@ export const updateAdoptionRequestReadStatus = async (
   } catch (error) {
     console.error(
       "Erreur lors de la mise à jour du statut de lecture :",
-      error
+      error,
     );
     return { success: false, error };
   }
@@ -624,7 +574,7 @@ export const updateAdoptionRequestReadStatus = async (
 
 export async function uploadImageToSupabase(
   file: File,
-  bucket: string
+  bucket: string,
 ): Promise<string | null> {
   try {
     const fileExt = file.name.split(".").pop();
@@ -887,7 +837,7 @@ export const fetchAssociations = async () => {
   if (error) {
     console.error(
       "❌ Erreur lors de la récupération des associations :",
-      error
+      error,
     );
     throw error;
   }
@@ -1032,7 +982,7 @@ export const getVolunteerForm = async () => {
           title, description
         )
       )
-    `
+    `,
     )
     .order("created_at", { ascending: false });
 
@@ -1048,7 +998,7 @@ export const getVolunteerForm = async () => {
 // Modifie le statut du switch pour marquer la demande de volontaire comme lue ou non lue //
 export const updateVolunteerRequestReadStatus = async (
   formId: string,
-  newReadStatus: boolean
+  newReadStatus: boolean,
 ) => {
   try {
     const { error } = await supabase
@@ -1064,7 +1014,7 @@ export const updateVolunteerRequestReadStatus = async (
   } catch (error) {
     console.error(
       "Erreur lors de la mise à jour du statut de lecture :",
-      error
+      error,
     );
     return { success: false, error };
   }
@@ -1089,7 +1039,7 @@ export const getMaterialDonationForm = async () => {
 // Modifie le statut du switch pour marquer la demande de don de matériel comme lue ou non lue //
 export const updateMaterielDonationRequestReadStatus = async (
   formId: string,
-  newReadStatus: boolean
+  newReadStatus: boolean,
 ) => {
   try {
     const { error } = await supabase
@@ -1105,7 +1055,7 @@ export const updateMaterielDonationRequestReadStatus = async (
   } catch (error) {
     console.error(
       "Erreur lors de la mise à jour du statut de lecture :",
-      error
+      error,
     );
     return { success: false, error };
   }
@@ -1130,7 +1080,7 @@ export const getFosterFamilyForm = async () => {
 // Modifie le statut du switch pour marquer la demande de famille d'accueil comme lue ou non lue //
 export const updateFosterFamilyRequestReadStatus = async (
   formId: string,
-  newReadStatus: boolean
+  newReadStatus: boolean,
 ) => {
   try {
     const { error } = await supabase
@@ -1146,7 +1096,7 @@ export const updateFosterFamilyRequestReadStatus = async (
   } catch (error) {
     console.error(
       "Erreur lors de la mise à jour du statut de lecture :",
-      error
+      error,
     );
     return { success: false, error };
   }
@@ -1171,7 +1121,7 @@ export const getContactForm = async () => {
 // Modifie le statut du switch pour marquer la demande de famille d'accueil comme lue ou non lue //
 export const updateContactRequestReadStatus = async (
   formId: string,
-  newReadStatus: boolean
+  newReadStatus: boolean,
 ) => {
   try {
     const { error } = await supabase
@@ -1187,8 +1137,84 @@ export const updateContactRequestReadStatus = async (
   } catch (error) {
     console.error(
       "Erreur lors de la mise à jour du statut de lecture :",
-      error
+      error,
     );
     return { success: false, error };
   }
+};
+
+// Action pour compter le nombre de notification non lues
+export const getUnreadNotificationsCount = async () => {
+  const [
+    { count: adoptionCount, error: adoptionError },
+    { count: familleAccueilCount, error: familleAccueilError },
+    { count: donMaterielCount, error: donMaterielError },
+    { count: volunteerCount, error: volunteerError },
+    { count: contactCount, error: contactError },
+  ] = await Promise.all([
+    supabase
+      .from("adoption_form")
+      .select("*", { count: "exact", head: true })
+      .eq("read", false),
+
+    supabase
+      .from("foster_family_form")
+      .select("*", { count: "exact", head: true })
+      .eq("read", false),
+
+    supabase
+      .from("material_donation_form")
+      .select("*", { count: "exact", head: true })
+      .eq("read", false),
+
+    supabase
+      .from("volunteer_form")
+      .select("*", { count: "exact", head: true })
+      .eq("read", false),
+
+    supabase
+      .from("contact_form")
+      .select("*", { count: "exact", head: true })
+      .eq("read", false),
+  ]);
+
+  if (
+    adoptionError ||
+    familleAccueilError ||
+    donMaterielError ||
+    volunteerError ||
+    contactError
+  ) {
+    console.error("Erreur récupération notifications :", {
+      adoptionError,
+      familleAccueilError,
+      donMaterielError,
+      volunteerError,
+      contactError,
+    });
+
+    return {
+      total: 0,
+      adoption: 0,
+      familleAccueil: 0,
+      donMateriel: 0,
+      volunteer: 0,
+      contact: 0,
+    };
+  }
+
+  return {
+    total:
+      (adoptionCount ?? 0) +
+      (familleAccueilCount ?? 0) +
+      (donMaterielCount ?? 0) +
+      (volunteerCount ?? 0) +
+      (contactCount ?? 0),
+
+    adoption: adoptionCount ?? 0,
+    familleAccueil: familleAccueilCount ?? 0,
+    donMateriel: donMaterielCount ?? 0,
+    volunteer: volunteerCount ?? 0,
+    contact: contactCount ?? 0,
+  };
 };

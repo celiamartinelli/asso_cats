@@ -63,6 +63,19 @@ const data = {
   // ],
   navMain: [
     {
+      title: "Tableau de bord",
+      icon: Settings2,
+      href: "/admin",
+      items: [
+        {
+          title: "Tableau de Bord",
+
+          href: "/admin",
+        },
+      ],
+    },
+
+    {
       title: "Formulaire de contact",
       icon: Mail,
       isActive: true,
@@ -73,7 +86,7 @@ const data = {
           href: "/admin/contact-form/adoption",
         },
         {
-          title: "FA",
+          title: "Famille D'Accueil",
           // content: <HostFamilyContent />,
           href: "/admin/contact-form/host-family",
         },

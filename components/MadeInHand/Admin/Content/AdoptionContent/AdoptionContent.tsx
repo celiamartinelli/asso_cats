@@ -47,7 +47,7 @@ const AdoptionContent: React.FC<AdoptionContentProps> = ({ cat }) => {
     // Appel de la fonction depuis actions.ts
     const { success, error } = await updateAdoptionRequestReadStatus(
       requestId,
-      newValue
+      newValue,
     );
 
     if (success) {
@@ -56,8 +56,8 @@ const AdoptionContent: React.FC<AdoptionContentProps> = ({ cat }) => {
         prevRequests.map((request) =>
           request.adoption_form_id === requestId
             ? { ...request, read: newValue }
-            : request
-        )
+            : request,
+        ),
       );
     } else {
       // Gérer l'erreur ici (si besoin)

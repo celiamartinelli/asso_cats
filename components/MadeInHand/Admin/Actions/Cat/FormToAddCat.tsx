@@ -131,6 +131,11 @@ export default function FormToAddCat() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!formData.category_cat) {
+      alert("Veuillez sélectionner une catégorie.");
+      return;
+    }
+
     try {
       let imageUrls: string[] = [];
       let videoUrls: string[] = [];
@@ -165,9 +170,9 @@ export default function FormToAddCat() {
         when_vaccine: formData.when_vaccine || null,
 
         // URLs récupérées depuis Storage
-        cat_url_image: imageUrls.length ? `{${imageUrls.join(",")}}` : null,
+        cat_url_image: imageUrls.length > 0 ? `{${imageUrls.join(",")}}` : null,
 
-        cat_url_video: videoUrls.length ? `{${videoUrls.join(",")}}` : null,
+        cat_url_video: videoUrls.length > 0 ? `{${videoUrls.join(",")}}` : null,
       };
 
       await addCat(formDataToSubmit);

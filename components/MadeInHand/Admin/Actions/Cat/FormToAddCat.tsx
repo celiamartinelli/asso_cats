@@ -91,50 +91,105 @@ export default function FormToAddCat() {
     }));
   };
 
-  // // Soumission
+  const resetForm = () => {
+    // Libérer les URLs de prévisualisation
+    previews.forEach((url) => URL.revokeObjectURL(url));
+    videoPreviews.forEach((url) => URL.revokeObjectURL(url));
+
+    setFormData({
+      name_cat: "",
+      date_of_birth: "",
+      sex_cat: "male",
+      sterelized: false,
+      when_sterelized: "",
+      vaccine: false,
+      when_vaccine: "",
+      fiv_test: false,
+      felv_test: false,
+      coat_color: [],
+      pattern: "",
+      description: "",
+      adoption: false,
+      when_adopt: "",
+      age_of_cat: "",
+      category_cat: "",
+      cat_url_image: [],
+      cat_url_video: [],
+      where_cat_found: "",
+      which_host_family: "",
+    });
+
+    setPreviews([]);
+    setVideoPreviews([]);
+    setSelectedColors([]);
+
+    // Reset du input file
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  // Soumission
   // const handleSubmit = async (e: React.FormEvent) => {
   //   e.preventDefault();
+
+  //   if (!formData.category_cat) {
+  //     alert("Veuillez sélectionner une catégorie.");
+  //     return;
+  //   }
+
   //   try {
   //     let imageUrls: string[] = [];
   //     let videoUrls: string[] = [];
 
+  //     // Upload des images
   //     if (formData.cat_url_image.length > 0) {
-  //       imageUrls = await Promise.all(
-  //         formData.cat_url_image.map((file) => uploadImage(file))
+  //       const urls = await Promise.all(
+  //         formData.cat_url_image.map((file) => uploadImage(file)),
+  //       );
+
+  //       imageUrls = urls.filter(
+  //         (url): url is string => url !== null && url !== undefined,
   //       );
   //     }
 
+  //     // Upload des vidéos
   //     if (formData.cat_url_video.length > 0) {
-  //       videoUrls = await Promise.all(
-  //         formData.cat_url_video.map((file) => uploadImage(file))
+  //       const urls = await Promise.all(
+  //         formData.cat_url_video.map((file) => uploadImage(file)),
+  //       );
+
+  //       videoUrls = urls.filter(
+  //         (url): url is string => url !== null && url !== undefined,
   //       );
   //     }
 
   //     const formDataToSubmit = {
   //       ...formData,
+
   //       when_adopt: formData.when_adopt || null,
   //       when_sterelized: formData.when_sterelized || null,
   //       when_vaccine: formData.when_vaccine || null,
-  //       cat_url_image: imageUrls.length ? `{${imageUrls.join(",")}}` : null,
-  //       cat_url_video: videoUrls.length ? `{${videoUrls.join(",")}}` : null,
+
+  //       // URLs récupérées depuis Storage
+  //       cat_url_image: imageUrls.length > 0 ? `{${imageUrls.join(",")}}` : null,
+
+  //       cat_url_video: videoUrls.length > 0 ? `{${videoUrls.join(",")}}` : null,
   //     };
 
   //     await addCat(formDataToSubmit);
-  //     alert("Chat ajouté avec succès !");
+
+  //     setIsModalOpen(true);
+
+  //     // reset...
   //   } catch (error) {
   //     console.error("Erreur lors de l'ajout du chat:", error);
   //     alert("Une erreur est survenue, veuillez réessayer.");
   //   }
   // };
 
-  // Soumission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!formData.category_cat) {
-      alert("Veuillez sélectionner une catégorie.");
-      return;
-    }
 
     try {
       let imageUrls: string[] = [];
@@ -169,17 +224,24 @@ export default function FormToAddCat() {
         when_sterelized: formData.when_sterelized || null,
         when_vaccine: formData.when_vaccine || null,
 
-        // URLs récupérées depuis Storage
+        category_cat: formData.category_cat || null,
+
         cat_url_image: imageUrls.length > 0 ? `{${imageUrls.join(",")}}` : null,
 
         cat_url_video: videoUrls.length > 0 ? `{${videoUrls.join(",")}}` : null,
       };
 
+      console.log("📤 Envoi du chat :", formDataToSubmit);
+
       await addCat(formDataToSubmit);
 
-      setIsModalOpen(true);
+      console.log("✅ Chat ajouté, reset du formulaire");
 
-      // reset...
+      // RESET
+      resetForm();
+
+      // Modal de confirmation
+      setIsModalOpen(true);
     } catch (error) {
       console.error("Erreur lors de l'ajout du chat:", error);
       alert("Une erreur est survenue, veuillez réessayer.");
@@ -217,57 +279,6 @@ export default function FormToAddCat() {
       }));
     }
   };
-
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   console.log("📤 Formulaire soumis");
-  //   try {
-  //     let imageUrls = [];
-
-  //     // Si des images sont envoyées, traite-les
-  //     if (formData.cat_url_image.length > 0) {
-  //       imageUrls = await Promise.all(
-  //         formData.cat_url_image.map(async (file) => {
-  //           const uploadedUrl = await uploadImage(file);
-  //           console.log("Uploaded URL:", uploadedUrl); // Vérifiez l'URL retournée
-  //           return uploadedUrl;
-  //         })
-  //       );
-  //     }
-
-  //     // Filtrer les URLs nulles ou undefined
-  //     const validImageUrls = imageUrls.filter(
-  //       (url) => url !== undefined && url !== null
-  //     );
-  //     console.log("URLs valides avant envoi:", validImageUrls);
-
-  //     const formDataToSubmit = {
-  //       ...formData,
-  //       when_adopt: formData.when_adopt || null,
-  //       when_sterelized: formData.when_sterelized || null,
-  //       when_vaccine: formData.when_vaccine || null,
-  //       cat_url_image:
-  //         validImageUrls.length > 0 ? `{${validImageUrls.join(",")}}` : null, // Utilise uniquement les URLs valides
-  //     };
-
-  //     console.log("Form data to submit:", formDataToSubmit);
-
-  //     // Envoie les données à Supabase
-  //     await addCat(formDataToSubmit);
-  //     alert("Chat ajouté avec succès !");
-  //   } catch (error) {
-  //     console.error("Erreur lors de l'ajout du chat:", error);
-  //     alert("Une erreur est survenue, veuillez réessayer.");
-  //   }
-  // };
-
-  // const handleRemoveImage = (index: number) => {
-  //   setPreviews((prev) => prev.filter((_, i) => i !== index));
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     cat_url_image: prevFormData.cat_url_image.filter((_, i) => i !== index),
-  //   }));
-  // };
 
   // Liste des couleurs de pelage
   const coatColorList = [
@@ -567,6 +578,7 @@ export default function FormToAddCat() {
           <div>
             <label>Motif du pelage</label>
             <Select
+              value={formData.pattern}
               onValueChange={(value) => handleSelectChange("pattern", value)}
             >
               <SelectTrigger>

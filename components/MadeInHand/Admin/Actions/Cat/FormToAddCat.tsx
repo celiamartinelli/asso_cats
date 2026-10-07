@@ -130,77 +130,51 @@ export default function FormToAddCat() {
   // Soumission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
       let imageUrls: string[] = [];
       let videoUrls: string[] = [];
 
+      // Upload des images
       if (formData.cat_url_image.length > 0) {
         const urls = await Promise.all(
-          formData.cat_url_image.map((file) => uploadImage(file))
+          formData.cat_url_image.map((file) => uploadImage(file)),
         );
 
-        // Filtrer les valeurs nulles ou undefined
         imageUrls = urls.filter(
-          (url): url is string => url !== null && url !== undefined
+          (url): url is string => url !== null && url !== undefined,
         );
       }
 
-      if (formData.cat_url_image.length > 0) {
+      // Upload des vidéos
+      if (formData.cat_url_video.length > 0) {
         const urls = await Promise.all(
-          formData.cat_url_image.map((file) => uploadImage(file))
+          formData.cat_url_video.map((file) => uploadImage(file)),
         );
 
-        // Filtrer les valeurs nulles ou undefined
-        imageUrls = urls.filter(
-          (url): url is string => url !== null && url !== undefined
+        videoUrls = urls.filter(
+          (url): url is string => url !== null && url !== undefined,
         );
       }
 
       const formDataToSubmit = {
         ...formData,
+
         when_adopt: formData.when_adopt || null,
         when_sterelized: formData.when_sterelized || null,
         when_vaccine: formData.when_vaccine || null,
+
+        // URLs récupérées depuis Storage
         cat_url_image: imageUrls.length ? `{${imageUrls.join(",")}}` : null,
+
         cat_url_video: videoUrls.length ? `{${videoUrls.join(",")}}` : null,
       };
 
       await addCat(formDataToSubmit);
-      // alert("Chat ajouté avec succès !");
-      // Ouvre la modal au lieu d'un alert
+
       setIsModalOpen(true);
 
-      // 🔄 Réinitialisation du formulaire
-      setFormData({
-        name_cat: "",
-        date_of_birth: "",
-        sex_cat: "male",
-        sterelized: false,
-        when_sterelized: "",
-        vaccine: false,
-        when_vaccine: "",
-        fiv_test: false,
-        felv_test: false,
-        coat_color: [] as string[],
-        pattern: "",
-        description: "",
-        adoption: false,
-        when_adopt: "",
-        age_of_cat: "",
-        category_cat: "",
-        cat_url_image: [] as File[],
-        cat_url_video: [] as File[],
-        where_cat_found: "",
-        which_host_family: "",
-      });
-
-      setPreviews([]);
-      setVideoPreviews([]);
-      setSelectedColors([]);
-
-      if (fileInputRef.current) {
-        fileInputRef.current.value = ""; // reset input file
-      }
+      // reset...
     } catch (error) {
       console.error("Erreur lors de l'ajout du chat:", error);
       alert("Une erreur est survenue, veuillez réessayer.");
@@ -208,7 +182,7 @@ export default function FormToAddCat() {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value, type } = e.target;
     setFormData({

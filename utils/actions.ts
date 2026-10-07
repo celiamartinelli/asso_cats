@@ -727,6 +727,7 @@ export const addCat = async (formData: any) => {
 
     // Insertion dans Supabase
     const { data, error } = await supabase.from("cat").insert([formattedData]);
+    console.log("📦 INSERT RESULT:", { data, error });
 
     if (error) {
       console.error("❌ Erreur d'insertion dans Supabase :", error);

@@ -50,20 +50,20 @@ export default function ContactGroup() {
       acc[subject].push(form);
       return acc;
     },
-    {}
+    {},
   );
 
   // Changer l’état "lu"
   const handleSwitchChange = async (formId: string, newValue: boolean) => {
     const { success, error } = await updateContactRequestReadStatus(
       formId,
-      newValue
+      newValue,
     );
     if (success) {
       setContactForm((prev) =>
         prev.map((form) =>
-          form.contact_form_id === formId ? { ...form, read: newValue } : form
-        )
+          form.contact_form_id === formId ? { ...form, read: newValue } : form,
+        ),
       );
     } else {
       console.error("Erreur:", error);
@@ -131,7 +131,7 @@ export default function ContactGroup() {
                         <p className="text-sm text-gray-500 mb-1">
                           Reçu le :{" "}
                           {new Date(form.created_at).toLocaleDateString(
-                            "fr-FR"
+                            "fr-FR",
                           )}
                         </p>
                         <p>

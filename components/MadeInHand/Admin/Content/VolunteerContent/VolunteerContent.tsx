@@ -61,13 +61,6 @@ const VolunteerContent: React.FC<VolunteerContentProps> = ({ volunteer }) => {
           <strong>Types de bénévolat:</strong>
         </h3>
 
-        {/* <ul>
-          {(volunteer.volunteer_form_types ?? []).map((entry, index) => (
-            <li key={index}>
-              {entry.volunteer_types?.title ?? "Type inconnu"}
-            </li>
-          ))}
-        </ul> */}
         <ul>
           {Array.isArray(volunteer.volunteer_form_types) &&
             volunteer.volunteer_form_types.map((entry, index) => (

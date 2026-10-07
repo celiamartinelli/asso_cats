@@ -71,6 +71,10 @@ export default function MaterielDonationContent() {
                   />
                   Marquer comme lu
                 </label>
+                <p className="text-sm text-gray-500 mb-1">
+                  Reçu le :{" "}
+                  {new Date(form.created_at).toLocaleDateString("fr-FR")}
+                </p>
                 <p>
                   <strong>Name:</strong> {form.first_name} {form.last_name}
                 </p>

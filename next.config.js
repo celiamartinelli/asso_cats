@@ -5,10 +5,10 @@ const nextConfig = {
       bodySizeLimit: "10mb",
     },
   },
-};
 
-module.exports = {
   images: {
     domains: ["aluwkoerwzabqcambtmj.supabase.co"],
   },
 };
+
+module.exports = nextConfig;

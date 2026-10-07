@@ -9,9 +9,11 @@ interface VolunteerContentProps {
     email: string;
     phone_number: string;
     read: boolean;
-    volunteer_types: {
-      title: string;
-      description: string;
+    volunteer_form_types?: {
+      volunteer_types?: {
+        title: string;
+        description: string;
+      };
     }[];
   };
 }
@@ -58,8 +60,8 @@ const VolunteerContent: React.FC<VolunteerContentProps> = ({ volunteer }) => {
         </h3>
       </div>
       <ul>
-        {volunteer.volunteer_types.map((type, index) => (
-          <li key={index}>{type.title} </li>
+        {(volunteer.volunteer_form_types ?? []).map((entry, index) => (
+          <li key={index}>{entry.volunteer_types?.title ?? "Type inconnu"}</li>
         ))}
       </ul>
     </div>
